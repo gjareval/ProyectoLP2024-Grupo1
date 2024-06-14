@@ -99,6 +99,10 @@ def t_INT(t):
 # A string containing ignored characters (spaces and tabs)
 t_ignore  = ' \t'
 
+def t_ignore_NEWLINE(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
 # Error handling rule
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
