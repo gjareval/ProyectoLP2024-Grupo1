@@ -2,6 +2,7 @@ import ply.lex as lex
 
 # Reserved words
 reserved = {
+    # Guillermo Arèvalo
     'break':'BREAK',
     'case':'CASE',
     'const':'CONTS',
@@ -17,7 +18,15 @@ reserved = {
     'struct':'STRUCT',
     'type':'TYPE',  
     'var':'VAR',
-    'switch':'SWITCH'       
+    'switch':'SWITCH' ,    
+
+    # Maria Jose Moyano
+    'bool':'BOOL', 
+    'int32':'INT32',       
+    'int64':'INT64',      
+    'float32':'FLOAT32',    
+    'float64':'FLOAT64',   
+    'string':'STRING',      
 }
 
 # List of tokens     names
@@ -53,6 +62,8 @@ tokens = (
     'RPAREN',
     'COMMA',
     'COLON',
+    'PRINT',
+    'INPUT',
     #COMPLEX
     'VARIABLE',
     'FLOAT',
@@ -78,6 +89,13 @@ t_TIMESASSIG = r'\*='
 t_DIVIDEASSIG = r'/='
 t_MODASSIGN = r'\%='
 t_EQUALS = r'='
+t_DIFFERENT = r'!='
+t_LESS = r'<'
+t_LESSEQUALS = r'<='
+t_GREATER = r'>'
+t_GREATEREQUALS = r'>='
+t_INCREMENT = r'\+\+'
+t_DECREMENT = r'--'
 
 # Regular expressions for complex tokens
 
@@ -107,6 +125,16 @@ def t_ignore_NEWLINE(t):
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
+
+# To print in console
+def t_PRINT(t):
+    r'fmt\.Print(ln)?'
+    return t
+
+# Enter data via console
+def t_INPUT(t):
+    r'fmt\.Scan(ln)?'
+    return t
 
 # Construir lexer
 lexer = lex.lex()
