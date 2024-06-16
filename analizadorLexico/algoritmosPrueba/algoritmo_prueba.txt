@@ -1,0 +1,50 @@
+// Brian Mite
+package main
+
+import "fmt"
+
+func main() {
+    // Declaración de variables
+    var x int = 5
+    var y int = 10
+
+    // Operadores aritméticos y asignaciones
+    x = x + y
+    y = x - y
+    x *= y
+    y /= x
+
+    // Operadores de comparación
+    if x > y {
+        fmt.Println("x es mayor que y")
+    } else if x < y {
+        fmt.Println("x es menor que y")
+    } else {
+        fmt.Println("x es igual a y")
+    }
+
+    // Operadores lógicos y de bits
+    z := x & y
+    fmt.Println("Resultado de x & y:", z)
+
+    // Llamada a función fmt.Println
+    fmt.Println("Hola, mundo!")
+
+    // Estructuras de control
+    for i := 0; i < 5; i++ {
+        fmt.Println("Iteración:", i)
+    }
+
+    // Tipos de datos predefinidos y palabras reservadas
+    var booleano bool = true
+    var flotante float64 = 3.14
+    var cadena string = "Hola"
+
+    // Palabras reservadas y tipos de datos
+    switch cadena {
+    case "Hola":
+        fmt.Println("Saludo encontrado:", cadena)
+    default:
+        fmt.Println("Saludo no reconocido")
+    }
+}
