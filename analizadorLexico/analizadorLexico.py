@@ -23,11 +23,13 @@ reserved = {
 
     # Maria Jose Moyano
     'bool':'BOOL', 
-    'int32':'INT32',       
-    'int64':'INT64',      
-    'float32':'FLOAT32',    
-    'float64':'FLOAT64',   
-    'string':'STRING',      
+    'int':'INTSTATE', 
+    'int32':'INT32STATE',       
+    'int64':'INT64STATE',  
+    'float':'FLOATSTATE',   
+    'float32':'FLOAT32STATE',    
+    'float64':'FLOAT64STATE',   
+    'string':'STRINGSTATE',      
 }
 
 # List of tokens     names
@@ -98,7 +100,7 @@ t_DECREMENT = r'--'
 # Regular expressions for complex tokens
 
 def t_CHARSTRING(t):
-    r'\"[\w\W]*\"'
+    r'\"[^\"]*\"'
     t.type = reserved.get(t.value,'CHARSTRING')
     return t
 
@@ -108,7 +110,7 @@ def t_VARIABLE(t):
     return t
 
 def t_FLOAT(t):
-    r'-?(0|[1-9]\d*)?\.\d*'
+    r'\-?\d+\.\d+'
     t.value=float(t.value)
     return t
 
@@ -118,11 +120,7 @@ def t_INT(t):
     return t
 
 # A string containing ignored characters (spaces and tabs)
-t_ignore  = ' \t'
-
-def t_ignore_NEWLINE(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
+t_ignore  = ' \t\n'
 
 # Error handling rule
 def t_error(t):

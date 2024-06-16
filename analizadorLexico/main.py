@@ -46,7 +46,7 @@ def analyze_expression():
 
 root = tk.Tk()
 root.title("Analizador Léxico GO")
-
+    
 input_label = tk.Label(root, text="Ingresa una expresión:")
 input_label.pack()
 
