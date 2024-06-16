@@ -1,4 +1,4 @@
-#Guillermo Arévalo
+// Guillermo Arévalo
 
 import (
 	"fmt"

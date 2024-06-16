@@ -41,7 +41,7 @@ reserved = {
     'string':'STRINGSTATE',      
 }
 
-# List of tokens     names
+# List of tokens names
 tokens = (
     # Guillermo Arevalo
     'PLUS',             # +
@@ -67,6 +67,7 @@ tokens = (
     'INCREMENT',        # ++
     'DECREMENT',        # --
     'CHARSTRING',
+    'FORMATSTRING',
     
     #Brian Mite
     'AMPERSAND',        # &
@@ -126,6 +127,10 @@ t_AMPERSAND = r'&'
 
 # Regular expressions for complex tokens
 
+def t_FORMATSTRING(t):
+    r'\"([^%\\"]|\\.)*%[sdf](.*?[^%\\"]|\\.)*\"'
+    return t
+
 def t_CHARSTRING(t):
     r'\"[^\"]*\"'
     t.type = reserved.get(t.value,'CHARSTRING')
@@ -163,10 +168,8 @@ def t_COMMENT_MULTI(t):
     r'/\*([^*]|\*(?!/))*\*/'
     pass
 
-# A string containing ignored characters (spaces and tabs)
 t_ignore  = ' \t\n'
 
-# Error handling rule
 def t_error(t):
     line = t.lineno
     position = t.lexpos - t.lexer.lexdata.rfind("\n", 0, t.lexpos)
@@ -174,5 +177,5 @@ def t_error(t):
     t.lexer.skip(1)
 
 
-# Construir lexer
+# Build lexer
 lexer = lex.lex()

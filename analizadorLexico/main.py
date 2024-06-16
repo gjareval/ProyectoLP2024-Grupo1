@@ -51,7 +51,6 @@ root.title("Analizador Léxico GO")
 input_label = tk.Label(root, text="Ingresa una expresión:")
 input_label.pack()
 
-# Reemplazar Entry por Text para permitir múltiples líneas
 input_text = scrolledtext.ScrolledText(root, width=50, height=5)
 input_text.pack()
 
