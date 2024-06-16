@@ -1,0 +1,5 @@
+Analizador lexico:
+LexToken(VAR,'var',1,0)
+LexToken(VARIABLE,'nombre',1,4)
+LexToken(EQUALS,'=',1,11)
+LexToken(CHARSTRING,'"Guillermo"',1,13)

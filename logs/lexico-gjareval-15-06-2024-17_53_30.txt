@@ -1,0 +1,7 @@
+Analizador lexico:
+LexToken(VARIABLE,'print',1,0)
+LexToken(VARIABLE,'La',1,7)
+LexToken(VARIABLE,'hora',1,10)
+LexToken(VARIABLE,'es',1,15)
+LexToken(PLUS,'+',1,18)
+LexToken(VARIABLE,'hora',1,19)

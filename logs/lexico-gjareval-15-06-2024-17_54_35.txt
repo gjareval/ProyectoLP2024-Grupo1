@@ -1,0 +1,5 @@
+Analizador lexico:
+LexToken(VARIABLE,'print',1,0)
+LexToken(CHARSTRING,'"La hora es"',1,6)
+LexToken(PLUS,'+',1,18)
+LexToken(VARIABLE,'hora',1,19)

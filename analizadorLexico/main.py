@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import scrolledtext
 from analizadorLexico import lexer
 import subprocess
+import errorsList as errorsList
 
 def get_git_user():
     try:
@@ -24,15 +25,24 @@ def analyze_expression():
     lexer.input(user_input)
     for token in lexer:
         result += f"{token}\n"
-        
+
+    if len(errorsList.errors)>0:
+        result += "\nErrores:"
+        for error in errorsList.errors:
+            result += "\n"+error  
+
     result_text.insert(tk.END, result)
 
-    if not os.path.exists("logs"):
-        os.makedirs("logs")
+    logs_dir = os.path.abspath("logs")
+
+    if not os.path.exists(logs_dir):
+        os.makedirs(logs_dir)
     
-    log_file = os.path.join("logs","lexico-"+get_git_user()+"-"+time+".txt")
+    log_file = os.path.join(logs_dir,"lexico-"+get_git_user()+"-"+time+".txt")
     with open(log_file, 'w') as file:
         file.write("Analizador lexico:\n" + result)
+
+    lexer.lineno = 1 
 
 root = tk.Tk()
 root.title("Analizador Léxico GO")

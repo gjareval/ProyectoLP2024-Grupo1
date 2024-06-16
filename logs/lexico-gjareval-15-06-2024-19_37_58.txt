@@ -1,0 +1,2 @@
+Analizador lexico:
+LexToken(VARIABLE,'hola',1,0)

@@ -1,0 +1,4 @@
+Analizador lexico:
+LexToken(INT,-7,1,0)
+LexToken(ASSIG,'==',1,3)
+LexToken(INT,9,1,6)

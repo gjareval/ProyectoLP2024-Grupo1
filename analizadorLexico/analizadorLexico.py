@@ -1,8 +1,9 @@
 import ply.lex as lex
+import errorsList as errorsList
 
 # Reserved words
 reserved = {
-    # Guillermo Arèvalo
+    # Guillermo Arevalo
     'break':'BREAK',
     'case':'CASE',
     'const':'CONTS',
@@ -31,40 +32,37 @@ reserved = {
 
 # List of tokens     names
 tokens = (
-    #ARITHMETIC
+    # Guillermo Arevalo
     'PLUS',
     'MINUS',
     'TIMES',
     'DIVIDE',
-    #LOGIC
     'MOD',
     'AND',
     'OR',
     'NOT',
-    #ASSIGNATION
     'ASSIG',
     'PLUSASSIG',
     'MINUSASSIG',
     'TIMESASSIG',
     'DIVIDEASSIG',
     'MODASSIGN',
-    #COMPARATION
     'EQUALS',
     'DIFFERENT',
     'LESS',
     'LESSEQUALS',
     'GREATER',
     'GREATEREQUALS',
-    #OTHERS
     'INCREMENT',
     'DECREMENT',
+    'CHARSTRING',
+    # Maria Jose Moyano
     'LPAREN',
     'RPAREN',
     'COMMA',
     'COLON',
     'PRINT',
     'INPUT',
-    #COMPLEX
     'VARIABLE',
     'FLOAT',
     'INT'
@@ -99,18 +97,23 @@ t_DECREMENT = r'--'
 
 # Regular expressions for complex tokens
 
+def t_CHARSTRING(t):
+    r'\"[\w\W]*\"'
+    t.type = reserved.get(t.value,'CHARSTRING')
+    return t
+
 def t_VARIABLE(t):
     r'[_a-zA-Z]\w*'
     t.type = reserved.get(t.value,'VARIABLE')
     return t
 
 def t_FLOAT(t):
-    r'\d+\.\d+'
+    r'-?(0|[1-9]\d*)?\.\d*'
     t.value=float(t.value)
     return t
 
 def t_INT(t):
-    r'\d+'
+    r'-?\d+'
     t.value = int(t.value)    
     return t
 
@@ -123,7 +126,9 @@ def t_ignore_NEWLINE(t):
 
 # Error handling rule
 def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
+    line = t.lineno
+    position = t.lexpos - t.lexer.lexdata.rfind("\n", 0, t.lexpos)
+    errorsList.errors.append(f"Illegal character ('{t.value[0]}',{line},{position})")
     t.lexer.skip(1)
 
 # To print in console
