@@ -1,0 +1,2 @@
+Analizador lexico:
+LexToken(EQUALS,'=',1,0)

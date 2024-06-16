@@ -1,0 +1,6 @@
+Analizador lexico:
+LexToken(VARIABLE,'fmt',1,0)
+LexToken(VARIABLE,'Println',1,4)
+
+Errores:
+Illegal character ('.',1,4)

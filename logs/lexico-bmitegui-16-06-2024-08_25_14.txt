@@ -1,0 +1,8 @@
+Analizador lexico:
+LexToken(TIMES,'*',1,30)
+LexToken(DIVIDE,'/',1,31)
+LexToken(VAR,'var',1,33)
+LexToken(VARIABLE,'total',1,37)
+LexToken(INTSTATE,'int',1,43)
+LexToken(EQUALS,'=',1,47)
+LexToken(INT,10,1,49)

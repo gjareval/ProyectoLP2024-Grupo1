@@ -1,0 +1,15 @@
+Analizador lexico:
+LexToken(SWITCH,'switch',1,0)
+LexToken(LBRACE,'{',1,7)
+LexToken(CASE,'case',1,9)
+LexToken(VARIABLE,'condicion1',1,14)
+LexToken(COLON,':',1,24)
+LexToken(CASE,'case',1,74)
+LexToken(VARIABLE,'condicion2',1,79)
+LexToken(COLON,':',1,89)
+LexToken(DEFAULT,'default',1,139)
+LexToken(COLON,':',1,146)
+LexToken(RBRACE,'}',1,223)
+
+Errores:
+Illegal character ('',1,2)

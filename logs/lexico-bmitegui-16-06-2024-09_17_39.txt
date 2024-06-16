@@ -1,0 +1,12 @@
+Analizador lexico:
+LexToken(TYPE,'type',1,0)
+LexToken(VARIABLE,'Persona',1,5)
+LexToken(STRUCT,'struct',1,13)
+LexToken(LBRACE,'{',1,20)
+LexToken(VARIABLE,'nombre',1,23)
+LexToken(STRINGSTATE,'string',1,30)
+LexToken(VARIABLE,'edad',1,38)
+LexToken(INTSTATE,'int',1,43)
+LexToken(VARIABLE,'email',1,48)
+LexToken(STRINGSTATE,'string',1,54)
+LexToken(RBRACE,'}',1,61)

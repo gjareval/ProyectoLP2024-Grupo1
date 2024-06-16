@@ -30,6 +30,7 @@ def analyze_expression():
         result += "\nErrores:"
         for error in errorsList.errors:
             result += "\n"+error  
+        errorsList.errors=[]
 
     result_text.insert(tk.END, result)
 

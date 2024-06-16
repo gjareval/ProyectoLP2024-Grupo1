@@ -1,0 +1,12 @@
+Analizador lexico:
+LexToken(FOR,'for',1,0)
+LexToken(VARIABLE,'inicializacion',1,4)
+LexToken(SEMICOLON,';',1,18)
+LexToken(VARIABLE,'condicion',1,20)
+LexToken(SEMICOLON,';',1,29)
+LexToken(VARIABLE,'incremento',1,31)
+LexToken(LBRACE,'{',1,42)
+LexToken(RBRACE,'}',1,116)
+
+Errores:
+Illegal character ('',1,2)

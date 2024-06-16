@@ -1,0 +1,4 @@
+Analizador lexico:
+LexToken(TRUE,'true',1,0)
+LexToken(FALSE,'false',1,5)
+LexToken(VARIABLE,'append',1,11)

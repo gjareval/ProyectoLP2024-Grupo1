@@ -1,0 +1,4 @@
+Analizador lexico:
+
+Errores:
+Illegal character (',',1,1)

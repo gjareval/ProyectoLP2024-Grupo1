@@ -1,0 +1,8 @@
+Analizador lexico:
+LexToken(VARIABLE,'nombre',1,0)
+LexToken(COLON,':',1,7)
+LexToken(ASSIGN,'=',1,8)
+LexToken(CHARSTRING,'"Brian"',1,10)
+
+Errores:
+Illegal character ('',1,18)

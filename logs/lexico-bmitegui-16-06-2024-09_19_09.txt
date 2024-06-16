@@ -1,0 +1,2 @@
+Analizador lexico:
+LexToken(APPEND,'append',1,0)

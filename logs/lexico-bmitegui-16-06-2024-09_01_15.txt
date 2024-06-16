@@ -1,0 +1,6 @@
+Analizador lexico:
+LexToken(VAR,'var',1,0)
+LexToken(VARIABLE,'total',1,4)
+LexToken(STRINGSTATE,'string',1,10)
+LexToken(ASSIGN,'=',1,17)
+LexToken(CHARSTRING,'"Hola"',1,19)

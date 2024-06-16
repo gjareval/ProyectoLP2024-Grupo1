@@ -1,0 +1,3 @@
+Analizador lexico:
+LexToken(VARIABLE,'true',1,0)
+LexToken(VARIABLE,'false',1,5)

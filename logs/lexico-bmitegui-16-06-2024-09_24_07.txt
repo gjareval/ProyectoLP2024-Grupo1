@@ -1,0 +1,7 @@
+Analizador lexico:
+LexToken(PRINT,'fmt.Println',1,1)
+LexToken(LPAREN,'(',1,12)
+LexToken(VARIABLE,'indice',1,13)
+LexToken(COMMA,',',1,19)
+LexToken(VARIABLE,'nombre',1,21)
+LexToken(RPAREN,')',1,27)

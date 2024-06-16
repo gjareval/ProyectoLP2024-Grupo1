@@ -1,0 +1,11 @@
+Analizador lexico:
+LexToken(COMMA,',',1,2)
+LexToken(LBRACE,'{',1,4)
+LexToken(RBRACE,'}',1,5)
+LexToken(COMMA,',',1,6)
+LexToken(SEMICOLON,';',1,8)
+LexToken(COMMA,',',1,10)
+
+Errores:
+Illegal character ('(',1,1)
+Illegal character (')',1,2)

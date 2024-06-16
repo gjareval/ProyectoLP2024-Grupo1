@@ -1,0 +1,2 @@
+Analizador lexico:
+LexToken(RANGE,'range',1,0)

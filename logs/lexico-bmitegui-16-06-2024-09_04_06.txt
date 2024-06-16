@@ -1,0 +1,5 @@
+Analizador lexico:
+LexToken(INT,-2,1,0)
+
+Errores:
+Illegal character ('.',1,3)

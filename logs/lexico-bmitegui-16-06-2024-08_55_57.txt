@@ -1,0 +1,7 @@
+Analizador lexico:
+LexToken(VAR,'var',1,0)
+LexToken(VARIABLE,'edad',1,4)
+LexToken(INTSTATE,'int',1,9)
+
+Errores:
+Illegal character ('',1,13)

@@ -6,7 +6,7 @@ reserved = {
     # Guillermo Arevalo
     'break':'BREAK',
     'case':'CASE',
-    'const':'CONTS',
+    'const':'CONST',
     'continue':'CONTINUE',
     'default':'DEFAULT',
     'if':'IF',            
@@ -19,7 +19,16 @@ reserved = {
     'struct':'STRUCT',
     'type':'TYPE',  
     'var':'VAR',
-    'switch':'SWITCH' ,    
+    'switch':'SWITCH' , 
+
+    # Brian Mite   
+    'func': 'FUNCTION',
+    'main' : 'MAIN',
+    'make' : 'MAKE',
+    'true' : 'TRUE',
+    'false' : 'FALSE',
+    'append' : 'APPEND',
+    'range'  : 'RANGE',
 
     # Maria Jose Moyano
     'bool':'BOOL', 
@@ -35,41 +44,49 @@ reserved = {
 # List of tokens     names
 tokens = (
     # Guillermo Arevalo
-    'PLUS',
-    'MINUS',
-    'TIMES',
-    'DIVIDE',
-    'MOD',
-    'AND',
-    'OR',
-    'NOT',
-    'ASSIG',
-    'PLUSASSIG',
-    'MINUSASSIG',
-    'TIMESASSIG',
-    'DIVIDEASSIG',
-    'MODASSIGN',
-    'EQUALS',
-    'DIFFERENT',
-    'LESS',
-    'LESSEQUALS',
-    'GREATER',
-    'GREATEREQUALS',
-    'INCREMENT',
-    'DECREMENT',
+    'PLUS',             # +
+    'MINUS',            # -
+    'TIMES',            # *
+    'DIVIDE',           # /
+    'MOD',              # %
+    'AND',              # &&
+    'OR',               # ||
+    'NOT',              # !
+    'ASSIGN',           # =
+    'PLUSASSIGN',       # +=
+    'MINUSASSIGN',      # -=
+    'TIMESASSIGN',      # *=
+    'DIVIDEASSIGN',     # /=
+    'MODASSIGN',        # %=
+    'EQUALS',           # ==
+    'DIFFERENT',        # !=
+    'LESS',             # <
+    'LESSEQUALS',       # <=
+    'GREATER',          # >   
+    'GREATEREQUALS',    # >=
+    'INCREMENT',        # ++
+    'DECREMENT',        # --
     'CHARSTRING',
+    
+    #Brian Mite
+    'AMPERSAND',        # &
+    'COMMA',            # ,
+    'COLON',            # :
+    'SEMICOLON',        # ;
+    'LBRACE',           # {
+    'RBRACE',           # }
+    'LBRACKET',         # [
+    'RBRACKET',         # ]
+
     # Maria Jose Moyano
-    'LPAREN',
-    'RPAREN',
-    'COMMA',
-    'COLON',
+    'LPAREN',           # (
+    'RPAREN',           # )
     'PRINT',
     'INPUT',
     'VARIABLE',
     'FLOAT',
     'INT'
    
-
 )+tuple(reserved.values())
 
 # Regular expressions for simple tokens
@@ -82,13 +99,13 @@ t_MOD = r'\%'
 t_AND = r'&&'
 t_OR = r'\|\|'
 t_NOT = r'\!'
-t_ASSIG = r'=='
-t_PLUSASSIG = r'\+='
-t_MINUSASSIG = r'-='
-t_TIMESASSIG = r'\*='
-t_DIVIDEASSIG = r'/='
+t_ASSIGN = r'='
+t_PLUSASSIGN = r'\+='
+t_MINUSASSIGN = r'-='
+t_TIMESASSIGN = r'\*='
+t_DIVIDEASSIGN = r'/='
 t_MODASSIGN = r'\%='
-t_EQUALS = r'='
+t_EQUALS = r'=='
 t_DIFFERENT = r'!='
 t_LESS = r'<'
 t_LESSEQUALS = r'<='
@@ -96,17 +113,22 @@ t_GREATER = r'>'
 t_GREATEREQUALS = r'>='
 t_INCREMENT = r'\+\+'
 t_DECREMENT = r'--'
+t_COMMA = r','
+t_COLON = r':'
+t_SEMICOLON = r';'
+t_LBRACE = r'{'
+t_RBRACE = r'}'
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
+t_LBRACKET = r'\['
+t_RBRACKET = r'\]'
+t_AMPERSAND = r'&'
 
 # Regular expressions for complex tokens
 
 def t_CHARSTRING(t):
     r'\"[^\"]*\"'
     t.type = reserved.get(t.value,'CHARSTRING')
-    return t
-
-def t_VARIABLE(t):
-    r'[_a-zA-Z]\w*'
-    t.type = reserved.get(t.value,'VARIABLE')
     return t
 
 def t_FLOAT(t):
@@ -119,6 +141,28 @@ def t_INT(t):
     t.value = int(t.value)    
     return t
 
+
+def t_PRINT(t):
+    r'fmt\.Print(ln)?'
+    return t
+
+def t_INPUT(t):
+    r'fmt\.Scan(ln)?'
+    return t
+
+def t_VARIABLE(t):
+    r'[_a-zA-Z]\w*'
+    t.type = reserved.get(t.value,'VARIABLE')
+    return t
+
+def t_COMMENT(t):
+    r'//.*'
+    pass 
+
+def t_COMMENT_MULTI(t):
+    r'/\*([^*]|\*(?!/))*\*/'
+    pass
+
 # A string containing ignored characters (spaces and tabs)
 t_ignore  = ' \t\n'
 
@@ -129,15 +173,6 @@ def t_error(t):
     errorsList.errors.append(f"Illegal character ('{t.value[0]}',{line},{position})")
     t.lexer.skip(1)
 
-# To print in console
-def t_PRINT(t):
-    r'fmt\.Print(ln)?'
-    return t
-
-# Enter data via console
-def t_INPUT(t):
-    r'fmt\.Scan(ln)?'
-    return t
 
 # Construir lexer
 lexer = lex.lex()

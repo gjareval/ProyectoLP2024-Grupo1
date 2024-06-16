@@ -1,0 +1,3 @@
+Analizador lexico:
+LexToken(FUNCTION,'func',1,0)
+LexToken(MAIN,'main',1,5)

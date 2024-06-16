@@ -1,0 +1,12 @@
+Analizador lexico:
+LexToken(INPUT,'fmt.Scanln',1,0)
+LexToken(LPAREN,'(',1,10)
+LexToken(VARIABLE,'nombre',1,12)
+LexToken(COMMA,',',1,18)
+LexToken(VARIABLE,'edad',1,21)
+LexToken(RPAREN,')',1,25)
+
+Errores:
+Illegal character ('&',1,12)
+Illegal character ('&',1,21)
+Illegal character ('',1,27)

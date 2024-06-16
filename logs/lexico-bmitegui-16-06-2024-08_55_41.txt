@@ -1,0 +1,10 @@
+Analizador lexico:
+LexToken(VAR,'var',1,0)
+LexToken(VARIABLE,'nombre',1,4)
+LexToken(STRINGSTATE,'string',1,11)
+LexToken(VARIABLE,'Brian',1,18)
+LexToken(VAR,'var',1,24)
+LexToken(VARIABLE,'total',1,28)
+LexToken(INTSTATE,'int',1,34)
+LexToken(ASSIGN,'=',1,38)
+LexToken(INT,10,1,40)

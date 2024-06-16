@@ -1,0 +1,3 @@
+Analizador lexico:
+LexToken(LBRACE,'{',1,0)
+LexToken(RBRACE,'}',1,1)

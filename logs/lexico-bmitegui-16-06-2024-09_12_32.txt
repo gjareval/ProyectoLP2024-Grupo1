@@ -1,0 +1,3 @@
+Analizador lexico:
+LexToken(LBRACKET,'[',1,0)
+LexToken(RBRACKET,']',1,1)

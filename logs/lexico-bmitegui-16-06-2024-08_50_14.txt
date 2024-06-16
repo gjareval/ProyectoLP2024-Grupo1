@@ -1,0 +1,4 @@
+Analizador lexico:
+LexToken(COMMA,',',1,0)
+LexToken(SEMICOLON,';',1,1)
+LexToken(COLON,':',1,2)

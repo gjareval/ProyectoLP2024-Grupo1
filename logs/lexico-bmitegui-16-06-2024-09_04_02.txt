@@ -1,0 +1,2 @@
+Analizador lexico:
+LexToken(FLOAT,-2.25,1,0)
