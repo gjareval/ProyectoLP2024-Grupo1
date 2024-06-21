@@ -86,7 +86,9 @@ tokens = (
     'INPUT',
     'VARIABLE',
     'FLOAT',
-    'INT'
+    'INT',
+    'IDENTIFIER',
+    'TEXT'
    
 )+tuple(reserved.values())
 
@@ -176,6 +178,26 @@ def t_error(t):
     errorsList.errors.append(f"Illegal character ('{t.value[0]}',{line},{position})")
     t.lexer.skip(1)
 
+# Expresiones Regulares para números y variables, incluye cast
+def t_IDENTIFIER(t):  
+    r'[a-z_]\w*'
+    t.type = reserved.get(t.value,'IDENTIFIER')
+    return t
+
+#Cadena de caracteres
+def t_TEXT(t):
+    r'\".+\"'
+    # t.value = t.value[1:-1]
+    return t
+
+def t_BOOLEAN(t):
+    r'True|False'
+    return t
+
+# Expresión regular para reconocer saltos de línea
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
 
 # Build lexer
 lexer = lex.lex()

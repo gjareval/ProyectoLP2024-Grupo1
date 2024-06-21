@@ -5,6 +5,7 @@ from tkinter import scrolledtext
 from analizadorLexico import lexer
 import subprocess
 import errorsList as errorsList
+# from analizadorLexico.analizadorSintactico import parser
 
 def get_git_user():
     try:
