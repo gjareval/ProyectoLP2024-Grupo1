@@ -1,0 +1,10 @@
+Analizador sintactico:
+None
+
+Errores:
+Illegal character ('.',1,23)
+Syntax error at token 'name'
+Illegal character ('.',1,36)
+Syntax error at token 'map'
+Syntax error at token ','
+Syntax error at token '}'

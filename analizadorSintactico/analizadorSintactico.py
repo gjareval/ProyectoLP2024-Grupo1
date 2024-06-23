@@ -2,19 +2,15 @@
 import ply.yacc as yacc
 # Token map from the lexer
 from analizadorLexico.analizadorLexico import tokens
+import errorsList as errorsList
 
 # Definicion de las definiciones  gramaticales
 def p_statement(p):
-    '''statement : structure
-                 | blocks
-                 | function
-                 | parameters
-                 | variable_declaration
-                 '''
+    'statement : blocks'
     
 def p_blocks(p):
     '''blocks : block
-              '''
+              | block blocks'''
 
 def p_block(p):
     '''block : print_statement
@@ -25,6 +21,10 @@ def p_block(p):
              | map_estructure
              | map_assign
              | for_estructure
+             | structure
+             | function
+             | parameters
+             | variable_declaration
              '''
     
 def p_variable_declaration(p):
@@ -62,6 +62,8 @@ def p_number(p):
 # Impresión con cero, uno o más argumentos  
 def p_print_statement(p):
     '''print_statement : PRINT LPAREN values RPAREN
+                       | PRINT LPAREN string_value RPAREN
+                       | PRINT LPAREN FORMATSTRING COMMA values RPAREN
                        | PRINT LPAREN operation RPAREN
                        | PRINT LPAREN RPAREN'''
 
@@ -214,9 +216,9 @@ t_ignore = ' \t'
 
 def p_error(p):
     if p:
-        print(f"Syntax error at token '{p.value}', line {p.lineno}")
+        errorsList.errors.append(f"Syntax error at token '{p.value}'")
     else:
-        print("Syntax error: unexpected end of input")
+        errorsList.errors.append("Syntax error: unexpected end of input")
 
 
 # Construcción del parser

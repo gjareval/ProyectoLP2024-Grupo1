@@ -1,0 +1,12 @@
+Analizador sintactico:
+None
+
+Errores:
+Syntax error at token 'main'
+Syntax error at token '"John"'
+Illegal character ('.',1,23)
+Syntax error at token 'name'
+Illegal character ('.',1,36)
+Syntax error at token 'map'
+Syntax error at token ','
+Syntax error at token '}'

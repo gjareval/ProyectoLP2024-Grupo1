@@ -11,8 +11,8 @@ func factorial(n int) int {
 	return result
 }
 
-func main() {
+func hola() {
 	num := 5
 	fact := factorial(num)
-	fmt.Printf("El factorial de %d es: %d\n", num, fact)
+	fmt.Print("El factorial de %d es: %d\n", num, fact)
 }
