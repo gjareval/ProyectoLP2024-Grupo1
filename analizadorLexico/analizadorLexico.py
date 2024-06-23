@@ -32,13 +32,13 @@ reserved = {
 
     # Maria Jose Moyano
     'bool':'BOOL', 
-    'int':'INTSTATE', 
-    'int32':'INT32STATE',       
-    'int64':'INT64STATE',  
-    'float':'FLOATSTATE',   
-    'float32':'FLOAT32STATE',    
-    'float64':'FLOAT64STATE',   
-    'string':'STRINGSTATE',      
+    'int':'INT', 
+    'int32':'INT32',       
+    'int64':'INT64',  
+    'float':'FLOAT',   
+    'float32':'FLOAT32',    
+    'float64':'FLOAT64',   
+    'string':'STRING',      
 }
 
 # List of tokens names
@@ -95,7 +95,7 @@ tokens = (
 # Regular expressions for simple tokens
 
 t_PLUS = r"\+"
-t_MINUS = r"-"
+t_MINUS = r"\-"
 t_TIMES   = r'\*'
 t_DIVIDE  = r'/'
 t_MOD = r'\%'
@@ -109,13 +109,13 @@ t_TIMESASSIGN = r'\*='
 t_DIVIDEASSIGN = r'/='
 t_MODASSIGN = r'\%='
 t_EQUALS = r'=='
-t_DIFFERENT = r'!='
+t_DIFFERENT = r'\!\='
 t_LESS = r'<'
 t_LESSEQUALS = r'<='
 t_GREATER = r'>'
 t_GREATEREQUALS = r'>='
 t_INCREMENT = r'\+\+'
-t_DECREMENT = r'--'
+t_DECREMENT = r'\-\-'
 t_COMMA = r','
 t_COLON = r':'
 t_SEMICOLON = r';'
@@ -139,12 +139,13 @@ def t_CHARSTRING(t):
     return t
 
 def t_FLOAT(t):
-    r'\-?\d+\.\d+'
-    t.value=float(t.value)
+    r'\d+\.\d+'
+    t.value = float(t.value)
     return t
 
+
 def t_INT(t):
-    r'-?\d+'
+    r'\d+'
     t.value = int(t.value)    
     return t
 
@@ -179,11 +180,6 @@ def t_error(t):
     t.lexer.skip(1)
 
 # Expresiones Regulares para números y variables, incluye cast
-def t_IDENTIFIER(t):  
-    r'[a-z_]\w*'
-    t.type = reserved.get(t.value,'IDENTIFIER')
-    return t
-
 #Cadena de caracteres
 def t_TEXT(t):
     r'\".+\"'

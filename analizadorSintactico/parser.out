@@ -1,0 +1,2099 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    AMPERSAND
+    APPEND
+    BREAK
+    CASE
+    CHARSTRING
+    COLON
+    CONST
+    CONTINUE
+    DEFAULT
+    DIVIDEASSIGN
+    FALSE
+    FOR
+    FORMATSTRING
+    IDENTIFIER
+    IMPORT
+    LBRACKET
+    MAIN
+    MAKE
+    MAP
+    MINUSASSIGN
+    MOD
+    MODASSIGN
+    PACKAGE
+    PLUSASSIGN
+    RANGE
+    RBRACKET
+    SEMICOLON
+    SWITCH
+    TEXT
+    TIMESASSIGN
+    TRUE
+    VAR
+
+Grammar
+
+Rule 0     S' -> statement
+Rule 1     statement -> structure
+Rule 2     statement -> blocks
+Rule 3     statement -> function
+Rule 4     statement -> parameters
+Rule 5     blocks -> block
+Rule 6     block -> print_statement
+Rule 7     block -> input_statement
+Rule 8     block -> conditional_structure
+Rule 9     block -> operation
+Rule 10    block -> list_structure
+Rule 11    structure -> TYPE VARIABLE STRUCT LBRACE statement RBRACE
+Rule 12    function -> FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
+Rule 13    function -> FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE
+Rule 14    function -> FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
+Rule 15    function -> FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE
+Rule 16    operation -> value operator value
+Rule 17    operation -> value operator operation
+Rule 18    operation -> value double_operator
+Rule 19    operator -> PLUS
+Rule 20    operator -> MINUS
+Rule 21    operator -> TIMES
+Rule 22    operator -> DIVIDE
+Rule 23    operator -> ASSIGN
+Rule 24    double_operator -> INCREMENT
+Rule 25    double_operator -> DECREMENT
+Rule 26    print_statement -> PRINT LPAREN values RPAREN
+Rule 27    print_statement -> PRINT LPAREN operation RPAREN
+Rule 28    print_statement -> PRINT LPAREN RPAREN
+Rule 29    input_statement -> INPUT LPAREN values RPAREN
+Rule 30    input_statement -> INPUT LPAREN operation RPAREN
+Rule 31    input_statement -> INPUT LPAREN RPAREN
+Rule 32    parameters -> parameter
+Rule 33    parameters -> parameter parameters
+Rule 34    parameters -> parameter COMMA parameters
+Rule 35    parameter -> VARIABLE type
+Rule 36    type -> INT
+Rule 37    type -> INT32
+Rule 38    type -> INT64
+Rule 39    type -> STRING
+Rule 40    type -> FLOAT
+Rule 41    type -> FLOAT32
+Rule 42    type -> FLOAT64
+Rule 43    type -> BOOL
+Rule 44    conditional_structure -> IF conditions conditional_body
+Rule 45    conditional_structure -> IF conditions conditional_body ELSE conditional_body
+Rule 46    conditional_structure -> IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body
+Rule 47    conditional_body -> LBRACE statement RBRACE
+Rule 48    conditions -> condition
+Rule 49    conditions -> condition logical_operator conditions
+Rule 50    condition -> value relational_operator value
+Rule 51    logical_operator -> AND
+Rule 52    logical_operator -> OR
+Rule 53    logical_operator -> NOT
+Rule 54    relational_operator -> GREATER
+Rule 55    relational_operator -> LESS
+Rule 56    relational_operator -> GREATEREQUALS
+Rule 57    relational_operator -> LESSEQUALS
+Rule 58    relational_operator -> EQUALS
+Rule 59    relational_operator -> DIFFERENT
+Rule 60    list_structure -> empty_list
+Rule 61    list_structure -> list_with_data
+Rule 62    list_structure -> defined_list
+Rule 63    empty_list -> LBRACE RBRACE
+Rule 64    list_with_data -> LBRACE values RBRACE
+Rule 65    defined_list -> TYPE VARIABLE LBRACE values RBRACE
+Rule 66    tupla -> LPAREN values RPAREN
+Rule 67    values -> value
+Rule 68    values -> value COMMA values
+Rule 69    value -> VARIABLE
+Rule 70    value -> number
+Rule 71    number -> INT
+Rule 72    number -> FLOAT
+
+Terminals, with rules where they appear
+
+AMPERSAND            : 
+AND                  : 51
+APPEND               : 
+ASSIGN               : 23
+BOOL                 : 43
+BREAK                : 
+CASE                 : 
+CHARSTRING           : 
+COLON                : 
+COMMA                : 34 68
+CONST                : 
+CONTINUE             : 
+DECREMENT            : 25
+DEFAULT              : 
+DIFFERENT            : 59
+DIVIDE               : 22
+DIVIDEASSIGN         : 
+ELSE                 : 45 46 46
+EQUALS               : 58
+FALSE                : 
+FLOAT                : 40 72
+FLOAT32              : 41
+FLOAT64              : 42
+FOR                  : 
+FORMATSTRING         : 
+FUNCTION             : 12 13 14 15
+GREATER              : 54
+GREATEREQUALS        : 56
+IDENTIFIER           : 
+IF                   : 44 45 46 46
+IMPORT               : 
+INCREMENT            : 24
+INPUT                : 29 30 31
+INT                  : 36 71
+INT32                : 37
+INT64                : 38
+LBRACE               : 11 12 13 14 15 47 63 64 65
+LBRACKET             : 
+LESS                 : 55
+LESSEQUALS           : 57
+LPAREN               : 12 13 14 15 26 27 28 29 30 31 66
+MAIN                 : 
+MAKE                 : 
+MAP                  : 
+MINUS                : 20
+MINUSASSIGN          : 
+MOD                  : 
+MODASSIGN            : 
+NOT                  : 53
+OR                   : 52
+PACKAGE              : 
+PLUS                 : 19
+PLUSASSIGN           : 
+PRINT                : 26 27 28
+RANGE                : 
+RBRACE               : 11 12 13 14 15 47 63 64 65
+RBRACKET             : 
+RETURN               : 12 14
+RPAREN               : 12 13 14 15 26 27 28 29 30 31 66
+SEMICOLON            : 
+STRING               : 39
+STRUCT               : 11
+SWITCH               : 
+TEXT                 : 
+TIMES                : 21
+TIMESASSIGN          : 
+TRUE                 : 
+TYPE                 : 11 65
+VAR                  : 
+VARIABLE             : 11 12 12 13 14 14 15 35 65 69
+error                : 
+
+Nonterminals, with rules where they appear
+
+block                : 5
+blocks               : 2 12 13 14 15
+condition            : 48 49
+conditional_body     : 44 45 45 46 46 46
+conditional_structure : 8
+conditions           : 44 45 46 46 49
+defined_list         : 62
+double_operator      : 18
+empty_list           : 60
+function             : 3
+input_statement      : 7
+list_structure       : 10
+list_with_data       : 61
+logical_operator     : 49
+number               : 70
+operation            : 9 17 27 30
+operator             : 16 17
+parameter            : 32 33 34
+parameters           : 4 12 13 33 34
+print_statement      : 6
+relational_operator  : 50
+statement            : 11 47 0
+structure            : 1
+tupla                : 
+type                 : 12 14 35
+value                : 16 16 17 18 50 50 67 68
+values               : 26 29 64 65 66 68
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . structure
+    (2) statement -> . blocks
+    (3) statement -> . function
+    (4) statement -> . parameters
+    (11) structure -> . TYPE VARIABLE STRUCT LBRACE statement RBRACE
+    (5) blocks -> . block
+    (12) function -> . FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
+    (13) function -> . FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE
+    (14) function -> . FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
+    (15) function -> . FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE
+    (32) parameters -> . parameter
+    (33) parameters -> . parameter parameters
+    (34) parameters -> . parameter COMMA parameters
+    (6) block -> . print_statement
+    (7) block -> . input_statement
+    (8) block -> . conditional_structure
+    (9) block -> . operation
+    (10) block -> . list_structure
+    (35) parameter -> . VARIABLE type
+    (26) print_statement -> . PRINT LPAREN values RPAREN
+    (27) print_statement -> . PRINT LPAREN operation RPAREN
+    (28) print_statement -> . PRINT LPAREN RPAREN
+    (29) input_statement -> . INPUT LPAREN values RPAREN
+    (30) input_statement -> . INPUT LPAREN operation RPAREN
+    (31) input_statement -> . INPUT LPAREN RPAREN
+    (44) conditional_structure -> . IF conditions conditional_body
+    (45) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
+    (46) conditional_structure -> . IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body
+    (16) operation -> . value operator value
+    (17) operation -> . value operator operation
+    (18) operation -> . value double_operator
+    (60) list_structure -> . empty_list
+    (61) list_structure -> . list_with_data
+    (62) list_structure -> . defined_list
+    (69) value -> . VARIABLE
+    (70) value -> . number
+    (63) empty_list -> . LBRACE RBRACE
+    (64) list_with_data -> . LBRACE values RBRACE
+    (65) defined_list -> . TYPE VARIABLE LBRACE values RBRACE
+    (71) number -> . INT
+    (72) number -> . FLOAT
+
+    TYPE            shift and go to state 6
+    FUNCTION        shift and go to state 10
+    VARIABLE        shift and go to state 7
+    PRINT           shift and go to state 17
+    INPUT           shift and go to state 18
+    IF              shift and go to state 19
+    LBRACE          shift and go to state 8
+    INT             shift and go to state 25
+    FLOAT           shift and go to state 26
+
+    statement                      shift and go to state 1
+    structure                      shift and go to state 2
+    blocks                         shift and go to state 3
+    function                       shift and go to state 4
+    parameters                     shift and go to state 5
+    block                          shift and go to state 9
+    parameter                      shift and go to state 11
+    print_statement                shift and go to state 12
+    input_statement                shift and go to state 13
+    conditional_structure          shift and go to state 14
+    operation                      shift and go to state 15
+    list_structure                 shift and go to state 16
+    value                          shift and go to state 20
+    empty_list                     shift and go to state 21
+    list_with_data                 shift and go to state 22
+    defined_list                   shift and go to state 23
+    number                         shift and go to state 24
+
+state 1
+
+    (0) S' -> statement .
+
+
+
+state 2
+
+    (1) statement -> structure .
+
+    $end            reduce using rule 1 (statement -> structure .)
+    RBRACE          reduce using rule 1 (statement -> structure .)
+
+
+state 3
+
+    (2) statement -> blocks .
+
+    $end            reduce using rule 2 (statement -> blocks .)
+    RBRACE          reduce using rule 2 (statement -> blocks .)
+
+
+state 4
+
+    (3) statement -> function .
+
+    $end            reduce using rule 3 (statement -> function .)
+    RBRACE          reduce using rule 3 (statement -> function .)
+
+
+state 5
+
+    (4) statement -> parameters .
+
+    $end            reduce using rule 4 (statement -> parameters .)
+    RBRACE          reduce using rule 4 (statement -> parameters .)
+
+
+state 6
+
+    (11) structure -> TYPE . VARIABLE STRUCT LBRACE statement RBRACE
+    (65) defined_list -> TYPE . VARIABLE LBRACE values RBRACE
+
+    VARIABLE        shift and go to state 27
+
+
+state 7
+
+    (35) parameter -> VARIABLE . type
+    (69) value -> VARIABLE .
+    (36) type -> . INT
+    (37) type -> . INT32
+    (38) type -> . INT64
+    (39) type -> . STRING
+    (40) type -> . FLOAT
+    (41) type -> . FLOAT32
+    (42) type -> . FLOAT64
+    (43) type -> . BOOL
+
+    PLUS            reduce using rule 69 (value -> VARIABLE .)
+    MINUS           reduce using rule 69 (value -> VARIABLE .)
+    TIMES           reduce using rule 69 (value -> VARIABLE .)
+    DIVIDE          reduce using rule 69 (value -> VARIABLE .)
+    ASSIGN          reduce using rule 69 (value -> VARIABLE .)
+    INCREMENT       reduce using rule 69 (value -> VARIABLE .)
+    DECREMENT       reduce using rule 69 (value -> VARIABLE .)
+    INT             shift and go to state 29
+    INT32           shift and go to state 30
+    INT64           shift and go to state 31
+    STRING          shift and go to state 32
+    FLOAT           shift and go to state 33
+    FLOAT32         shift and go to state 34
+    FLOAT64         shift and go to state 35
+    BOOL            shift and go to state 36
+
+    type                           shift and go to state 28
+
+state 8
+
+    (63) empty_list -> LBRACE . RBRACE
+    (64) list_with_data -> LBRACE . values RBRACE
+    (67) values -> . value
+    (68) values -> . value COMMA values
+    (69) value -> . VARIABLE
+    (70) value -> . number
+    (71) number -> . INT
+    (72) number -> . FLOAT
+
+    RBRACE          shift and go to state 37
+    VARIABLE        shift and go to state 40
+    INT             shift and go to state 25
+    FLOAT           shift and go to state 26
+
+    values                         shift and go to state 38
+    value                          shift and go to state 39
+    number                         shift and go to state 24
+
+state 9
+
+    (5) blocks -> block .
+
+    $end            reduce using rule 5 (blocks -> block .)
+    RBRACE          reduce using rule 5 (blocks -> block .)
+    RETURN          reduce using rule 5 (blocks -> block .)
+
+
+state 10
+
+    (12) function -> FUNCTION . VARIABLE LPAREN parameters RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
+    (13) function -> FUNCTION . VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE
+    (14) function -> FUNCTION . VARIABLE LPAREN RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
+    (15) function -> FUNCTION . VARIABLE LPAREN RPAREN LBRACE blocks RBRACE
+
+    VARIABLE        shift and go to state 41
+
+
+state 11
+
+    (32) parameters -> parameter .
+    (33) parameters -> parameter . parameters
+    (34) parameters -> parameter . COMMA parameters
+    (32) parameters -> . parameter
+    (33) parameters -> . parameter parameters
+    (34) parameters -> . parameter COMMA parameters
+    (35) parameter -> . VARIABLE type
+
+    $end            reduce using rule 32 (parameters -> parameter .)
+    RPAREN          reduce using rule 32 (parameters -> parameter .)
+    RBRACE          reduce using rule 32 (parameters -> parameter .)
+    COMMA           shift and go to state 43
+    VARIABLE        shift and go to state 44
+
+    parameter                      shift and go to state 11
+    parameters                     shift and go to state 42
+
+state 12
+
+    (6) block -> print_statement .
+
+    $end            reduce using rule 6 (block -> print_statement .)
+    RBRACE          reduce using rule 6 (block -> print_statement .)
+    RETURN          reduce using rule 6 (block -> print_statement .)
+
+
+state 13
+
+    (7) block -> input_statement .
+
+    $end            reduce using rule 7 (block -> input_statement .)
+    RBRACE          reduce using rule 7 (block -> input_statement .)
+    RETURN          reduce using rule 7 (block -> input_statement .)
+
+
+state 14
+
+    (8) block -> conditional_structure .
+
+    $end            reduce using rule 8 (block -> conditional_structure .)
+    RBRACE          reduce using rule 8 (block -> conditional_structure .)
+    RETURN          reduce using rule 8 (block -> conditional_structure .)
+
+
+state 15
+
+    (9) block -> operation .
+
+    $end            reduce using rule 9 (block -> operation .)
+    RBRACE          reduce using rule 9 (block -> operation .)
+    RETURN          reduce using rule 9 (block -> operation .)
+
+
+state 16
+
+    (10) block -> list_structure .
+
+    $end            reduce using rule 10 (block -> list_structure .)
+    RBRACE          reduce using rule 10 (block -> list_structure .)
+    RETURN          reduce using rule 10 (block -> list_structure .)
+
+
+state 17
+
+    (26) print_statement -> PRINT . LPAREN values RPAREN
+    (27) print_statement -> PRINT . LPAREN operation RPAREN
+    (28) print_statement -> PRINT . LPAREN RPAREN
+
+    LPAREN          shift and go to state 45
+
+
+state 18
+
+    (29) input_statement -> INPUT . LPAREN values RPAREN
+    (30) input_statement -> INPUT . LPAREN operation RPAREN
+    (31) input_statement -> INPUT . LPAREN RPAREN
+
+    LPAREN          shift and go to state 46
+
+
+state 19
+
+    (44) conditional_structure -> IF . conditions conditional_body
+    (45) conditional_structure -> IF . conditions conditional_body ELSE conditional_body
+    (46) conditional_structure -> IF . conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body
+    (48) conditions -> . condition
+    (49) conditions -> . condition logical_operator conditions
+    (50) condition -> . value relational_operator value
+    (69) value -> . VARIABLE
+    (70) value -> . number
+    (71) number -> . INT
+    (72) number -> . FLOAT
+
+    VARIABLE        shift and go to state 40
+    INT             shift and go to state 25
+    FLOAT           shift and go to state 26
+
+    conditions                     shift and go to state 47
+    condition                      shift and go to state 48
+    value                          shift and go to state 49
+    number                         shift and go to state 24
+
+state 20
+
+    (16) operation -> value . operator value
+    (17) operation -> value . operator operation
+    (18) operation -> value . double_operator
+    (19) operator -> . PLUS
+    (20) operator -> . MINUS
+    (21) operator -> . TIMES
+    (22) operator -> . DIVIDE
+    (23) operator -> . ASSIGN
+    (24) double_operator -> . INCREMENT
+    (25) double_operator -> . DECREMENT
+
+    PLUS            shift and go to state 52
+    MINUS           shift and go to state 53
+    TIMES           shift and go to state 54
+    DIVIDE          shift and go to state 55
+    ASSIGN          shift and go to state 56
+    INCREMENT       shift and go to state 57
+    DECREMENT       shift and go to state 58
+
+    operator                       shift and go to state 50
+    double_operator                shift and go to state 51
+
+state 21
+
+    (60) list_structure -> empty_list .
+
+    $end            reduce using rule 60 (list_structure -> empty_list .)
+    RBRACE          reduce using rule 60 (list_structure -> empty_list .)
+    RETURN          reduce using rule 60 (list_structure -> empty_list .)
+
+
+state 22
+
+    (61) list_structure -> list_with_data .
+
+    $end            reduce using rule 61 (list_structure -> list_with_data .)
+    RBRACE          reduce using rule 61 (list_structure -> list_with_data .)
+    RETURN          reduce using rule 61 (list_structure -> list_with_data .)
+
+
+state 23
+
+    (62) list_structure -> defined_list .
+
+    $end            reduce using rule 62 (list_structure -> defined_list .)
+    RBRACE          reduce using rule 62 (list_structure -> defined_list .)
+    RETURN          reduce using rule 62 (list_structure -> defined_list .)
+
+
+state 24
+
+    (70) value -> number .
+
+    PLUS            reduce using rule 70 (value -> number .)
+    MINUS           reduce using rule 70 (value -> number .)
+    TIMES           reduce using rule 70 (value -> number .)
+    DIVIDE          reduce using rule 70 (value -> number .)
+    ASSIGN          reduce using rule 70 (value -> number .)
+    INCREMENT       reduce using rule 70 (value -> number .)
+    DECREMENT       reduce using rule 70 (value -> number .)
+    COMMA           reduce using rule 70 (value -> number .)
+    RBRACE          reduce using rule 70 (value -> number .)
+    GREATER         reduce using rule 70 (value -> number .)
+    LESS            reduce using rule 70 (value -> number .)
+    GREATEREQUALS   reduce using rule 70 (value -> number .)
+    LESSEQUALS      reduce using rule 70 (value -> number .)
+    EQUALS          reduce using rule 70 (value -> number .)
+    DIFFERENT       reduce using rule 70 (value -> number .)
+    RPAREN          reduce using rule 70 (value -> number .)
+    $end            reduce using rule 70 (value -> number .)
+    RETURN          reduce using rule 70 (value -> number .)
+    AND             reduce using rule 70 (value -> number .)
+    OR              reduce using rule 70 (value -> number .)
+    NOT             reduce using rule 70 (value -> number .)
+    LBRACE          reduce using rule 70 (value -> number .)
+
+
+state 25
+
+    (71) number -> INT .
+
+    PLUS            reduce using rule 71 (number -> INT .)
+    MINUS           reduce using rule 71 (number -> INT .)
+    TIMES           reduce using rule 71 (number -> INT .)
+    DIVIDE          reduce using rule 71 (number -> INT .)
+    ASSIGN          reduce using rule 71 (number -> INT .)
+    INCREMENT       reduce using rule 71 (number -> INT .)
+    DECREMENT       reduce using rule 71 (number -> INT .)
+    COMMA           reduce using rule 71 (number -> INT .)
+    RBRACE          reduce using rule 71 (number -> INT .)
+    GREATER         reduce using rule 71 (number -> INT .)
+    LESS            reduce using rule 71 (number -> INT .)
+    GREATEREQUALS   reduce using rule 71 (number -> INT .)
+    LESSEQUALS      reduce using rule 71 (number -> INT .)
+    EQUALS          reduce using rule 71 (number -> INT .)
+    DIFFERENT       reduce using rule 71 (number -> INT .)
+    RPAREN          reduce using rule 71 (number -> INT .)
+    $end            reduce using rule 71 (number -> INT .)
+    RETURN          reduce using rule 71 (number -> INT .)
+    AND             reduce using rule 71 (number -> INT .)
+    OR              reduce using rule 71 (number -> INT .)
+    NOT             reduce using rule 71 (number -> INT .)
+    LBRACE          reduce using rule 71 (number -> INT .)
+
+
+state 26
+
+    (72) number -> FLOAT .
+
+    PLUS            reduce using rule 72 (number -> FLOAT .)
+    MINUS           reduce using rule 72 (number -> FLOAT .)
+    TIMES           reduce using rule 72 (number -> FLOAT .)
+    DIVIDE          reduce using rule 72 (number -> FLOAT .)
+    ASSIGN          reduce using rule 72 (number -> FLOAT .)
+    INCREMENT       reduce using rule 72 (number -> FLOAT .)
+    DECREMENT       reduce using rule 72 (number -> FLOAT .)
+    COMMA           reduce using rule 72 (number -> FLOAT .)
+    RBRACE          reduce using rule 72 (number -> FLOAT .)
+    GREATER         reduce using rule 72 (number -> FLOAT .)
+    LESS            reduce using rule 72 (number -> FLOAT .)
+    GREATEREQUALS   reduce using rule 72 (number -> FLOAT .)
+    LESSEQUALS      reduce using rule 72 (number -> FLOAT .)
+    EQUALS          reduce using rule 72 (number -> FLOAT .)
+    DIFFERENT       reduce using rule 72 (number -> FLOAT .)
+    RPAREN          reduce using rule 72 (number -> FLOAT .)
+    $end            reduce using rule 72 (number -> FLOAT .)
+    RETURN          reduce using rule 72 (number -> FLOAT .)
+    AND             reduce using rule 72 (number -> FLOAT .)
+    OR              reduce using rule 72 (number -> FLOAT .)
+    NOT             reduce using rule 72 (number -> FLOAT .)
+    LBRACE          reduce using rule 72 (number -> FLOAT .)
+
+
+state 27
+
+    (11) structure -> TYPE VARIABLE . STRUCT LBRACE statement RBRACE
+    (65) defined_list -> TYPE VARIABLE . LBRACE values RBRACE
+
+    STRUCT          shift and go to state 59
+    LBRACE          shift and go to state 60
+
+
+state 28
+
+    (35) parameter -> VARIABLE type .
+
+    COMMA           reduce using rule 35 (parameter -> VARIABLE type .)
+    VARIABLE        reduce using rule 35 (parameter -> VARIABLE type .)
+    $end            reduce using rule 35 (parameter -> VARIABLE type .)
+    RPAREN          reduce using rule 35 (parameter -> VARIABLE type .)
+    RBRACE          reduce using rule 35 (parameter -> VARIABLE type .)
+
+
+state 29
+
+    (36) type -> INT .
+
+    COMMA           reduce using rule 36 (type -> INT .)
+    VARIABLE        reduce using rule 36 (type -> INT .)
+    $end            reduce using rule 36 (type -> INT .)
+    RBRACE          reduce using rule 36 (type -> INT .)
+    RPAREN          reduce using rule 36 (type -> INT .)
+    LBRACE          reduce using rule 36 (type -> INT .)
+
+
+state 30
+
+    (37) type -> INT32 .
+
+    COMMA           reduce using rule 37 (type -> INT32 .)
+    VARIABLE        reduce using rule 37 (type -> INT32 .)
+    $end            reduce using rule 37 (type -> INT32 .)
+    RBRACE          reduce using rule 37 (type -> INT32 .)
+    RPAREN          reduce using rule 37 (type -> INT32 .)
+    LBRACE          reduce using rule 37 (type -> INT32 .)
+
+
+state 31
+
+    (38) type -> INT64 .
+
+    COMMA           reduce using rule 38 (type -> INT64 .)
+    VARIABLE        reduce using rule 38 (type -> INT64 .)
+    $end            reduce using rule 38 (type -> INT64 .)
+    RBRACE          reduce using rule 38 (type -> INT64 .)
+    RPAREN          reduce using rule 38 (type -> INT64 .)
+    LBRACE          reduce using rule 38 (type -> INT64 .)
+
+
+state 32
+
+    (39) type -> STRING .
+
+    COMMA           reduce using rule 39 (type -> STRING .)
+    VARIABLE        reduce using rule 39 (type -> STRING .)
+    $end            reduce using rule 39 (type -> STRING .)
+    RBRACE          reduce using rule 39 (type -> STRING .)
+    RPAREN          reduce using rule 39 (type -> STRING .)
+    LBRACE          reduce using rule 39 (type -> STRING .)
+
+
+state 33
+
+    (40) type -> FLOAT .
+
+    COMMA           reduce using rule 40 (type -> FLOAT .)
+    VARIABLE        reduce using rule 40 (type -> FLOAT .)
+    $end            reduce using rule 40 (type -> FLOAT .)
+    RBRACE          reduce using rule 40 (type -> FLOAT .)
+    RPAREN          reduce using rule 40 (type -> FLOAT .)
+    LBRACE          reduce using rule 40 (type -> FLOAT .)
+
+
+state 34
+
+    (41) type -> FLOAT32 .
+
+    COMMA           reduce using rule 41 (type -> FLOAT32 .)
+    VARIABLE        reduce using rule 41 (type -> FLOAT32 .)
+    $end            reduce using rule 41 (type -> FLOAT32 .)
+    RBRACE          reduce using rule 41 (type -> FLOAT32 .)
+    RPAREN          reduce using rule 41 (type -> FLOAT32 .)
+    LBRACE          reduce using rule 41 (type -> FLOAT32 .)
+
+
+state 35
+
+    (42) type -> FLOAT64 .
+
+    COMMA           reduce using rule 42 (type -> FLOAT64 .)
+    VARIABLE        reduce using rule 42 (type -> FLOAT64 .)
+    $end            reduce using rule 42 (type -> FLOAT64 .)
+    RBRACE          reduce using rule 42 (type -> FLOAT64 .)
+    RPAREN          reduce using rule 42 (type -> FLOAT64 .)
+    LBRACE          reduce using rule 42 (type -> FLOAT64 .)
+
+
+state 36
+
+    (43) type -> BOOL .
+
+    COMMA           reduce using rule 43 (type -> BOOL .)
+    VARIABLE        reduce using rule 43 (type -> BOOL .)
+    $end            reduce using rule 43 (type -> BOOL .)
+    RBRACE          reduce using rule 43 (type -> BOOL .)
+    RPAREN          reduce using rule 43 (type -> BOOL .)
+    LBRACE          reduce using rule 43 (type -> BOOL .)
+
+
+state 37
+
+    (63) empty_list -> LBRACE RBRACE .
+
+    $end            reduce using rule 63 (empty_list -> LBRACE RBRACE .)
+    RBRACE          reduce using rule 63 (empty_list -> LBRACE RBRACE .)
+    RETURN          reduce using rule 63 (empty_list -> LBRACE RBRACE .)
+
+
+state 38
+
+    (64) list_with_data -> LBRACE values . RBRACE
+
+    RBRACE          shift and go to state 61
+
+
+state 39
+
+    (67) values -> value .
+    (68) values -> value . COMMA values
+
+    RBRACE          reduce using rule 67 (values -> value .)
+    RPAREN          reduce using rule 67 (values -> value .)
+    COMMA           shift and go to state 62
+
+
+state 40
+
+    (69) value -> VARIABLE .
+
+    COMMA           reduce using rule 69 (value -> VARIABLE .)
+    RBRACE          reduce using rule 69 (value -> VARIABLE .)
+    GREATER         reduce using rule 69 (value -> VARIABLE .)
+    LESS            reduce using rule 69 (value -> VARIABLE .)
+    GREATEREQUALS   reduce using rule 69 (value -> VARIABLE .)
+    LESSEQUALS      reduce using rule 69 (value -> VARIABLE .)
+    EQUALS          reduce using rule 69 (value -> VARIABLE .)
+    DIFFERENT       reduce using rule 69 (value -> VARIABLE .)
+    PLUS            reduce using rule 69 (value -> VARIABLE .)
+    MINUS           reduce using rule 69 (value -> VARIABLE .)
+    TIMES           reduce using rule 69 (value -> VARIABLE .)
+    DIVIDE          reduce using rule 69 (value -> VARIABLE .)
+    ASSIGN          reduce using rule 69 (value -> VARIABLE .)
+    INCREMENT       reduce using rule 69 (value -> VARIABLE .)
+    DECREMENT       reduce using rule 69 (value -> VARIABLE .)
+    RPAREN          reduce using rule 69 (value -> VARIABLE .)
+    $end            reduce using rule 69 (value -> VARIABLE .)
+    RETURN          reduce using rule 69 (value -> VARIABLE .)
+    AND             reduce using rule 69 (value -> VARIABLE .)
+    OR              reduce using rule 69 (value -> VARIABLE .)
+    NOT             reduce using rule 69 (value -> VARIABLE .)
+    LBRACE          reduce using rule 69 (value -> VARIABLE .)
+
+
+state 41
+
+    (12) function -> FUNCTION VARIABLE . LPAREN parameters RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
+    (13) function -> FUNCTION VARIABLE . LPAREN parameters RPAREN LBRACE blocks RBRACE
+    (14) function -> FUNCTION VARIABLE . LPAREN RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
+    (15) function -> FUNCTION VARIABLE . LPAREN RPAREN LBRACE blocks RBRACE
+
+    LPAREN          shift and go to state 63
+
+
+state 42
+
+    (33) parameters -> parameter parameters .
+
+    $end            reduce using rule 33 (parameters -> parameter parameters .)
+    RPAREN          reduce using rule 33 (parameters -> parameter parameters .)
+    RBRACE          reduce using rule 33 (parameters -> parameter parameters .)
+
+
+state 43
+
+    (34) parameters -> parameter COMMA . parameters
+    (32) parameters -> . parameter
+    (33) parameters -> . parameter parameters
+    (34) parameters -> . parameter COMMA parameters
+    (35) parameter -> . VARIABLE type
+
+    VARIABLE        shift and go to state 44
+
+    parameter                      shift and go to state 11
+    parameters                     shift and go to state 64
+
+state 44
+
+    (35) parameter -> VARIABLE . type
+    (36) type -> . INT
+    (37) type -> . INT32
+    (38) type -> . INT64
+    (39) type -> . STRING
+    (40) type -> . FLOAT
+    (41) type -> . FLOAT32
+    (42) type -> . FLOAT64
+    (43) type -> . BOOL
+
+    INT             shift and go to state 29
+    INT32           shift and go to state 30
+    INT64           shift and go to state 31
+    STRING          shift and go to state 32
+    FLOAT           shift and go to state 33
+    FLOAT32         shift and go to state 34
+    FLOAT64         shift and go to state 35
+    BOOL            shift and go to state 36
+
+    type                           shift and go to state 28
+
+state 45
+
+    (26) print_statement -> PRINT LPAREN . values RPAREN
+    (27) print_statement -> PRINT LPAREN . operation RPAREN
+    (28) print_statement -> PRINT LPAREN . RPAREN
+    (67) values -> . value
+    (68) values -> . value COMMA values
+    (16) operation -> . value operator value
+    (17) operation -> . value operator operation
+    (18) operation -> . value double_operator
+    (69) value -> . VARIABLE
+    (70) value -> . number
+    (71) number -> . INT
+    (72) number -> . FLOAT
+
+    RPAREN          shift and go to state 66
+    VARIABLE        shift and go to state 40
+    INT             shift and go to state 25
+    FLOAT           shift and go to state 26
+
+    values                         shift and go to state 65
+    operation                      shift and go to state 67
+    value                          shift and go to state 68
+    number                         shift and go to state 24
+
+state 46
+
+    (29) input_statement -> INPUT LPAREN . values RPAREN
+    (30) input_statement -> INPUT LPAREN . operation RPAREN
+    (31) input_statement -> INPUT LPAREN . RPAREN
+    (67) values -> . value
+    (68) values -> . value COMMA values
+    (16) operation -> . value operator value
+    (17) operation -> . value operator operation
+    (18) operation -> . value double_operator
+    (69) value -> . VARIABLE
+    (70) value -> . number
+    (71) number -> . INT
+    (72) number -> . FLOAT
+
+    RPAREN          shift and go to state 70
+    VARIABLE        shift and go to state 40
+    INT             shift and go to state 25
+    FLOAT           shift and go to state 26
+
+    values                         shift and go to state 69
+    operation                      shift and go to state 71
+    value                          shift and go to state 68
+    number                         shift and go to state 24
+
+state 47
+
+    (44) conditional_structure -> IF conditions . conditional_body
+    (45) conditional_structure -> IF conditions . conditional_body ELSE conditional_body
+    (46) conditional_structure -> IF conditions . conditional_body ELSE IF conditions conditional_body ELSE conditional_body
+    (47) conditional_body -> . LBRACE statement RBRACE
+
+    LBRACE          shift and go to state 73
+
+    conditional_body               shift and go to state 72
+
+state 48
+
+    (48) conditions -> condition .
+    (49) conditions -> condition . logical_operator conditions
+    (51) logical_operator -> . AND
+    (52) logical_operator -> . OR
+    (53) logical_operator -> . NOT
+
+    LBRACE          reduce using rule 48 (conditions -> condition .)
+    AND             shift and go to state 75
+    OR              shift and go to state 76
+    NOT             shift and go to state 77
+
+    logical_operator               shift and go to state 74
+
+state 49
+
+    (50) condition -> value . relational_operator value
+    (54) relational_operator -> . GREATER
+    (55) relational_operator -> . LESS
+    (56) relational_operator -> . GREATEREQUALS
+    (57) relational_operator -> . LESSEQUALS
+    (58) relational_operator -> . EQUALS
+    (59) relational_operator -> . DIFFERENT
+
+    GREATER         shift and go to state 79
+    LESS            shift and go to state 80
+    GREATEREQUALS   shift and go to state 81
+    LESSEQUALS      shift and go to state 82
+    EQUALS          shift and go to state 83
+    DIFFERENT       shift and go to state 84
+
+    relational_operator            shift and go to state 78
+
+state 50
+
+    (16) operation -> value operator . value
+    (17) operation -> value operator . operation
+    (69) value -> . VARIABLE
+    (70) value -> . number
+    (16) operation -> . value operator value
+    (17) operation -> . value operator operation
+    (18) operation -> . value double_operator
+    (71) number -> . INT
+    (72) number -> . FLOAT
+
+    VARIABLE        shift and go to state 40
+    INT             shift and go to state 25
+    FLOAT           shift and go to state 26
+
+    value                          shift and go to state 85
+    operation                      shift and go to state 86
+    number                         shift and go to state 24
+
+state 51
+
+    (18) operation -> value double_operator .
+
+    $end            reduce using rule 18 (operation -> value double_operator .)
+    RPAREN          reduce using rule 18 (operation -> value double_operator .)
+    RBRACE          reduce using rule 18 (operation -> value double_operator .)
+    RETURN          reduce using rule 18 (operation -> value double_operator .)
+
+
+state 52
+
+    (19) operator -> PLUS .
+
+    VARIABLE        reduce using rule 19 (operator -> PLUS .)
+    INT             reduce using rule 19 (operator -> PLUS .)
+    FLOAT           reduce using rule 19 (operator -> PLUS .)
+
+
+state 53
+
+    (20) operator -> MINUS .
+
+    VARIABLE        reduce using rule 20 (operator -> MINUS .)
+    INT             reduce using rule 20 (operator -> MINUS .)
+    FLOAT           reduce using rule 20 (operator -> MINUS .)
+
+
+state 54
+
+    (21) operator -> TIMES .
+
+    VARIABLE        reduce using rule 21 (operator -> TIMES .)
+    INT             reduce using rule 21 (operator -> TIMES .)
+    FLOAT           reduce using rule 21 (operator -> TIMES .)
+
+
+state 55
+
+    (22) operator -> DIVIDE .
+
+    VARIABLE        reduce using rule 22 (operator -> DIVIDE .)
+    INT             reduce using rule 22 (operator -> DIVIDE .)
+    FLOAT           reduce using rule 22 (operator -> DIVIDE .)
+
+
+state 56
+
+    (23) operator -> ASSIGN .
+
+    VARIABLE        reduce using rule 23 (operator -> ASSIGN .)
+    INT             reduce using rule 23 (operator -> ASSIGN .)
+    FLOAT           reduce using rule 23 (operator -> ASSIGN .)
+
+
+state 57
+
+    (24) double_operator -> INCREMENT .
+
+    $end            reduce using rule 24 (double_operator -> INCREMENT .)
+    RBRACE          reduce using rule 24 (double_operator -> INCREMENT .)
+    RETURN          reduce using rule 24 (double_operator -> INCREMENT .)
+    RPAREN          reduce using rule 24 (double_operator -> INCREMENT .)
+
+
+state 58
+
+    (25) double_operator -> DECREMENT .
+
+    $end            reduce using rule 25 (double_operator -> DECREMENT .)
+    RBRACE          reduce using rule 25 (double_operator -> DECREMENT .)
+    RETURN          reduce using rule 25 (double_operator -> DECREMENT .)
+    RPAREN          reduce using rule 25 (double_operator -> DECREMENT .)
+
+
+state 59
+
+    (11) structure -> TYPE VARIABLE STRUCT . LBRACE statement RBRACE
+
+    LBRACE          shift and go to state 87
+
+
+state 60
+
+    (65) defined_list -> TYPE VARIABLE LBRACE . values RBRACE
+    (67) values -> . value
+    (68) values -> . value COMMA values
+    (69) value -> . VARIABLE
+    (70) value -> . number
+    (71) number -> . INT
+    (72) number -> . FLOAT
+
+    VARIABLE        shift and go to state 40
+    INT             shift and go to state 25
+    FLOAT           shift and go to state 26
+
+    values                         shift and go to state 88
+    value                          shift and go to state 39
+    number                         shift and go to state 24
+
+state 61
+
+    (64) list_with_data -> LBRACE values RBRACE .
+
+    $end            reduce using rule 64 (list_with_data -> LBRACE values RBRACE .)
+    RBRACE          reduce using rule 64 (list_with_data -> LBRACE values RBRACE .)
+    RETURN          reduce using rule 64 (list_with_data -> LBRACE values RBRACE .)
+
+
+state 62
+
+    (68) values -> value COMMA . values
+    (67) values -> . value
+    (68) values -> . value COMMA values
+    (69) value -> . VARIABLE
+    (70) value -> . number
+    (71) number -> . INT
+    (72) number -> . FLOAT
+
+    VARIABLE        shift and go to state 40
+    INT             shift and go to state 25
+    FLOAT           shift and go to state 26
+
+    value                          shift and go to state 39
+    values                         shift and go to state 89
+    number                         shift and go to state 24
+
+state 63
+
+    (12) function -> FUNCTION VARIABLE LPAREN . parameters RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
+    (13) function -> FUNCTION VARIABLE LPAREN . parameters RPAREN LBRACE blocks RBRACE
+    (14) function -> FUNCTION VARIABLE LPAREN . RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
+    (15) function -> FUNCTION VARIABLE LPAREN . RPAREN LBRACE blocks RBRACE
+    (32) parameters -> . parameter
+    (33) parameters -> . parameter parameters
+    (34) parameters -> . parameter COMMA parameters
+    (35) parameter -> . VARIABLE type
+
+    RPAREN          shift and go to state 91
+    VARIABLE        shift and go to state 44
+
+    parameters                     shift and go to state 90
+    parameter                      shift and go to state 11
+
+state 64
+
+    (34) parameters -> parameter COMMA parameters .
+
+    $end            reduce using rule 34 (parameters -> parameter COMMA parameters .)
+    RPAREN          reduce using rule 34 (parameters -> parameter COMMA parameters .)
+    RBRACE          reduce using rule 34 (parameters -> parameter COMMA parameters .)
+
+
+state 65
+
+    (26) print_statement -> PRINT LPAREN values . RPAREN
+
+    RPAREN          shift and go to state 92
+
+
+state 66
+
+    (28) print_statement -> PRINT LPAREN RPAREN .
+
+    $end            reduce using rule 28 (print_statement -> PRINT LPAREN RPAREN .)
+    RBRACE          reduce using rule 28 (print_statement -> PRINT LPAREN RPAREN .)
+    RETURN          reduce using rule 28 (print_statement -> PRINT LPAREN RPAREN .)
+
+
+state 67
+
+    (27) print_statement -> PRINT LPAREN operation . RPAREN
+
+    RPAREN          shift and go to state 93
+
+
+state 68
+
+    (67) values -> value .
+    (68) values -> value . COMMA values
+    (16) operation -> value . operator value
+    (17) operation -> value . operator operation
+    (18) operation -> value . double_operator
+    (19) operator -> . PLUS
+    (20) operator -> . MINUS
+    (21) operator -> . TIMES
+    (22) operator -> . DIVIDE
+    (23) operator -> . ASSIGN
+    (24) double_operator -> . INCREMENT
+    (25) double_operator -> . DECREMENT
+
+    RPAREN          reduce using rule 67 (values -> value .)
+    COMMA           shift and go to state 62
+    PLUS            shift and go to state 52
+    MINUS           shift and go to state 53
+    TIMES           shift and go to state 54
+    DIVIDE          shift and go to state 55
+    ASSIGN          shift and go to state 56
+    INCREMENT       shift and go to state 57
+    DECREMENT       shift and go to state 58
+
+    operator                       shift and go to state 50
+    double_operator                shift and go to state 51
+
+state 69
+
+    (29) input_statement -> INPUT LPAREN values . RPAREN
+
+    RPAREN          shift and go to state 94
+
+
+state 70
+
+    (31) input_statement -> INPUT LPAREN RPAREN .
+
+    $end            reduce using rule 31 (input_statement -> INPUT LPAREN RPAREN .)
+    RBRACE          reduce using rule 31 (input_statement -> INPUT LPAREN RPAREN .)
+    RETURN          reduce using rule 31 (input_statement -> INPUT LPAREN RPAREN .)
+
+
+state 71
+
+    (30) input_statement -> INPUT LPAREN operation . RPAREN
+
+    RPAREN          shift and go to state 95
+
+
+state 72
+
+    (44) conditional_structure -> IF conditions conditional_body .
+    (45) conditional_structure -> IF conditions conditional_body . ELSE conditional_body
+    (46) conditional_structure -> IF conditions conditional_body . ELSE IF conditions conditional_body ELSE conditional_body
+
+    $end            reduce using rule 44 (conditional_structure -> IF conditions conditional_body .)
+    RBRACE          reduce using rule 44 (conditional_structure -> IF conditions conditional_body .)
+    RETURN          reduce using rule 44 (conditional_structure -> IF conditions conditional_body .)
+    ELSE            shift and go to state 96
+
+
+state 73
+
+    (47) conditional_body -> LBRACE . statement RBRACE
+    (1) statement -> . structure
+    (2) statement -> . blocks
+    (3) statement -> . function
+    (4) statement -> . parameters
+    (11) structure -> . TYPE VARIABLE STRUCT LBRACE statement RBRACE
+    (5) blocks -> . block
+    (12) function -> . FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
+    (13) function -> . FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE
+    (14) function -> . FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
+    (15) function -> . FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE
+    (32) parameters -> . parameter
+    (33) parameters -> . parameter parameters
+    (34) parameters -> . parameter COMMA parameters
+    (6) block -> . print_statement
+    (7) block -> . input_statement
+    (8) block -> . conditional_structure
+    (9) block -> . operation
+    (10) block -> . list_structure
+    (35) parameter -> . VARIABLE type
+    (26) print_statement -> . PRINT LPAREN values RPAREN
+    (27) print_statement -> . PRINT LPAREN operation RPAREN
+    (28) print_statement -> . PRINT LPAREN RPAREN
+    (29) input_statement -> . INPUT LPAREN values RPAREN
+    (30) input_statement -> . INPUT LPAREN operation RPAREN
+    (31) input_statement -> . INPUT LPAREN RPAREN
+    (44) conditional_structure -> . IF conditions conditional_body
+    (45) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
+    (46) conditional_structure -> . IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body
+    (16) operation -> . value operator value
+    (17) operation -> . value operator operation
+    (18) operation -> . value double_operator
+    (60) list_structure -> . empty_list
+    (61) list_structure -> . list_with_data
+    (62) list_structure -> . defined_list
+    (69) value -> . VARIABLE
+    (70) value -> . number
+    (63) empty_list -> . LBRACE RBRACE
+    (64) list_with_data -> . LBRACE values RBRACE
+    (65) defined_list -> . TYPE VARIABLE LBRACE values RBRACE
+    (71) number -> . INT
+    (72) number -> . FLOAT
+
+    TYPE            shift and go to state 6
+    FUNCTION        shift and go to state 10
+    VARIABLE        shift and go to state 7
+    PRINT           shift and go to state 17
+    INPUT           shift and go to state 18
+    IF              shift and go to state 19
+    LBRACE          shift and go to state 8
+    INT             shift and go to state 25
+    FLOAT           shift and go to state 26
+
+    statement                      shift and go to state 97
+    structure                      shift and go to state 2
+    blocks                         shift and go to state 3
+    function                       shift and go to state 4
+    parameters                     shift and go to state 5
+    block                          shift and go to state 9
+    parameter                      shift and go to state 11
+    print_statement                shift and go to state 12
+    input_statement                shift and go to state 13
+    conditional_structure          shift and go to state 14
+    operation                      shift and go to state 15
+    list_structure                 shift and go to state 16
+    value                          shift and go to state 20
+    empty_list                     shift and go to state 21
+    list_with_data                 shift and go to state 22
+    defined_list                   shift and go to state 23
+    number                         shift and go to state 24
+
+state 74
+
+    (49) conditions -> condition logical_operator . conditions
+    (48) conditions -> . condition
+    (49) conditions -> . condition logical_operator conditions
+    (50) condition -> . value relational_operator value
+    (69) value -> . VARIABLE
+    (70) value -> . number
+    (71) number -> . INT
+    (72) number -> . FLOAT
+
+    VARIABLE        shift and go to state 40
+    INT             shift and go to state 25
+    FLOAT           shift and go to state 26
+
+    condition                      shift and go to state 48
+    conditions                     shift and go to state 98
+    value                          shift and go to state 49
+    number                         shift and go to state 24
+
+state 75
+
+    (51) logical_operator -> AND .
+
+    VARIABLE        reduce using rule 51 (logical_operator -> AND .)
+    INT             reduce using rule 51 (logical_operator -> AND .)
+    FLOAT           reduce using rule 51 (logical_operator -> AND .)
+
+
+state 76
+
+    (52) logical_operator -> OR .
+
+    VARIABLE        reduce using rule 52 (logical_operator -> OR .)
+    INT             reduce using rule 52 (logical_operator -> OR .)
+    FLOAT           reduce using rule 52 (logical_operator -> OR .)
+
+
+state 77
+
+    (53) logical_operator -> NOT .
+
+    VARIABLE        reduce using rule 53 (logical_operator -> NOT .)
+    INT             reduce using rule 53 (logical_operator -> NOT .)
+    FLOAT           reduce using rule 53 (logical_operator -> NOT .)
+
+
+state 78
+
+    (50) condition -> value relational_operator . value
+    (69) value -> . VARIABLE
+    (70) value -> . number
+    (71) number -> . INT
+    (72) number -> . FLOAT
+
+    VARIABLE        shift and go to state 40
+    INT             shift and go to state 25
+    FLOAT           shift and go to state 26
+
+    value                          shift and go to state 99
+    number                         shift and go to state 24
+
+state 79
+
+    (54) relational_operator -> GREATER .
+
+    VARIABLE        reduce using rule 54 (relational_operator -> GREATER .)
+    INT             reduce using rule 54 (relational_operator -> GREATER .)
+    FLOAT           reduce using rule 54 (relational_operator -> GREATER .)
+
+
+state 80
+
+    (55) relational_operator -> LESS .
+
+    VARIABLE        reduce using rule 55 (relational_operator -> LESS .)
+    INT             reduce using rule 55 (relational_operator -> LESS .)
+    FLOAT           reduce using rule 55 (relational_operator -> LESS .)
+
+
+state 81
+
+    (56) relational_operator -> GREATEREQUALS .
+
+    VARIABLE        reduce using rule 56 (relational_operator -> GREATEREQUALS .)
+    INT             reduce using rule 56 (relational_operator -> GREATEREQUALS .)
+    FLOAT           reduce using rule 56 (relational_operator -> GREATEREQUALS .)
+
+
+state 82
+
+    (57) relational_operator -> LESSEQUALS .
+
+    VARIABLE        reduce using rule 57 (relational_operator -> LESSEQUALS .)
+    INT             reduce using rule 57 (relational_operator -> LESSEQUALS .)
+    FLOAT           reduce using rule 57 (relational_operator -> LESSEQUALS .)
+
+
+state 83
+
+    (58) relational_operator -> EQUALS .
+
+    VARIABLE        reduce using rule 58 (relational_operator -> EQUALS .)
+    INT             reduce using rule 58 (relational_operator -> EQUALS .)
+    FLOAT           reduce using rule 58 (relational_operator -> EQUALS .)
+
+
+state 84
+
+    (59) relational_operator -> DIFFERENT .
+
+    VARIABLE        reduce using rule 59 (relational_operator -> DIFFERENT .)
+    INT             reduce using rule 59 (relational_operator -> DIFFERENT .)
+    FLOAT           reduce using rule 59 (relational_operator -> DIFFERENT .)
+
+
+state 85
+
+    (16) operation -> value operator value .
+    (16) operation -> value . operator value
+    (17) operation -> value . operator operation
+    (18) operation -> value . double_operator
+    (19) operator -> . PLUS
+    (20) operator -> . MINUS
+    (21) operator -> . TIMES
+    (22) operator -> . DIVIDE
+    (23) operator -> . ASSIGN
+    (24) double_operator -> . INCREMENT
+    (25) double_operator -> . DECREMENT
+
+    $end            reduce using rule 16 (operation -> value operator value .)
+    RPAREN          reduce using rule 16 (operation -> value operator value .)
+    RBRACE          reduce using rule 16 (operation -> value operator value .)
+    RETURN          reduce using rule 16 (operation -> value operator value .)
+    PLUS            shift and go to state 52
+    MINUS           shift and go to state 53
+    TIMES           shift and go to state 54
+    DIVIDE          shift and go to state 55
+    ASSIGN          shift and go to state 56
+    INCREMENT       shift and go to state 57
+    DECREMENT       shift and go to state 58
+
+    operator                       shift and go to state 50
+    double_operator                shift and go to state 51
+
+state 86
+
+    (17) operation -> value operator operation .
+
+    $end            reduce using rule 17 (operation -> value operator operation .)
+    RPAREN          reduce using rule 17 (operation -> value operator operation .)
+    RBRACE          reduce using rule 17 (operation -> value operator operation .)
+    RETURN          reduce using rule 17 (operation -> value operator operation .)
+
+
+state 87
+
+    (11) structure -> TYPE VARIABLE STRUCT LBRACE . statement RBRACE
+    (1) statement -> . structure
+    (2) statement -> . blocks
+    (3) statement -> . function
+    (4) statement -> . parameters
+    (11) structure -> . TYPE VARIABLE STRUCT LBRACE statement RBRACE
+    (5) blocks -> . block
+    (12) function -> . FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
+    (13) function -> . FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE
+    (14) function -> . FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
+    (15) function -> . FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE
+    (32) parameters -> . parameter
+    (33) parameters -> . parameter parameters
+    (34) parameters -> . parameter COMMA parameters
+    (6) block -> . print_statement
+    (7) block -> . input_statement
+    (8) block -> . conditional_structure
+    (9) block -> . operation
+    (10) block -> . list_structure
+    (35) parameter -> . VARIABLE type
+    (26) print_statement -> . PRINT LPAREN values RPAREN
+    (27) print_statement -> . PRINT LPAREN operation RPAREN
+    (28) print_statement -> . PRINT LPAREN RPAREN
+    (29) input_statement -> . INPUT LPAREN values RPAREN
+    (30) input_statement -> . INPUT LPAREN operation RPAREN
+    (31) input_statement -> . INPUT LPAREN RPAREN
+    (44) conditional_structure -> . IF conditions conditional_body
+    (45) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
+    (46) conditional_structure -> . IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body
+    (16) operation -> . value operator value
+    (17) operation -> . value operator operation
+    (18) operation -> . value double_operator
+    (60) list_structure -> . empty_list
+    (61) list_structure -> . list_with_data
+    (62) list_structure -> . defined_list
+    (69) value -> . VARIABLE
+    (70) value -> . number
+    (63) empty_list -> . LBRACE RBRACE
+    (64) list_with_data -> . LBRACE values RBRACE
+    (65) defined_list -> . TYPE VARIABLE LBRACE values RBRACE
+    (71) number -> . INT
+    (72) number -> . FLOAT
+
+    TYPE            shift and go to state 6
+    FUNCTION        shift and go to state 10
+    VARIABLE        shift and go to state 7
+    PRINT           shift and go to state 17
+    INPUT           shift and go to state 18
+    IF              shift and go to state 19
+    LBRACE          shift and go to state 8
+    INT             shift and go to state 25
+    FLOAT           shift and go to state 26
+
+    statement                      shift and go to state 100
+    structure                      shift and go to state 2
+    blocks                         shift and go to state 3
+    function                       shift and go to state 4
+    parameters                     shift and go to state 5
+    block                          shift and go to state 9
+    parameter                      shift and go to state 11
+    print_statement                shift and go to state 12
+    input_statement                shift and go to state 13
+    conditional_structure          shift and go to state 14
+    operation                      shift and go to state 15
+    list_structure                 shift and go to state 16
+    value                          shift and go to state 20
+    empty_list                     shift and go to state 21
+    list_with_data                 shift and go to state 22
+    defined_list                   shift and go to state 23
+    number                         shift and go to state 24
+
+state 88
+
+    (65) defined_list -> TYPE VARIABLE LBRACE values . RBRACE
+
+    RBRACE          shift and go to state 101
+
+
+state 89
+
+    (68) values -> value COMMA values .
+
+    RBRACE          reduce using rule 68 (values -> value COMMA values .)
+    RPAREN          reduce using rule 68 (values -> value COMMA values .)
+
+
+state 90
+
+    (12) function -> FUNCTION VARIABLE LPAREN parameters . RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
+    (13) function -> FUNCTION VARIABLE LPAREN parameters . RPAREN LBRACE blocks RBRACE
+
+    RPAREN          shift and go to state 102
+
+
+state 91
+
+    (14) function -> FUNCTION VARIABLE LPAREN RPAREN . type LBRACE blocks RETURN VARIABLE RBRACE
+    (15) function -> FUNCTION VARIABLE LPAREN RPAREN . LBRACE blocks RBRACE
+    (36) type -> . INT
+    (37) type -> . INT32
+    (38) type -> . INT64
+    (39) type -> . STRING
+    (40) type -> . FLOAT
+    (41) type -> . FLOAT32
+    (42) type -> . FLOAT64
+    (43) type -> . BOOL
+
+    LBRACE          shift and go to state 104
+    INT             shift and go to state 29
+    INT32           shift and go to state 30
+    INT64           shift and go to state 31
+    STRING          shift and go to state 32
+    FLOAT           shift and go to state 33
+    FLOAT32         shift and go to state 34
+    FLOAT64         shift and go to state 35
+    BOOL            shift and go to state 36
+
+    type                           shift and go to state 103
+
+state 92
+
+    (26) print_statement -> PRINT LPAREN values RPAREN .
+
+    $end            reduce using rule 26 (print_statement -> PRINT LPAREN values RPAREN .)
+    RBRACE          reduce using rule 26 (print_statement -> PRINT LPAREN values RPAREN .)
+    RETURN          reduce using rule 26 (print_statement -> PRINT LPAREN values RPAREN .)
+
+
+state 93
+
+    (27) print_statement -> PRINT LPAREN operation RPAREN .
+
+    $end            reduce using rule 27 (print_statement -> PRINT LPAREN operation RPAREN .)
+    RBRACE          reduce using rule 27 (print_statement -> PRINT LPAREN operation RPAREN .)
+    RETURN          reduce using rule 27 (print_statement -> PRINT LPAREN operation RPAREN .)
+
+
+state 94
+
+    (29) input_statement -> INPUT LPAREN values RPAREN .
+
+    $end            reduce using rule 29 (input_statement -> INPUT LPAREN values RPAREN .)
+    RBRACE          reduce using rule 29 (input_statement -> INPUT LPAREN values RPAREN .)
+    RETURN          reduce using rule 29 (input_statement -> INPUT LPAREN values RPAREN .)
+
+
+state 95
+
+    (30) input_statement -> INPUT LPAREN operation RPAREN .
+
+    $end            reduce using rule 30 (input_statement -> INPUT LPAREN operation RPAREN .)
+    RBRACE          reduce using rule 30 (input_statement -> INPUT LPAREN operation RPAREN .)
+    RETURN          reduce using rule 30 (input_statement -> INPUT LPAREN operation RPAREN .)
+
+
+state 96
+
+    (45) conditional_structure -> IF conditions conditional_body ELSE . conditional_body
+    (46) conditional_structure -> IF conditions conditional_body ELSE . IF conditions conditional_body ELSE conditional_body
+    (47) conditional_body -> . LBRACE statement RBRACE
+
+    IF              shift and go to state 105
+    LBRACE          shift and go to state 73
+
+    conditional_body               shift and go to state 106
+
+state 97
+
+    (47) conditional_body -> LBRACE statement . RBRACE
+
+    RBRACE          shift and go to state 107
+
+
+state 98
+
+    (49) conditions -> condition logical_operator conditions .
+
+    LBRACE          reduce using rule 49 (conditions -> condition logical_operator conditions .)
+
+
+state 99
+
+    (50) condition -> value relational_operator value .
+
+    AND             reduce using rule 50 (condition -> value relational_operator value .)
+    OR              reduce using rule 50 (condition -> value relational_operator value .)
+    NOT             reduce using rule 50 (condition -> value relational_operator value .)
+    LBRACE          reduce using rule 50 (condition -> value relational_operator value .)
+
+
+state 100
+
+    (11) structure -> TYPE VARIABLE STRUCT LBRACE statement . RBRACE
+
+    RBRACE          shift and go to state 108
+
+
+state 101
+
+    (65) defined_list -> TYPE VARIABLE LBRACE values RBRACE .
+
+    $end            reduce using rule 65 (defined_list -> TYPE VARIABLE LBRACE values RBRACE .)
+    RBRACE          reduce using rule 65 (defined_list -> TYPE VARIABLE LBRACE values RBRACE .)
+    RETURN          reduce using rule 65 (defined_list -> TYPE VARIABLE LBRACE values RBRACE .)
+
+
+state 102
+
+    (12) function -> FUNCTION VARIABLE LPAREN parameters RPAREN . type LBRACE blocks RETURN VARIABLE RBRACE
+    (13) function -> FUNCTION VARIABLE LPAREN parameters RPAREN . LBRACE blocks RBRACE
+    (36) type -> . INT
+    (37) type -> . INT32
+    (38) type -> . INT64
+    (39) type -> . STRING
+    (40) type -> . FLOAT
+    (41) type -> . FLOAT32
+    (42) type -> . FLOAT64
+    (43) type -> . BOOL
+
+    LBRACE          shift and go to state 110
+    INT             shift and go to state 29
+    INT32           shift and go to state 30
+    INT64           shift and go to state 31
+    STRING          shift and go to state 32
+    FLOAT           shift and go to state 33
+    FLOAT32         shift and go to state 34
+    FLOAT64         shift and go to state 35
+    BOOL            shift and go to state 36
+
+    type                           shift and go to state 109
+
+state 103
+
+    (14) function -> FUNCTION VARIABLE LPAREN RPAREN type . LBRACE blocks RETURN VARIABLE RBRACE
+
+    LBRACE          shift and go to state 111
+
+
+state 104
+
+    (15) function -> FUNCTION VARIABLE LPAREN RPAREN LBRACE . blocks RBRACE
+    (5) blocks -> . block
+    (6) block -> . print_statement
+    (7) block -> . input_statement
+    (8) block -> . conditional_structure
+    (9) block -> . operation
+    (10) block -> . list_structure
+    (26) print_statement -> . PRINT LPAREN values RPAREN
+    (27) print_statement -> . PRINT LPAREN operation RPAREN
+    (28) print_statement -> . PRINT LPAREN RPAREN
+    (29) input_statement -> . INPUT LPAREN values RPAREN
+    (30) input_statement -> . INPUT LPAREN operation RPAREN
+    (31) input_statement -> . INPUT LPAREN RPAREN
+    (44) conditional_structure -> . IF conditions conditional_body
+    (45) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
+    (46) conditional_structure -> . IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body
+    (16) operation -> . value operator value
+    (17) operation -> . value operator operation
+    (18) operation -> . value double_operator
+    (60) list_structure -> . empty_list
+    (61) list_structure -> . list_with_data
+    (62) list_structure -> . defined_list
+    (69) value -> . VARIABLE
+    (70) value -> . number
+    (63) empty_list -> . LBRACE RBRACE
+    (64) list_with_data -> . LBRACE values RBRACE
+    (65) defined_list -> . TYPE VARIABLE LBRACE values RBRACE
+    (71) number -> . INT
+    (72) number -> . FLOAT
+
+    PRINT           shift and go to state 17
+    INPUT           shift and go to state 18
+    IF              shift and go to state 19
+    VARIABLE        shift and go to state 40
+    LBRACE          shift and go to state 8
+    TYPE            shift and go to state 113
+    INT             shift and go to state 25
+    FLOAT           shift and go to state 26
+
+    blocks                         shift and go to state 112
+    block                          shift and go to state 9
+    print_statement                shift and go to state 12
+    input_statement                shift and go to state 13
+    conditional_structure          shift and go to state 14
+    operation                      shift and go to state 15
+    list_structure                 shift and go to state 16
+    value                          shift and go to state 20
+    empty_list                     shift and go to state 21
+    list_with_data                 shift and go to state 22
+    defined_list                   shift and go to state 23
+    number                         shift and go to state 24
+
+state 105
+
+    (46) conditional_structure -> IF conditions conditional_body ELSE IF . conditions conditional_body ELSE conditional_body
+    (48) conditions -> . condition
+    (49) conditions -> . condition logical_operator conditions
+    (50) condition -> . value relational_operator value
+    (69) value -> . VARIABLE
+    (70) value -> . number
+    (71) number -> . INT
+    (72) number -> . FLOAT
+
+    VARIABLE        shift and go to state 40
+    INT             shift and go to state 25
+    FLOAT           shift and go to state 26
+
+    conditions                     shift and go to state 114
+    condition                      shift and go to state 48
+    value                          shift and go to state 49
+    number                         shift and go to state 24
+
+state 106
+
+    (45) conditional_structure -> IF conditions conditional_body ELSE conditional_body .
+
+    $end            reduce using rule 45 (conditional_structure -> IF conditions conditional_body ELSE conditional_body .)
+    RBRACE          reduce using rule 45 (conditional_structure -> IF conditions conditional_body ELSE conditional_body .)
+    RETURN          reduce using rule 45 (conditional_structure -> IF conditions conditional_body ELSE conditional_body .)
+
+
+state 107
+
+    (47) conditional_body -> LBRACE statement RBRACE .
+
+    ELSE            reduce using rule 47 (conditional_body -> LBRACE statement RBRACE .)
+    $end            reduce using rule 47 (conditional_body -> LBRACE statement RBRACE .)
+    RBRACE          reduce using rule 47 (conditional_body -> LBRACE statement RBRACE .)
+    RETURN          reduce using rule 47 (conditional_body -> LBRACE statement RBRACE .)
+
+
+state 108
+
+    (11) structure -> TYPE VARIABLE STRUCT LBRACE statement RBRACE .
+
+    $end            reduce using rule 11 (structure -> TYPE VARIABLE STRUCT LBRACE statement RBRACE .)
+    RBRACE          reduce using rule 11 (structure -> TYPE VARIABLE STRUCT LBRACE statement RBRACE .)
+
+
+state 109
+
+    (12) function -> FUNCTION VARIABLE LPAREN parameters RPAREN type . LBRACE blocks RETURN VARIABLE RBRACE
+
+    LBRACE          shift and go to state 115
+
+
+state 110
+
+    (13) function -> FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE . blocks RBRACE
+    (5) blocks -> . block
+    (6) block -> . print_statement
+    (7) block -> . input_statement
+    (8) block -> . conditional_structure
+    (9) block -> . operation
+    (10) block -> . list_structure
+    (26) print_statement -> . PRINT LPAREN values RPAREN
+    (27) print_statement -> . PRINT LPAREN operation RPAREN
+    (28) print_statement -> . PRINT LPAREN RPAREN
+    (29) input_statement -> . INPUT LPAREN values RPAREN
+    (30) input_statement -> . INPUT LPAREN operation RPAREN
+    (31) input_statement -> . INPUT LPAREN RPAREN
+    (44) conditional_structure -> . IF conditions conditional_body
+    (45) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
+    (46) conditional_structure -> . IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body
+    (16) operation -> . value operator value
+    (17) operation -> . value operator operation
+    (18) operation -> . value double_operator
+    (60) list_structure -> . empty_list
+    (61) list_structure -> . list_with_data
+    (62) list_structure -> . defined_list
+    (69) value -> . VARIABLE
+    (70) value -> . number
+    (63) empty_list -> . LBRACE RBRACE
+    (64) list_with_data -> . LBRACE values RBRACE
+    (65) defined_list -> . TYPE VARIABLE LBRACE values RBRACE
+    (71) number -> . INT
+    (72) number -> . FLOAT
+
+    PRINT           shift and go to state 17
+    INPUT           shift and go to state 18
+    IF              shift and go to state 19
+    VARIABLE        shift and go to state 40
+    LBRACE          shift and go to state 8
+    TYPE            shift and go to state 113
+    INT             shift and go to state 25
+    FLOAT           shift and go to state 26
+
+    blocks                         shift and go to state 116
+    block                          shift and go to state 9
+    print_statement                shift and go to state 12
+    input_statement                shift and go to state 13
+    conditional_structure          shift and go to state 14
+    operation                      shift and go to state 15
+    list_structure                 shift and go to state 16
+    value                          shift and go to state 20
+    empty_list                     shift and go to state 21
+    list_with_data                 shift and go to state 22
+    defined_list                   shift and go to state 23
+    number                         shift and go to state 24
+
+state 111
+
+    (14) function -> FUNCTION VARIABLE LPAREN RPAREN type LBRACE . blocks RETURN VARIABLE RBRACE
+    (5) blocks -> . block
+    (6) block -> . print_statement
+    (7) block -> . input_statement
+    (8) block -> . conditional_structure
+    (9) block -> . operation
+    (10) block -> . list_structure
+    (26) print_statement -> . PRINT LPAREN values RPAREN
+    (27) print_statement -> . PRINT LPAREN operation RPAREN
+    (28) print_statement -> . PRINT LPAREN RPAREN
+    (29) input_statement -> . INPUT LPAREN values RPAREN
+    (30) input_statement -> . INPUT LPAREN operation RPAREN
+    (31) input_statement -> . INPUT LPAREN RPAREN
+    (44) conditional_structure -> . IF conditions conditional_body
+    (45) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
+    (46) conditional_structure -> . IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body
+    (16) operation -> . value operator value
+    (17) operation -> . value operator operation
+    (18) operation -> . value double_operator
+    (60) list_structure -> . empty_list
+    (61) list_structure -> . list_with_data
+    (62) list_structure -> . defined_list
+    (69) value -> . VARIABLE
+    (70) value -> . number
+    (63) empty_list -> . LBRACE RBRACE
+    (64) list_with_data -> . LBRACE values RBRACE
+    (65) defined_list -> . TYPE VARIABLE LBRACE values RBRACE
+    (71) number -> . INT
+    (72) number -> . FLOAT
+
+    PRINT           shift and go to state 17
+    INPUT           shift and go to state 18
+    IF              shift and go to state 19
+    VARIABLE        shift and go to state 40
+    LBRACE          shift and go to state 8
+    TYPE            shift and go to state 113
+    INT             shift and go to state 25
+    FLOAT           shift and go to state 26
+
+    blocks                         shift and go to state 117
+    block                          shift and go to state 9
+    print_statement                shift and go to state 12
+    input_statement                shift and go to state 13
+    conditional_structure          shift and go to state 14
+    operation                      shift and go to state 15
+    list_structure                 shift and go to state 16
+    value                          shift and go to state 20
+    empty_list                     shift and go to state 21
+    list_with_data                 shift and go to state 22
+    defined_list                   shift and go to state 23
+    number                         shift and go to state 24
+
+state 112
+
+    (15) function -> FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks . RBRACE
+
+    RBRACE          shift and go to state 118
+
+
+state 113
+
+    (65) defined_list -> TYPE . VARIABLE LBRACE values RBRACE
+
+    VARIABLE        shift and go to state 119
+
+
+state 114
+
+    (46) conditional_structure -> IF conditions conditional_body ELSE IF conditions . conditional_body ELSE conditional_body
+    (47) conditional_body -> . LBRACE statement RBRACE
+
+    LBRACE          shift and go to state 73
+
+    conditional_body               shift and go to state 120
+
+state 115
+
+    (12) function -> FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE . blocks RETURN VARIABLE RBRACE
+    (5) blocks -> . block
+    (6) block -> . print_statement
+    (7) block -> . input_statement
+    (8) block -> . conditional_structure
+    (9) block -> . operation
+    (10) block -> . list_structure
+    (26) print_statement -> . PRINT LPAREN values RPAREN
+    (27) print_statement -> . PRINT LPAREN operation RPAREN
+    (28) print_statement -> . PRINT LPAREN RPAREN
+    (29) input_statement -> . INPUT LPAREN values RPAREN
+    (30) input_statement -> . INPUT LPAREN operation RPAREN
+    (31) input_statement -> . INPUT LPAREN RPAREN
+    (44) conditional_structure -> . IF conditions conditional_body
+    (45) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
+    (46) conditional_structure -> . IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body
+    (16) operation -> . value operator value
+    (17) operation -> . value operator operation
+    (18) operation -> . value double_operator
+    (60) list_structure -> . empty_list
+    (61) list_structure -> . list_with_data
+    (62) list_structure -> . defined_list
+    (69) value -> . VARIABLE
+    (70) value -> . number
+    (63) empty_list -> . LBRACE RBRACE
+    (64) list_with_data -> . LBRACE values RBRACE
+    (65) defined_list -> . TYPE VARIABLE LBRACE values RBRACE
+    (71) number -> . INT
+    (72) number -> . FLOAT
+
+    PRINT           shift and go to state 17
+    INPUT           shift and go to state 18
+    IF              shift and go to state 19
+    VARIABLE        shift and go to state 40
+    LBRACE          shift and go to state 8
+    TYPE            shift and go to state 113
+    INT             shift and go to state 25
+    FLOAT           shift and go to state 26
+
+    blocks                         shift and go to state 121
+    block                          shift and go to state 9
+    print_statement                shift and go to state 12
+    input_statement                shift and go to state 13
+    conditional_structure          shift and go to state 14
+    operation                      shift and go to state 15
+    list_structure                 shift and go to state 16
+    value                          shift and go to state 20
+    empty_list                     shift and go to state 21
+    list_with_data                 shift and go to state 22
+    defined_list                   shift and go to state 23
+    number                         shift and go to state 24
+
+state 116
+
+    (13) function -> FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks . RBRACE
+
+    RBRACE          shift and go to state 122
+
+
+state 117
+
+    (14) function -> FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks . RETURN VARIABLE RBRACE
+
+    RETURN          shift and go to state 123
+
+
+state 118
+
+    (15) function -> FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE .
+
+    $end            reduce using rule 15 (function -> FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE .)
+    RBRACE          reduce using rule 15 (function -> FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE .)
+
+
+state 119
+
+    (65) defined_list -> TYPE VARIABLE . LBRACE values RBRACE
+
+    LBRACE          shift and go to state 60
+
+
+state 120
+
+    (46) conditional_structure -> IF conditions conditional_body ELSE IF conditions conditional_body . ELSE conditional_body
+
+    ELSE            shift and go to state 124
+
+
+state 121
+
+    (12) function -> FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks . RETURN VARIABLE RBRACE
+
+    RETURN          shift and go to state 125
+
+
+state 122
+
+    (13) function -> FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE .
+
+    $end            reduce using rule 13 (function -> FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE .)
+    RBRACE          reduce using rule 13 (function -> FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE .)
+
+
+state 123
+
+    (14) function -> FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks RETURN . VARIABLE RBRACE
+
+    VARIABLE        shift and go to state 126
+
+
+state 124
+
+    (46) conditional_structure -> IF conditions conditional_body ELSE IF conditions conditional_body ELSE . conditional_body
+    (47) conditional_body -> . LBRACE statement RBRACE
+
+    LBRACE          shift and go to state 73
+
+    conditional_body               shift and go to state 127
+
+state 125
+
+    (12) function -> FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RETURN . VARIABLE RBRACE
+
+    VARIABLE        shift and go to state 128
+
+
+state 126
+
+    (14) function -> FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks RETURN VARIABLE . RBRACE
+
+    RBRACE          shift and go to state 129
+
+
+state 127
+
+    (46) conditional_structure -> IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body .
+
+    $end            reduce using rule 46 (conditional_structure -> IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body .)
+    RBRACE          reduce using rule 46 (conditional_structure -> IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body .)
+    RETURN          reduce using rule 46 (conditional_structure -> IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body .)
+
+
+state 128
+
+    (12) function -> FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RETURN VARIABLE . RBRACE
+
+    RBRACE          shift and go to state 130
+
+
+state 129
+
+    (14) function -> FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks RETURN VARIABLE RBRACE .
+
+    $end            reduce using rule 14 (function -> FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks RETURN VARIABLE RBRACE .)
+    RBRACE          reduce using rule 14 (function -> FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks RETURN VARIABLE RBRACE .)
+
+
+state 130
+
+    (12) function -> FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RETURN VARIABLE RBRACE .
+
+    $end            reduce using rule 12 (function -> FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RETURN VARIABLE RBRACE .)
+    RBRACE          reduce using rule 12 (function -> FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RETURN VARIABLE RBRACE .)
+
