@@ -9,6 +9,7 @@ def p_statement(p):
                  | blocks
                  | function
                  | parameters
+                 | variable_declaration
                  '''
     
 def p_blocks(p):
@@ -21,13 +22,22 @@ def p_block(p):
              | conditional_structure
              | operation
              | list_structure
+             | map_estructure
+             | map_assign
+             | for_estructure
              '''
+    
+def p_variable_declaration(p):
+    '''variable_declaration : VAR VARIABLE type
+                            | VAR VARIABLE ASSIGN value
+                            | VARIABLE SHORTASSIGN value'''
     
 def p_structure(p):
     'structure : TYPE VARIABLE STRUCT LBRACE statement RBRACE'
 
+# Tipos de funciones
 def p_function(p):
-    '''function : FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
+    '''function : FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RETURN VARIABLE RBRACE   
                 | FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE
                 | FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
                 | FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE
@@ -37,6 +47,9 @@ def p_values(p):
     '''values : value 
               | value COMMA values'''
 
+def p_string_value(p):
+    '''string_value : value
+                    | CHARSTRING'''
 
 def p_value(p):
     ''' value : VARIABLE
@@ -99,6 +112,7 @@ def p_type(p):
             | BOOL
             '''
     
+# Estructuras de control
 
 # Maria Jose Moyano 
 # Estructura condicional (if)
@@ -107,7 +121,9 @@ def p_conditional_structure(p):
                              | IF conditions conditional_body ELSE conditional_body
                              | IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body'''
 def p_conditional_body(p):
-    'conditional_body : LBRACE statement RBRACE'
+    '''conditional_body : LBRACE statement RBRACE
+                        | LBRACE BREAK RBRACE
+                        | LBRACE CONTINUE RBRACE'''
 
 def p_conditions(p):
     '''conditions : condition
@@ -131,7 +147,32 @@ def p_relational_operator(p):
                            | DIFFERENT
     '''
 
-# Lista como estructura de datos
+# Guillero Arevalo
+# Estructura for
+
+def p_for_estructure(p):
+    '''for_estructure : for_initialization
+                      | for_infinite_bucle
+                      | for_iterator'''
+
+def p_for_initialization(p):
+    'for_initialization : FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE'
+
+def p_for_infinite_bucle(p):
+    'for_infinite_bucle : FOR LBRACE statement RBRACE'
+
+def p_for_iterator(p):
+    'for_iterator : FOR VARIABLE SEMICOLON VARIABLE SHORTASSIGN RANGE VARIABLE LBRACE statement RBRACE'
+
+# Brian Mite
+# Estructura for
+
+
+
+# Estructura de datos
+
+#Maria Jose Moyano 
+# Lista
 def p_list_structure(p):
     '''list_structure : empty_list
                       | list_with_data
@@ -147,6 +188,25 @@ def p_list_with_data(p):
 def p_defined_list(p):
     'defined_list : TYPE VARIABLE LBRACE values RBRACE'
 
+
+# Guillermo Arevalo
+# Map
+def p_map_estructure(p):
+    '''map_estructure : VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+                      | VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN'''
+
+def p_map_values(p):
+    '''map_values : map_value
+                  | map_value COMMA map_values'''
+    
+def p_map_value(p):
+    '''map_value : string_value COLON string_value'''
+
+def p_map_assign(p):
+    'map_assign : VARIABLE LBRACKET string_value RBRACKET ASSIGN string_value'
+
+# Brian Mite
+# 
 
 t_ignore = ' \t'
 

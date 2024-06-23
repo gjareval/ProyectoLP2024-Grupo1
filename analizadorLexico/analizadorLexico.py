@@ -53,6 +53,7 @@ tokens = (
     'OR',               # ||
     'NOT',              # !
     'ASSIGN',           # =
+    'SHORTASSIGN',      # :=
     'PLUSASSIGN',       # +=
     'MINUSASSIGN',      # -=
     'TIMESASSIGN',      # *=
@@ -85,8 +86,6 @@ tokens = (
     'PRINT',
     'INPUT',
     'VARIABLE',
-    'FLOAT',
-    'INT',
     'IDENTIFIER',
     'TEXT'
    
@@ -103,6 +102,7 @@ t_AND = r'&&'
 t_OR = r'\|\|'
 t_NOT = r'\!'
 t_ASSIGN = r'='
+t_SHORTASSIGN = r':=' 
 t_PLUSASSIGN = r'\+='
 t_MINUSASSIGN = r'-='
 t_TIMESASSIGN = r'\*='
