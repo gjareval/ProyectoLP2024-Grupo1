@@ -1,0 +1,11 @@
+Analizador sintactico:
+None
+
+Errores:
+Syntax error at token 'busqueda_binaria'
+Syntax error at token '('
+Syntax error at token ')'
+Syntax error at token '<'
+Syntax error at token 'else'
+Syntax error at token 'return'
+Illegal character ('#',1,16)

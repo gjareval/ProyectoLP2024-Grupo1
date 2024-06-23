@@ -1,0 +1,9 @@
+Analizador sintactico:
+None
+
+Errores:
+Syntax error at token 'in'
+Illegal character ('#',1,9)
+Illegal character ('í',1,24)
+Syntax error at token ','
+Syntax error at token ':'

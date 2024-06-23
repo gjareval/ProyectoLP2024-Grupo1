@@ -1,0 +1,11 @@
+Analizador sintactico:
+None
+
+Errores:
+Syntax error at token '['
+Illegal character ('#',1,13)
+Syntax error at token ','
+Syntax error at token ','
+Syntax error at token '+='
+Illegal character ('#',1,5)
+Syntax error at token ')'

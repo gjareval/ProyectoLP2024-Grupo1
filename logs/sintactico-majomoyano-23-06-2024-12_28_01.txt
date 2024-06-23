@@ -1,0 +1,15 @@
+Analizador sintactico:
+None
+
+Errores:
+Syntax error at token 'seleccion_ordenar'
+Illegal character ('#',1,5)
+Illegal character ('#',1,9)
+Illegal character ('í',1,24)
+Syntax error at token ','
+Syntax error at token ':'
+Illegal character ('#',1,9)
+Syntax error at token 'el'
+Syntax error at token ','
+Syntax error at token '['
+Syntax error at token 'return'

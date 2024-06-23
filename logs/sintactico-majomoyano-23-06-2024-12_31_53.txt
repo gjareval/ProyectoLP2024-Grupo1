@@ -1,0 +1,11 @@
+Analizador sintactico:
+None
+
+Errores:
+Syntax error at token 'insercion_ordenar'
+Syntax error at token '['
+Syntax error at token 'j'
+Syntax error at token ':'
+Syntax error at token '+'
+Syntax error at token 'j'
+Syntax error at token ']'
