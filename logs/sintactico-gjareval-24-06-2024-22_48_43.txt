@@ -1,0 +1,6 @@
+Analizador sintactico:
+None
+
+Errores:
+Syntax error at token 'fact'
+Syntax error at token '}'

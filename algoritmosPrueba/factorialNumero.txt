@@ -1,0 +1,57 @@
+
+package func1
+
+import (
+	"fmt"
+	"otroImport"
+)
+func main(){
+
+	func factorial(n int) int {
+		result := 1
+		for i := 1; i <= n; i++ {
+			result := i
+		}
+		return result
+	}
+	func hola() {
+		num := 5
+		fact := factorial
+		fmt.Print(fact)
+	}
+
+	func numFact() {
+		if numFact<9 {
+			fmt.Print("Número es menor a 9")
+		}
+
+		else if numFact>9 && numFact<20 {
+			fmt.Print("Número es mayor a 9 y menor a 20")
+			}
+
+		else {
+			fmt.Print("Numero es mayor a 20")
+			}
+
+	}
+
+	var list={}
+	func forList() {
+		for lista; lista:= range listas {
+			fmt.Println(lista)}
+	}
+
+	func mapeado(){
+		mapa := make(map[string]int)
+		
+		for i:=0;i<10;i++{
+			fmt.Scan(resultado1)
+            fmt.Scan(resultado2)
+			mapa[resultado1]=resultado2
+		}
+	}
+}
+
+
+
+

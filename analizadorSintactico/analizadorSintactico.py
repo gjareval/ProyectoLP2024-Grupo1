@@ -7,9 +7,22 @@ import errorsList as errorsList
 # Definicion de las definiciones  gramaticales
 def p_statement(p):
     '''statement : blocks
+                 | import blocks
                  | package blocks
+                 | package import blocks
                  | main LBRACE blocks RBRACE
-                 | package main LBRACE blocks RBRACE'''
+                 | package main LBRACE blocks RBRACE
+                 | import main LBRACE blocks RBRACE
+                 | package import main LBRACE blocks RBRACE'''
+
+def p_import(p):
+    '''import :
+              | IMPORT CHARSTRING
+              | IMPORT LPAREN values_import RPAREN'''
+    
+def p_values_import(p):
+    '''values_import : CHARSTRING
+                     | CHARSTRING values_import'''
 
 def p_package(p):
     'package : PACKAGE VARIABLE'  
@@ -41,6 +54,7 @@ def p_block(p):
 def p_variable_declaration(p):
     '''variable_declaration : VAR VARIABLE type
                             | VAR VARIABLE ASSIGN value
+                            | VAR VARIABLE ASSIGN list_structure
                             | VARIABLE SHORTASSIGN value
                             | VARIABLE SHORTASSIGN operation'''
     
@@ -53,6 +67,7 @@ def p_function(p):
                 | FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE
                 | FUNCTION VARIABLE LPAREN RPAREN type LBRACE RETURN value RBRACE
                 | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE RETURN value RBRACE
+                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RETURN value RBRACE
                 '''
 
 def p_values(p):
