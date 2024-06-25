@@ -1,0 +1,48 @@
+package main
+
+import (
+	"fmt"
+)
+
+func fibonacci(n int) []int {
+	if n <= 0 {                  // Token 'LESSEQUALS' como '<='
+		return []int{}
+	}
+	series := make([]int, n)
+	series[0] = 0
+	if n > 1 {                   // Token 'GREATER' como '>'
+		series[1] = 1
+		for i := 2; i < n; i++ { // Token 'LESS' como '<'
+			series[i] = series[i-1] + series[i-2] // Token 'PLUS' como '+'
+		}
+	}
+	return series
+}
+
+func main() {
+	num := 10
+	fibSeries := fibonacci(num)
+	fmt.Printf("Los primeros %d números de Fibonacci son: %v\n", num, fibSeries)
+	
+	// Token 'PRINT'
+	fmt.Printf("Suma de los primeros %d números de Fibonacci es: %d\n", num, sum(fibSeries))
+	
+	// Tokens 'INPUT' y 'VARIABLE'
+	var input int // 'VARIABLE'
+	fmt.Print("Ingrese un número: ")
+	_, err := fmt.Scanf("%d", &input) // 'INPUT'
+	if err != nil {              // Token 'DIFFERENT' como '!='
+		fmt.Println("Entrada inválida")
+	} else {                    // Token 'ELSE' como 'else'
+		fibSeries = fibonacci(input)
+		fmt.Printf("Los primeros %d números de Fibonacci son: %v\n", input, fibSeries) // 'PRINT'
+	}
+}
+
+func sum(series []int) int {
+	total := 0
+	for _, value := range series {
+		total += value       // Token 'PLUSASSIGN' como '+='
+	}
+	return total
+}
