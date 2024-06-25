@@ -38,7 +38,8 @@ reserved = {
     'float':'FLOAT',   
     'float32':'FLOAT32',    
     'float64':'FLOAT64',   
-    'string':'STRING',      
+    'string':'STRING',
+    'return':'RETURN',
 }
 
 # List of tokens names
