@@ -1,0 +1,7 @@
+Analizador sintactico:
+None
+
+Errores:
+Syntax error at token '10'
+Syntax error at token 'f'
+Syntax error at token '10'
