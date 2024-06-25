@@ -1,0 +1,6 @@
+Analizador sintactico:
+None
+
+Errores:
+Syntax error at token 'fmt.Print'
+Syntax error at token '}'

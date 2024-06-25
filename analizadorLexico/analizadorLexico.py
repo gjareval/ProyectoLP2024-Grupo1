@@ -84,6 +84,7 @@ tokens = (
     'LPAREN',           # (
     'RPAREN',           # )
     'PRINT',
+    'PRINTF',
     'INPUT',
     'VARIABLE',
     'IDENTIFIER',
@@ -149,6 +150,9 @@ def t_INT(t):
     t.value = int(t.value)    
     return t
 
+def t_PRINTF(t):
+    r'fmt\.Printf'
+    return t
 
 def t_PRINT(t):
     r'fmt\.Print(ln)?'

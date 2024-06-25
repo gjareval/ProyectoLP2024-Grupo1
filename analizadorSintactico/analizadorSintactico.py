@@ -6,8 +6,17 @@ import errorsList as errorsList
 
 # Definicion de las definiciones  gramaticales
 def p_statement(p):
-    'statement : blocks'
-    
+    '''statement : blocks
+                 | package blocks
+                 | main LBRACE blocks RBRACE
+                 | package main LBRACE blocks RBRACE'''
+
+def p_package(p):
+    'package : PACKAGE VARIABLE'  
+
+def p_main(p):
+    'main : FUNCTION MAIN LPAREN RPAREN'  
+
 def p_blocks(p):
     '''blocks : block
               | block blocks'''
@@ -67,7 +76,7 @@ def p_number(p):
 def p_print_statement(p):
     '''print_statement : PRINT LPAREN values RPAREN
                        | PRINT LPAREN string_value RPAREN
-                       | PRINT LPAREN FORMATSTRING COMMA values RPAREN
+                       | PRINTF LPAREN FORMATSTRING COMMA values RPAREN
                        | PRINT LPAREN string_value COMMA values RPAREN
                        | PRINT LPAREN operation RPAREN
                        | PRINT LPAREN RPAREN'''
