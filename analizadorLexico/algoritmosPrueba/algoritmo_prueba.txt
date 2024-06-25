@@ -1,4 +1,4 @@
-// Brian Mite
+// Ejemplo de uso de todos los tokens
 package main
 
 import "fmt"
@@ -7,44 +7,101 @@ func main() {
     // Declaración de variables
     var x int = 5
     var y int = 10
+    var z int
+    var booleano bool = true
+    var flotante float64 = 3.14
+    var cadena string = "Hola"
+    var otraCadena string = "Hola, %s"
+    var resultado int
 
     // Operadores aritméticos y asignaciones
     x = x + y
     y = x - y
     x *= y
     y /= x
+    x %= y
+    x++
+    y--
+
+    // Operadores de asignación compuesta
+    x += 10
+    y -= 5
+    x *= 2
+    y /= 2
+    x %= 3
 
     // Operadores de comparación
     if x > y {
         fmt.Println("x es mayor que y")
     } else if x < y {
         fmt.Println("x es menor que y")
-    } else {
+    } else if x == y {
         fmt.Println("x es igual a y")
+    } else if x != y {
+        fmt.Println("x es diferente de y")
     }
 
     // Operadores lógicos y de bits
-    z := x & y
-    fmt.Println("Resultado de x & y:", z)
+    if booleano && (x < y || x == 10) {
+        fmt.Println("Condición verdadera")
+    } else {
+        fmt.Println("Condición falsa")
+    }
+
+    z = x & y
+    resultado = x | y
+    resultado = x ^ y
+    resultado = x << 2
+    resultado = y >> 1
 
     // Llamada a función fmt.Println
+    fmt.Println("Resultado de x & y:", z)
     fmt.Println("Hola, mundo!")
+    fmt.Println("Otra cadena:", fmt.Sprintf(otraCadena, "mundo"))
 
     // Estructuras de control
     for i := 0; i < 5; i++ {
         fmt.Println("Iteración:", i)
     }
 
-    // Tipos de datos predefinidos y palabras reservadas
-    var booleano bool = true
-    var flotante float64 = 3.14
-    var cadena string = "Hola"
+    // Declaración de tipos de datos predefinidos y palabras reservadas
+    var entero int32 = 100
+    var enteroGrande int64 = 1000000000
+    var flotante32 float32 = 2.71
+    var flotante64 float64 = 3.14159265358979
 
-    // Palabras reservadas y tipos de datos
+    // Uso de switch
     switch cadena {
     case "Hola":
         fmt.Println("Saludo encontrado:", cadena)
+    case "Adiós":
+        fmt.Println("Despedida encontrada:", cadena)
     default:
-        fmt.Println("Saludo no reconocido")
+        fmt.Println("Texto no reconocido")
     }
+
+    // Uso de make, append y range
+    numeros := make([]int, 0)
+    numeros = append(numeros, 1, 2, 3, 4, 5)
+
+    for index, numero := range numeros {
+        fmt.Println("Índice:", index, "Número:", numero)
+    }
+
+    // Uso de continue y break en bucles
+    for i := 0; i < 10; i++ {
+        if i == 5 {
+            continue
+        }
+        if i == 8 {
+            break
+        }
+        fmt.Println("Número:", i)
+    }
+
+    // Ejemplo de map
+    mapa := make(map[string]int)
+    mapa["uno"] = 1
+    mapa["dos"] = 2
+    fmt.Println("Mapa:", mapa)
 }

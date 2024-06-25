@@ -1,0 +1,6 @@
+Analizador sintactico:
+None
+
+Errores:
+Syntax error at token '"Juan"'
+Syntax error at token '}'

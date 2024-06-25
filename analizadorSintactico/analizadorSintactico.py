@@ -25,22 +25,25 @@ def p_block(p):
              | function
              | parameters
              | variable_declaration
+             | switch_structure
+             | slice_structure
              '''
     
 def p_variable_declaration(p):
     '''variable_declaration : VAR VARIABLE type
                             | VAR VARIABLE ASSIGN value
-                            | VARIABLE SHORTASSIGN value'''
+                            | VARIABLE SHORTASSIGN value
+                            | VARIABLE SHORTASSIGN operation'''
     
 def p_structure(p):
     'structure : TYPE VARIABLE STRUCT LBRACE statement RBRACE'
 
 # Tipos de funciones
 def p_function(p):
-    '''function : FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RETURN VARIABLE RBRACE   
+    '''function : FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE   
                 | FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE
-                | FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks RETURN VARIABLE RBRACE
-                | FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE
+                | FUNCTION VARIABLE LPAREN RPAREN type LBRACE RETURN value RBRACE
+                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE RETURN value RBRACE
                 '''
 
 def p_values(p):
@@ -53,7 +56,8 @@ def p_string_value(p):
 
 def p_value(p):
     ''' value : VARIABLE
-              | number'''
+              | number
+              | CHARSTRING'''
     
 def p_number(p):
     '''number : INT
@@ -64,6 +68,7 @@ def p_print_statement(p):
     '''print_statement : PRINT LPAREN values RPAREN
                        | PRINT LPAREN string_value RPAREN
                        | PRINT LPAREN FORMATSTRING COMMA values RPAREN
+                       | PRINT LPAREN string_value COMMA values RPAREN
                        | PRINT LPAREN operation RPAREN
                        | PRINT LPAREN RPAREN'''
 
@@ -167,9 +172,26 @@ def p_for_iterator(p):
     'for_iterator : FOR VARIABLE SEMICOLON VARIABLE SHORTASSIGN RANGE VARIABLE LBRACE statement RBRACE'
 
 # Brian Mite
-# Estructura for
+# Estructura switch
+def p_switch_structure(p):
+    '''switch_structure : SWITCH switch_expression LBRACE case_blocks RBRACE'''
+    
+def p_switch_expression(p):
+    '''switch_expression : value
+                         | empty'''
+    
+def p_case_blocks(p):
+    '''case_blocks : case_block
+                   | case_block case_blocks'''
+    
+def p_case_block(p):
+    '''case_block : CASE values COLON statement
+                  | DEFAULT COLON statement'''
 
-
+# Manejar la regla vacía para la expresión opcional
+def p_empty(p):
+    'empty :'
+    pass
 
 # Estructura de datos
 
@@ -208,11 +230,17 @@ def p_map_assign(p):
     'map_assign : VARIABLE LBRACKET string_value RBRACKET ASSIGN string_value'
 
 # Brian Mite
-# 
+# Slice
+def p_slice_structure(p):
+    '''slice_structure : VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+                       | VAR VARIABLE LBRACKET RBRACKET type
+                       | VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+                       | VARIABLE ASSIGN append_statement'''
+
+def p_append_statement(p):
+    'append_statement : APPEND LPAREN VARIABLE COMMA values RPAREN'
 
 t_ignore = ' \t'
-
-
 
 def p_error(p):
     if p:
@@ -223,4 +251,3 @@ def p_error(p):
 
 # Construcción del parser
 parser = yacc.yacc()
-

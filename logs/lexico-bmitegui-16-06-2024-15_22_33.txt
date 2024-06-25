@@ -1,0 +1,6 @@
+Analizador lexico:
+LexToken(VAR,'var',1,0)
+LexToken(VARIABLE,'nombre',1,4)
+LexToken(STRINGSTATE,'string',1,11)
+LexToken(ASSIGN,'=',1,18)
+LexToken(CHARSTRING,'"Brian"',1,20)

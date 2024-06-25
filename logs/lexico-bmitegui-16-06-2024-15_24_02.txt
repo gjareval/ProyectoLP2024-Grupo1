@@ -1,0 +1,13 @@
+Analizador lexico:
+LexToken(PRINT,'fmt.Print',1,0)
+LexToken(VARIABLE,'f',1,9)
+LexToken(LPAREN,'(',1,10)
+LexToken(CHARSTRING,'"Nombre: %s Edad: %d\\n"',1,11)
+LexToken(COMMA,',',1,34)
+LexToken(VARIABLE,'nombre',1,36)
+LexToken(COMMA,',',1,42)
+LexToken(VARIABLE,'edad',1,44)
+LexToken(RPAREN,')',1,48)
+
+Errores:
+Illegal character ('',1,50)
