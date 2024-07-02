@@ -18,14 +18,15 @@ def p_statement(p):
 def p_import(p):
     '''import :
               | IMPORT CHARSTRING
-              | IMPORT LPAREN values_import RPAREN'''
+              | IMPORT LPAREN values_for_import RPAREN'''
     
-def p_values_import(p):
-    '''values_import : CHARSTRING
-                     | CHARSTRING values_import'''
+def p_values_for_import(p):
+    '''values_for_import : CHARSTRING
+                         | CHARSTRING values_for_import'''
 
 def p_package(p):
-    'package : PACKAGE VARIABLE'  
+    '''package : PACKAGE VARIABLE
+               | PACKAGE MAIN'''  
 
 def p_main(p):
     'main : FUNCTION MAIN LPAREN RPAREN'  
@@ -37,52 +38,66 @@ def p_blocks(p):
 def p_block(p):
     '''block : print_statement
              | input_statement
-             | conditional_structure
              | operation
-             | list_structure
-             | map_estructure
-             | map_assign
-             | for_estructure
-             | structure
+             | data_structure
+             | control_structure
              | function
              | parameters
              | variable_declaration
-             | switch_structure
-             | slice_structure
+             | variable_assignation
              '''
     
 def p_variable_declaration(p):
     '''variable_declaration : VAR VARIABLE type
-                            | VAR VARIABLE ASSIGN value
-                            | VAR VARIABLE ASSIGN list_structure
+                            | VAR VARIABLE type ASSIGN value
                             | VARIABLE SHORTASSIGN value
-                            | VARIABLE SHORTASSIGN operation'''
+                            | VARIABLE SHORTASSIGN operation
+                            | CONST VARIABLE ASSIGN value'''
     
-def p_structure(p):
-    'structure : TYPE VARIABLE STRUCT LBRACE statement RBRACE'
-
+def p_variable_assignation(p):
+    '''variable_assignation : VARIABLE assignation value
+                            | VARIABLE assignation operation
+                            | VARIABLE double_operator
+                            | map_assign
+                            | array_assign'''
+    
+def p_assignation(p):
+    '''assignation : ASSIGN
+                   | PLUSASSIGN
+                   | MINUSASSIGN
+                   | TIMESASSIGN
+                   | DIVIDEASSIGN
+                   | MODASSIGN
+                   '''
+    
 # Tipos de funciones
 def p_function(p):
     '''function : FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE   
                 | FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE
-                | FUNCTION VARIABLE LPAREN RPAREN type LBRACE RETURN value RBRACE
-                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE RETURN value RBRACE
-                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RETURN value RBRACE
+                | FUNCTION VARIABLE LPAREN RPAREN type LBRACE return RBRACE
+                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE return RBRACE
+                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks return RBRACE
+                | FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks return RBRACE
                 '''
+    
+def p_return(p):
+    '''return : RETURN values
+              | RETURN value LBRACKET value RBRACKET
+              | RETURN value PERIOD value'''
+
 
 def p_values(p):
     '''values : value 
               | value COMMA values'''
-
-def p_string_value(p):
-    '''string_value : value
-                    | CHARSTRING'''
-
-def p_value(p):
-    ''' value : VARIABLE
-              | number
-              | CHARSTRING'''
     
+def p_value(p):
+    '''value : VARIABLE
+             | not_variable_value'''
+    
+def p_not_variable_value(p):
+    ''' not_variable_value : CHARSTRING
+                           | number'''
+      
 def p_number(p):
     '''number : INT
               | FLOAT'''
@@ -90,9 +105,7 @@ def p_number(p):
 # Impresión con cero, uno o más argumentos  
 def p_print_statement(p):
     '''print_statement : PRINT LPAREN values RPAREN
-                       | PRINT LPAREN string_value RPAREN
                        | PRINTF LPAREN FORMATSTRING COMMA values RPAREN
-                       | PRINT LPAREN string_value COMMA values RPAREN
                        | PRINT LPAREN operation RPAREN
                        | PRINT LPAREN RPAREN'''
 
@@ -125,7 +138,6 @@ def p_double_operator(p):
     
 def p_parameters(p):
     '''parameters : parameter
-                  | parameter parameters
                   | parameter COMMA parameters
                   '''
 
@@ -144,6 +156,10 @@ def p_type(p):
             '''
     
 # Estructuras de control
+def p_control_structure(p):
+    '''control_structure : conditional_structure
+                         | for_estructure
+                         | switch_structure'''
 
 # Maria Jose Moyano 
 # Estructura condicional (if)
@@ -219,28 +235,37 @@ def p_empty(p):
 
 # Estructura de datos
 
+# Struct
+def p_data_structure(p):
+    '''data_structure : array_structure
+                      | map_structure
+                      | slice_structure
+                      | struct_structure'''
+    
+def p_struct_structure(p):
+    'struct_structure : TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE'
+
+def p_struct_fields(p):
+    '''struct_fields : struct_field
+                     | struct_field struct_fields'''
+
+def p_struct_field(p):
+    'struct_field : VARIABLE type'
+
 #Maria Jose Moyano 
-# Lista
-def p_list_structure(p):
-    '''list_structure : empty_list
-                      | list_with_data
-                      | defined_list
+# Array
+def p_array_structure(p):
+    '''array_structure : VAR VARIABLE LBRACKET INT RBRACKET type
+                       | VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
                       '''
-
-def p_empty_list(p):
-    'empty_list : LBRACE RBRACE'
-
-def p_list_with_data(p):
-    'list_with_data : LBRACE values RBRACE'
-
-def p_defined_list(p):
-    'defined_list : TYPE VARIABLE LBRACE values RBRACE'
-
+    
+def p_array_assign(p):
+    'array_assign : VARIABLE LBRACKET INT RBRACKET ASSIGN value'
 
 # Guillermo Arevalo
 # Map
-def p_map_estructure(p):
-    '''map_estructure : VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+def p_map_structure(p):
+    '''map_structure : VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
                       | VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN'''
 
 def p_map_values(p):
@@ -248,10 +273,10 @@ def p_map_values(p):
                   | map_value COMMA map_values'''
     
 def p_map_value(p):
-    '''map_value : string_value COLON string_value'''
+    '''map_value : value COLON value'''
 
 def p_map_assign(p):
-    'map_assign : VARIABLE LBRACKET string_value RBRACKET ASSIGN string_value'
+    'map_assign : VARIABLE LBRACKET value RBRACKET ASSIGN value'
 
 # Brian Mite
 # Slice
@@ -271,7 +296,6 @@ def p_error(p):
         errorsList.errors.append(f"Syntax error at token '{p.value}'")
     else:
         errorsList.errors.append("Syntax error: unexpected end of input")
-
 
 # Construcción del parser
 parser = yacc.yacc()

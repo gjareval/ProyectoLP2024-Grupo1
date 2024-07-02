@@ -73,6 +73,7 @@ tokens = (
     #Brian Mite
     'AMPERSAND',        # &
     'COMMA',            # ,
+    'PERIOD',           # .
     'COLON',            # :
     'SEMICOLON',        # ;
     'LBRACE',           # {
@@ -117,6 +118,7 @@ t_GREATER = r'>'
 t_GREATEREQUALS = r'>='
 t_INCREMENT = r'\+\+'
 t_DECREMENT = r'\-\-'
+t_PERIOD = r'\.'
 t_COMMA = r','
 t_COLON = r':'
 t_SEMICOLON = r';'
@@ -129,15 +131,15 @@ t_RBRACKET = r'\]'
 t_AMPERSAND = r'&'
 
 # Regular expressions for complex tokens
-
 def t_FORMATSTRING(t):
-    r'\"([^%\\"]|\\.)*%[sdf](.*?[^%\\"]|\\.)*\"'
+    r'\"[^\"\\]*(\\.[^\"\\]*)*%(s|d|f)[^\"\\]*(\\.[^\"\\]*)*\"'
     return t
 
 def t_CHARSTRING(t):
     r'\"[^\"]*\"'
     t.type = reserved.get(t.value,'CHARSTRING')
     return t
+
 
 def t_FLOAT(t):
     r'\d+\.\d+'

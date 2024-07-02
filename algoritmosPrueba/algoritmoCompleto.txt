@@ -1,0 +1,45 @@
+//Guillermo Arevalo
+
+package main
+
+import (
+	"fmt"
+	"otroImport"
+)
+func main(){
+
+	func pruebaPrints(){
+		fmt.Println(10,11,12)
+		fmt.Printf("Name: %s, Age: %d, Height: %.2f\n", name, age, height)
+		fmt.Print(variable1+variable2)
+		fmt.Println()
+	}
+
+	func pruebaInputs(){
+		fmt.Scan(entrada)
+		fmt.Scan(values1,values2)
+		fmt.Scanln(valor1+valor2)
+		fmt.Scanln()
+	}
+
+	func operaciones(valor1 int, valor2 int ) int {
+		fmt.Scanln(valor4)
+		fmt.Println(valor4)
+		valor3=valor1+valor2+valor4
+		return valor3,valor2,valor1
+	}
+
+	func pruebaStruct() string {
+		type estructura1 struct{
+			campo1 string
+			campo2 int
+			campo3 float
+		}
+
+		return estructura1.campo1
+	}
+}
+
+
+
+
