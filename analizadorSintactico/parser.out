@@ -40,16 +40,16 @@ Rule 27    block -> variable_declaration
 Rule 28    block -> variable_assignation
 Rule 29    block -> return
 Rule 30    variable_declaration -> VAR VARIABLE type
-Rule 31    variable_declaration -> VAR variables type
-Rule 32    variable_declaration -> VAR VARIABLE type ASSIGN value
-Rule 33    variable_declaration -> VAR variables type ASSIGN value
-Rule 34    variable_declaration -> VARIABLE SHORTASSIGN value
-Rule 35    variable_declaration -> VARIABLE SHORTASSIGN operation
+Rule 31    variable_declaration -> VAR VARIABLE type ASSIGN value
+Rule 32    variable_declaration -> VARIABLE SHORTASSIGN value
+Rule 33    variable_declaration -> VARIABLE SHORTASSIGN operation
+Rule 34    variable_declaration -> VAR variables type
+Rule 35    variable_declaration -> VAR variables type ASSIGN value
 Rule 36    variable_declaration -> CONST VARIABLE ASSIGN value
 Rule 37    variable_assignation -> VARIABLE assignation value
-Rule 38    variable_assignation -> variables assignation value
-Rule 39    variable_assignation -> VARIABLE assignation operation
-Rule 40    variable_assignation -> VARIABLE double_operator
+Rule 38    variable_assignation -> VARIABLE assignation operation
+Rule 39    variable_assignation -> VARIABLE double_operator
+Rule 40    variable_assignation -> variables assignation value
 Rule 41    variable_assignation -> map_assign
 Rule 42    variable_assignation -> array_assign
 Rule 43    variables -> VARIABLE
@@ -179,7 +179,7 @@ Terminals, with rules where they appear
 AMPERSAND            : 
 AND                  : 118
 APPEND               : 162 163
-ASSIGN               : 32 33 36 45 92 150 151 157 161
+ASSIGN               : 31 35 36 45 92 150 151 157 161
 BOOL                 : 105
 BREAK                : 113
 CASE                 : 138
@@ -238,7 +238,7 @@ RBRACKET             : 58 65 66 149 150 151 152 153 157 158 159 160 163
 RETURN               : 57 58 59 60 61
 RPAREN               : 11 16 51 52 53 54 55 56 72 73 74 75 76 77 78 80 81 82 84 85 86 153 162 163
 SEMICOLON            : 19 130 130
-SHORTASSIGN          : 34 35 130 132 134 152 153 158 160
+SHORTASSIGN          : 32 33 130 132 134 152 153 158 160
 STRING               : 101
 STRUCT               : 145
 SWITCH               : 133
@@ -247,8 +247,8 @@ TIMES                : 90
 TIMESASSIGN          : 48
 TRUE                 : 60
 TYPE                 : 145
-VAR                  : 30 31 32 33 149 150 159
-VARIABLE             : 14 30 32 34 35 36 37 39 40 43 44 51 52 53 54 55 56 64 65 66 97 130 132 132 132 134 145 148 149 150 151 152 153 157 158 159 160 161 162 163
+VAR                  : 30 31 34 35 149 150 159
+VARIABLE             : 14 30 31 32 33 36 37 38 39 43 44 51 52 53 54 55 56 64 65 66 97 130 132 132 132 134 145 148 149 150 151 152 153 157 158 159 160 161 162 163
 error                : 
 
 Nonterminals, with rules where they appear
@@ -256,7 +256,7 @@ Nonterminals, with rules where they appear
 append_statement     : 161
 array_assign         : 42
 array_structure      : 141
-assignation          : 37 38 39
+assignation          : 37 38 40
 block                : 17 18 19
 blocks               : 1 2 3 4 5 6 7 8 18 19 51 52 55 56
 case_block           : 136 137
@@ -267,7 +267,7 @@ conditional_structure : 106
 conditions           : 109 110 111 111 116
 control_structure    : 24
 data_structure       : 23
-double_operator      : 40 87 130
+double_operator      : 39 87 130
 empty                : 135
 for_estructure       : 107
 for_infinite_bucle   : 128
@@ -284,7 +284,7 @@ map_value            : 154 155
 map_values           : 152 155
 not_variable_value   : 67
 number               : 69
-operation            : 22 35 39 74 77 83 84 85 86
+operation            : 22 33 38 74 77 83 84 85 86
 operator             : 79 80 81 82 83 84 85 86
 package              : 3 4 6 8
 parameter            : 95 96
@@ -299,13 +299,13 @@ struct_fields        : 145 147
 struct_structure     : 144
 switch_expression    : 133
 switch_structure     : 108
-type                 : 30 31 32 33 53 54 55 56 97 148 149 150 152 152 153 153 158 159 160 163
-value                : 32 33 34 36 37 38 58 58 59 59 62 63 66 79 79 80 80 81 81 82 82 83 84 85 86 87 117 117 130 130 134 151 156 156 157 157
+type                 : 30 31 34 35 53 54 55 56 97 148 149 150 152 152 153 153 158 159 160 163
+value                : 31 32 35 36 37 40 58 58 59 59 62 63 66 79 79 80 80 81 81 82 82 83 84 85 86 87 117 117 130 130 134 151 156 156 157 157
 values               : 57 63 72 73 76 138 150 158 162 163
 values_for_import    : 11 13
 variable_assignation : 28
 variable_declaration : 27
-variables            : 31 33 38 44
+variables            : 34 35 40 44
 
 Parsing method: LALR
 
@@ -371,16 +371,16 @@ state 0
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -573,16 +573,16 @@ state 3
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -726,16 +726,16 @@ state 4
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -916,16 +916,16 @@ state 6
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -1112,11 +1112,11 @@ state 10
 
 state 11
 
-    (34) variable_declaration -> VARIABLE . SHORTASSIGN value
-    (35) variable_declaration -> VARIABLE . SHORTASSIGN operation
+    (32) variable_declaration -> VARIABLE . SHORTASSIGN value
+    (33) variable_declaration -> VARIABLE . SHORTASSIGN operation
     (37) variable_assignation -> VARIABLE . assignation value
-    (39) variable_assignation -> VARIABLE . assignation operation
-    (40) variable_assignation -> VARIABLE . double_operator
+    (38) variable_assignation -> VARIABLE . assignation operation
+    (39) variable_assignation -> VARIABLE . double_operator
     (64) value -> VARIABLE .
     (65) value -> VARIABLE . LBRACKET RBRACKET
     (66) value -> VARIABLE . LBRACKET value RBRACKET
@@ -1751,9 +1751,9 @@ state 34
 state 35
 
     (30) variable_declaration -> VAR . VARIABLE type
-    (31) variable_declaration -> VAR . variables type
-    (32) variable_declaration -> VAR . VARIABLE type ASSIGN value
-    (33) variable_declaration -> VAR . variables type ASSIGN value
+    (31) variable_declaration -> VAR . VARIABLE type ASSIGN value
+    (34) variable_declaration -> VAR . variables type
+    (35) variable_declaration -> VAR . variables type ASSIGN value
     (149) array_structure -> VAR . VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> VAR . VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
     (159) slice_structure -> VAR . VARIABLE LBRACKET RBRACKET type
@@ -1766,7 +1766,7 @@ state 35
 
 state 36
 
-    (38) variable_assignation -> variables . assignation value
+    (40) variable_assignation -> variables . assignation value
     (45) assignation -> . ASSIGN
     (46) assignation -> . PLUSASSIGN
     (47) assignation -> . MINUSASSIGN
@@ -2290,16 +2290,16 @@ state 55
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -2443,16 +2443,16 @@ state 57
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -2598,16 +2598,16 @@ state 59
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -2863,8 +2863,8 @@ state 66
 
 state 67
 
-    (34) variable_declaration -> VARIABLE SHORTASSIGN . value
-    (35) variable_declaration -> VARIABLE SHORTASSIGN . operation
+    (32) variable_declaration -> VARIABLE SHORTASSIGN . value
+    (33) variable_declaration -> VARIABLE SHORTASSIGN . operation
     (152) map_structure -> VARIABLE SHORTASSIGN . MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
     (153) map_structure -> VARIABLE SHORTASSIGN . MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
     (158) slice_structure -> VARIABLE SHORTASSIGN . LBRACKET RBRACKET type LBRACE values RBRACE
@@ -2904,7 +2904,7 @@ state 67
 state 68
 
     (37) variable_assignation -> VARIABLE assignation . value
-    (39) variable_assignation -> VARIABLE assignation . operation
+    (38) variable_assignation -> VARIABLE assignation . operation
     (64) value -> . VARIABLE
     (65) value -> . VARIABLE LBRACKET RBRACKET
     (66) value -> . VARIABLE LBRACKET value RBRACKET
@@ -2936,29 +2936,29 @@ state 68
 
 state 69
 
-    (40) variable_assignation -> VARIABLE double_operator .
+    (39) variable_assignation -> VARIABLE double_operator .
 
-    SEMICOLON       reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    PRINT           reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    PRINTF          reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    INPUT           reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    LPAREN          reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    FUNCTION        reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    VAR             reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    VARIABLE        reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    CONST           reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    RETURN          reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    TYPE            reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    IF              reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    SWITCH          reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    CHARSTRING      reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    FOR             reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    INT             reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    FLOAT           reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    $end            reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    RBRACE          reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    CASE            reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
-    DEFAULT         reduce using rule 40 (variable_assignation -> VARIABLE double_operator .)
+    SEMICOLON       reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    PRINT           reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    PRINTF          reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    INPUT           reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    LPAREN          reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    FUNCTION        reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    VAR             reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    VARIABLE        reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    CONST           reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    RETURN          reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    TYPE            reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    IF              reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    SWITCH          reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    CHARSTRING      reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    FOR             reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    INT             reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    FLOAT           reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    $end            reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    RBRACE          reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    CASE            reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
+    DEFAULT         reduce using rule 39 (variable_assignation -> VARIABLE double_operator .)
 
 
 state 70
@@ -3645,7 +3645,7 @@ state 101
 state 102
 
     (30) variable_declaration -> VAR VARIABLE . type
-    (32) variable_declaration -> VAR VARIABLE . type ASSIGN value
+    (31) variable_declaration -> VAR VARIABLE . type ASSIGN value
     (149) array_structure -> VAR VARIABLE . LBRACKET INT RBRACKET type
     (150) array_structure -> VAR VARIABLE . ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
     (159) slice_structure -> VAR VARIABLE . LBRACKET RBRACKET type
@@ -3693,8 +3693,8 @@ state 102
 
 state 103
 
-    (31) variable_declaration -> VAR variables . type
-    (33) variable_declaration -> VAR variables . type ASSIGN value
+    (34) variable_declaration -> VAR variables . type
+    (35) variable_declaration -> VAR variables . type ASSIGN value
     (98) type -> . INT
     (99) type -> . INT32
     (100) type -> . INT64
@@ -3717,7 +3717,7 @@ state 103
 
 state 104
 
-    (38) variable_assignation -> variables assignation . value
+    (40) variable_assignation -> variables assignation . value
     (64) value -> . VARIABLE
     (65) value -> . VARIABLE LBRACKET RBRACKET
     (66) value -> . VARIABLE LBRACKET value RBRACKET
@@ -4013,16 +4013,16 @@ state 119
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -4197,16 +4197,16 @@ state 120
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -4359,16 +4359,16 @@ state 123
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -4568,7 +4568,7 @@ state 130
 
 state 131
 
-    (34) variable_declaration -> VARIABLE SHORTASSIGN value .
+    (32) variable_declaration -> VARIABLE SHORTASSIGN value .
     (79) operation -> value . operator value
     (80) operation -> value . operator LPAREN value RPAREN
     (83) operation -> value . operator operation
@@ -4582,27 +4582,27 @@ state 131
     (93) double_operator -> . INCREMENT
     (94) double_operator -> . DECREMENT
 
-    SEMICOLON       reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    PRINT           reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    PRINTF          reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    INPUT           reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    LPAREN          reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    FUNCTION        reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    VAR             reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    VARIABLE        reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    CONST           reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    RETURN          reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    TYPE            reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    IF              reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    SWITCH          reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    CHARSTRING      reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    FOR             reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    INT             reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    FLOAT           reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    $end            reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    RBRACE          reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    CASE            reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
-    DEFAULT         reduce using rule 34 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    SEMICOLON       reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    PRINT           reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    PRINTF          reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    INPUT           reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    LPAREN          reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    FUNCTION        reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    VAR             reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    VARIABLE        reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    CONST           reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    RETURN          reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    TYPE            reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    IF              reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    SWITCH          reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    CHARSTRING      reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    FOR             reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    INT             reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    FLOAT           reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    $end            reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    RBRACE          reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    CASE            reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
+    DEFAULT         reduce using rule 32 (variable_declaration -> VARIABLE SHORTASSIGN value .)
     PLUS            shift and go to state 96
     MINUS           shift and go to state 97
     TIMES           shift and go to state 98
@@ -4616,29 +4616,29 @@ state 131
 
 state 132
 
-    (35) variable_declaration -> VARIABLE SHORTASSIGN operation .
+    (33) variable_declaration -> VARIABLE SHORTASSIGN operation .
 
-    SEMICOLON       reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    PRINT           reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    PRINTF          reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    INPUT           reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    LPAREN          reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    FUNCTION        reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    VAR             reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    VARIABLE        reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    CONST           reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    RETURN          reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    TYPE            reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    IF              reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    SWITCH          reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    CHARSTRING      reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    FOR             reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    INT             reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    FLOAT           reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    $end            reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    RBRACE          reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    CASE            reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
-    DEFAULT         reduce using rule 35 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    SEMICOLON       reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    PRINT           reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    PRINTF          reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    INPUT           reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    LPAREN          reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    FUNCTION        reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    VAR             reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    VARIABLE        reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    CONST           reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    RETURN          reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    TYPE            reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    IF              reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    SWITCH          reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    CHARSTRING      reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    FOR             reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    INT             reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    FLOAT           reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    $end            reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    RBRACE          reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    CASE            reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
+    DEFAULT         reduce using rule 33 (variable_declaration -> VARIABLE SHORTASSIGN operation .)
 
 
 state 133
@@ -4713,29 +4713,29 @@ state 136
 
 state 137
 
-    (39) variable_assignation -> VARIABLE assignation operation .
+    (38) variable_assignation -> VARIABLE assignation operation .
 
-    SEMICOLON       reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    PRINT           reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    PRINTF          reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    INPUT           reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    LPAREN          reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    FUNCTION        reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    VAR             reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    VARIABLE        reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    CONST           reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    RETURN          reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    TYPE            reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    IF              reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    SWITCH          reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    CHARSTRING      reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    FOR             reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    INT             reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    FLOAT           reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    $end            reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    RBRACE          reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    CASE            reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
-    DEFAULT         reduce using rule 39 (variable_assignation -> VARIABLE assignation operation .)
+    SEMICOLON       reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    PRINT           reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    PRINTF          reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    INPUT           reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    LPAREN          reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    FUNCTION        reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    VAR             reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    VARIABLE        reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    CONST           reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    RETURN          reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    TYPE            reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    IF              reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    SWITCH          reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    CHARSTRING      reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    FOR             reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    INT             reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    FLOAT           reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    $end            reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    RBRACE          reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    CASE            reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
+    DEFAULT         reduce using rule 38 (variable_assignation -> VARIABLE assignation operation .)
 
 
 state 138
@@ -5196,7 +5196,7 @@ state 159
 state 160
 
     (30) variable_declaration -> VAR VARIABLE type .
-    (32) variable_declaration -> VAR VARIABLE type . ASSIGN value
+    (31) variable_declaration -> VAR VARIABLE type . ASSIGN value
 
     SEMICOLON       reduce using rule 30 (variable_declaration -> VAR VARIABLE type .)
     PRINT           reduce using rule 30 (variable_declaration -> VAR VARIABLE type .)
@@ -5240,58 +5240,58 @@ state 162
 
 state 163
 
-    (31) variable_declaration -> VAR variables type .
-    (33) variable_declaration -> VAR variables type . ASSIGN value
+    (34) variable_declaration -> VAR variables type .
+    (35) variable_declaration -> VAR variables type . ASSIGN value
 
-    SEMICOLON       reduce using rule 31 (variable_declaration -> VAR variables type .)
-    PRINT           reduce using rule 31 (variable_declaration -> VAR variables type .)
-    PRINTF          reduce using rule 31 (variable_declaration -> VAR variables type .)
-    INPUT           reduce using rule 31 (variable_declaration -> VAR variables type .)
-    LPAREN          reduce using rule 31 (variable_declaration -> VAR variables type .)
-    FUNCTION        reduce using rule 31 (variable_declaration -> VAR variables type .)
-    VAR             reduce using rule 31 (variable_declaration -> VAR variables type .)
-    VARIABLE        reduce using rule 31 (variable_declaration -> VAR variables type .)
-    CONST           reduce using rule 31 (variable_declaration -> VAR variables type .)
-    RETURN          reduce using rule 31 (variable_declaration -> VAR variables type .)
-    TYPE            reduce using rule 31 (variable_declaration -> VAR variables type .)
-    IF              reduce using rule 31 (variable_declaration -> VAR variables type .)
-    SWITCH          reduce using rule 31 (variable_declaration -> VAR variables type .)
-    CHARSTRING      reduce using rule 31 (variable_declaration -> VAR variables type .)
-    FOR             reduce using rule 31 (variable_declaration -> VAR variables type .)
-    INT             reduce using rule 31 (variable_declaration -> VAR variables type .)
-    FLOAT           reduce using rule 31 (variable_declaration -> VAR variables type .)
-    $end            reduce using rule 31 (variable_declaration -> VAR variables type .)
-    RBRACE          reduce using rule 31 (variable_declaration -> VAR variables type .)
-    CASE            reduce using rule 31 (variable_declaration -> VAR variables type .)
-    DEFAULT         reduce using rule 31 (variable_declaration -> VAR variables type .)
+    SEMICOLON       reduce using rule 34 (variable_declaration -> VAR variables type .)
+    PRINT           reduce using rule 34 (variable_declaration -> VAR variables type .)
+    PRINTF          reduce using rule 34 (variable_declaration -> VAR variables type .)
+    INPUT           reduce using rule 34 (variable_declaration -> VAR variables type .)
+    LPAREN          reduce using rule 34 (variable_declaration -> VAR variables type .)
+    FUNCTION        reduce using rule 34 (variable_declaration -> VAR variables type .)
+    VAR             reduce using rule 34 (variable_declaration -> VAR variables type .)
+    VARIABLE        reduce using rule 34 (variable_declaration -> VAR variables type .)
+    CONST           reduce using rule 34 (variable_declaration -> VAR variables type .)
+    RETURN          reduce using rule 34 (variable_declaration -> VAR variables type .)
+    TYPE            reduce using rule 34 (variable_declaration -> VAR variables type .)
+    IF              reduce using rule 34 (variable_declaration -> VAR variables type .)
+    SWITCH          reduce using rule 34 (variable_declaration -> VAR variables type .)
+    CHARSTRING      reduce using rule 34 (variable_declaration -> VAR variables type .)
+    FOR             reduce using rule 34 (variable_declaration -> VAR variables type .)
+    INT             reduce using rule 34 (variable_declaration -> VAR variables type .)
+    FLOAT           reduce using rule 34 (variable_declaration -> VAR variables type .)
+    $end            reduce using rule 34 (variable_declaration -> VAR variables type .)
+    RBRACE          reduce using rule 34 (variable_declaration -> VAR variables type .)
+    CASE            reduce using rule 34 (variable_declaration -> VAR variables type .)
+    DEFAULT         reduce using rule 34 (variable_declaration -> VAR variables type .)
     ASSIGN          shift and go to state 218
 
 
 state 164
 
-    (38) variable_assignation -> variables assignation value .
+    (40) variable_assignation -> variables assignation value .
 
-    SEMICOLON       reduce using rule 38 (variable_assignation -> variables assignation value .)
-    PRINT           reduce using rule 38 (variable_assignation -> variables assignation value .)
-    PRINTF          reduce using rule 38 (variable_assignation -> variables assignation value .)
-    INPUT           reduce using rule 38 (variable_assignation -> variables assignation value .)
-    LPAREN          reduce using rule 38 (variable_assignation -> variables assignation value .)
-    FUNCTION        reduce using rule 38 (variable_assignation -> variables assignation value .)
-    VAR             reduce using rule 38 (variable_assignation -> variables assignation value .)
-    VARIABLE        reduce using rule 38 (variable_assignation -> variables assignation value .)
-    CONST           reduce using rule 38 (variable_assignation -> variables assignation value .)
-    RETURN          reduce using rule 38 (variable_assignation -> variables assignation value .)
-    TYPE            reduce using rule 38 (variable_assignation -> variables assignation value .)
-    IF              reduce using rule 38 (variable_assignation -> variables assignation value .)
-    SWITCH          reduce using rule 38 (variable_assignation -> variables assignation value .)
-    CHARSTRING      reduce using rule 38 (variable_assignation -> variables assignation value .)
-    FOR             reduce using rule 38 (variable_assignation -> variables assignation value .)
-    INT             reduce using rule 38 (variable_assignation -> variables assignation value .)
-    FLOAT           reduce using rule 38 (variable_assignation -> variables assignation value .)
-    $end            reduce using rule 38 (variable_assignation -> variables assignation value .)
-    RBRACE          reduce using rule 38 (variable_assignation -> variables assignation value .)
-    CASE            reduce using rule 38 (variable_assignation -> variables assignation value .)
-    DEFAULT         reduce using rule 38 (variable_assignation -> variables assignation value .)
+    SEMICOLON       reduce using rule 40 (variable_assignation -> variables assignation value .)
+    PRINT           reduce using rule 40 (variable_assignation -> variables assignation value .)
+    PRINTF          reduce using rule 40 (variable_assignation -> variables assignation value .)
+    INPUT           reduce using rule 40 (variable_assignation -> variables assignation value .)
+    LPAREN          reduce using rule 40 (variable_assignation -> variables assignation value .)
+    FUNCTION        reduce using rule 40 (variable_assignation -> variables assignation value .)
+    VAR             reduce using rule 40 (variable_assignation -> variables assignation value .)
+    VARIABLE        reduce using rule 40 (variable_assignation -> variables assignation value .)
+    CONST           reduce using rule 40 (variable_assignation -> variables assignation value .)
+    RETURN          reduce using rule 40 (variable_assignation -> variables assignation value .)
+    TYPE            reduce using rule 40 (variable_assignation -> variables assignation value .)
+    IF              reduce using rule 40 (variable_assignation -> variables assignation value .)
+    SWITCH          reduce using rule 40 (variable_assignation -> variables assignation value .)
+    CHARSTRING      reduce using rule 40 (variable_assignation -> variables assignation value .)
+    FOR             reduce using rule 40 (variable_assignation -> variables assignation value .)
+    INT             reduce using rule 40 (variable_assignation -> variables assignation value .)
+    FLOAT           reduce using rule 40 (variable_assignation -> variables assignation value .)
+    $end            reduce using rule 40 (variable_assignation -> variables assignation value .)
+    RBRACE          reduce using rule 40 (variable_assignation -> variables assignation value .)
+    CASE            reduce using rule 40 (variable_assignation -> variables assignation value .)
+    DEFAULT         reduce using rule 40 (variable_assignation -> variables assignation value .)
 
 
 state 165
@@ -5482,16 +5482,16 @@ state 171
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -5882,16 +5882,16 @@ state 189
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -6401,7 +6401,7 @@ state 213
 
 state 214
 
-    (32) variable_declaration -> VAR VARIABLE type ASSIGN . value
+    (31) variable_declaration -> VAR VARIABLE type ASSIGN . value
     (64) value -> . VARIABLE
     (65) value -> . VARIABLE LBRACKET RBRACKET
     (66) value -> . VARIABLE LBRACKET value RBRACKET
@@ -6459,7 +6459,7 @@ state 217
 
 state 218
 
-    (33) variable_declaration -> VAR variables type ASSIGN . value
+    (35) variable_declaration -> VAR variables type ASSIGN . value
     (64) value -> . VARIABLE
     (65) value -> . VARIABLE LBRACKET RBRACKET
     (66) value -> . VARIABLE LBRACKET value RBRACKET
@@ -7116,16 +7116,16 @@ state 253
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -7362,29 +7362,29 @@ state 259
 
 state 260
 
-    (32) variable_declaration -> VAR VARIABLE type ASSIGN value .
+    (31) variable_declaration -> VAR VARIABLE type ASSIGN value .
 
-    SEMICOLON       reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    PRINT           reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    PRINTF          reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    INPUT           reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    LPAREN          reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    FUNCTION        reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    VAR             reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    VARIABLE        reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    CONST           reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    RETURN          reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    TYPE            reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    IF              reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    SWITCH          reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    CHARSTRING      reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    FOR             reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    INT             reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    FLOAT           reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    $end            reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    RBRACE          reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    CASE            reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
-    DEFAULT         reduce using rule 32 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    SEMICOLON       reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    PRINT           reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    PRINTF          reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    INPUT           reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    LPAREN          reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    FUNCTION        reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    VAR             reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    VARIABLE        reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    CONST           reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    RETURN          reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    TYPE            reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    IF              reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    SWITCH          reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    CHARSTRING      reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    FOR             reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    INT             reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    FLOAT           reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    $end            reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    RBRACE          reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    CASE            reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
+    DEFAULT         reduce using rule 31 (variable_declaration -> VAR VARIABLE type ASSIGN value .)
 
 
 state 261
@@ -7446,29 +7446,29 @@ state 263
 
 state 264
 
-    (33) variable_declaration -> VAR variables type ASSIGN value .
+    (35) variable_declaration -> VAR variables type ASSIGN value .
 
-    SEMICOLON       reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    PRINT           reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    PRINTF          reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    INPUT           reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    LPAREN          reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    FUNCTION        reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    VAR             reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    VARIABLE        reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    CONST           reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    RETURN          reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    TYPE            reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    IF              reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    SWITCH          reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    CHARSTRING      reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    FOR             reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    INT             reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    FLOAT           reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    $end            reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    RBRACE          reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    CASE            reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
-    DEFAULT         reduce using rule 33 (variable_declaration -> VAR variables type ASSIGN value .)
+    SEMICOLON       reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    PRINT           reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    PRINTF          reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    INPUT           reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    LPAREN          reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    FUNCTION        reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    VAR             reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    VARIABLE        reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    CONST           reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    RETURN          reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    TYPE            reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    IF              reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    SWITCH          reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    CHARSTRING      reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    FOR             reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    INT             reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    FLOAT           reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    $end            reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    RBRACE          reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    CASE            reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
+    DEFAULT         reduce using rule 35 (variable_declaration -> VAR variables type ASSIGN value .)
 
 
 state 265
@@ -7782,16 +7782,16 @@ state 277
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -8164,16 +8164,16 @@ state 288
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -8310,16 +8310,16 @@ state 289
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -8650,16 +8650,16 @@ state 300
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -8961,16 +8961,16 @@ state 313
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -9432,16 +9432,16 @@ state 331
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values
@@ -9894,16 +9894,16 @@ state 348
     (95) parameters -> . parameter
     (96) parameters -> . parameter COMMA parameters
     (30) variable_declaration -> . VAR VARIABLE type
-    (31) variable_declaration -> . VAR variables type
-    (32) variable_declaration -> . VAR VARIABLE type ASSIGN value
-    (33) variable_declaration -> . VAR variables type ASSIGN value
-    (34) variable_declaration -> . VARIABLE SHORTASSIGN value
-    (35) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (31) variable_declaration -> . VAR VARIABLE type ASSIGN value
+    (32) variable_declaration -> . VARIABLE SHORTASSIGN value
+    (33) variable_declaration -> . VARIABLE SHORTASSIGN operation
+    (34) variable_declaration -> . VAR variables type
+    (35) variable_declaration -> . VAR variables type ASSIGN value
     (36) variable_declaration -> . CONST VARIABLE ASSIGN value
     (37) variable_assignation -> . VARIABLE assignation value
-    (38) variable_assignation -> . variables assignation value
-    (39) variable_assignation -> . VARIABLE assignation operation
-    (40) variable_assignation -> . VARIABLE double_operator
+    (38) variable_assignation -> . VARIABLE assignation operation
+    (39) variable_assignation -> . VARIABLE double_operator
+    (40) variable_assignation -> . variables assignation value
     (41) variable_assignation -> . map_assign
     (42) variable_assignation -> . array_assign
     (57) return -> . RETURN values

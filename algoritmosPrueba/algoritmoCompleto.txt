@@ -8,9 +8,14 @@ import (
 )
 func main(){
 
+	var valor1 int=10
+	var valor2 int=20
+
 	func pruebaPrints(){
 		fmt.Println(10,11,12)
 		fmt.Printf("Name: %s, Age: %d, Height: %.2f\n", name, age, height)
+		var variable1 int
+		var variable2 int
 		fmt.Print(variable1+variable2)
 		fmt.Println()
 	}

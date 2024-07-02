@@ -117,6 +117,24 @@ def analyze_and_log(s):
                     file.write(error + "\n")
             errorsList.errors = []
 
+        errorsSemantic = []  # Assuming errorsList.errors contains the list of errors
+        if errorsList.semanticErrors:
+            errorsSemantic.extend(errorsList.semanticErrors)
+
+        logs_dir = os.path.abspath("logsSemantico")
+        if not os.path.exists(logs_dir):
+            os.makedirs(logs_dir)
+        
+        log_file = os.path.join(logs_dir, f"semantico-{get_git_user()}-{time}.txt")
+        
+        with open(log_file, 'w') as file:
+            file.write("Analizador semantico:\n" + str(result) + "\n")
+            if errorsSemantic:
+                file.write("\nErrores:\n")
+                for error in errorsSemantic:
+                    file.write(error + "\n")
+            errorsList.semanticErrors = []
+
     except Exception as e:
         print(f"Error en el análisis sintáctico: {str(e)}")
 

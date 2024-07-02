@@ -1,0 +1,5 @@
+Analizador semántico:
+None
+
+Errores:
+Error semántico: La variable y no ha sido inicializada

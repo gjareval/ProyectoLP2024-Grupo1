@@ -4,6 +4,10 @@ import ply.yacc as yacc
 from analizadorLexico.analizadorLexico import tokens
 import errorsList as errorsList
 
+#variables creadas
+variables = {}
+constants = {}
+
 # Definicion de las definiciones  gramaticales
 def p_statement(p):
     '''statement : blocks
@@ -48,27 +52,92 @@ def p_block(p):
              | variable_assignation
              | return
              '''
-    
+
+# Regla semántica de inicializacion de variables, constantes, y asignacion de variables (Guillermo Arévalo)
+
 def p_variable_declaration(p):
     '''variable_declaration : VAR VARIABLE type
-                            | VAR variables type
-                            | VAR VARIABLE type ASSIGN value
-                            | VAR variables type ASSIGN value
-                            | VARIABLE SHORTASSIGN value
-                            | VARIABLE SHORTASSIGN operation
-                            | CONST VARIABLE ASSIGN value'''
+                            | VAR VARIABLE type ASSIGN value'''
+    # Inicializacion de variables asegurando que no haya una constante con el mismo nombre creada
+    if p[2] not in constants:
+        if len(p)==4:
+            variables[p[2]]=-1
+        else :
+            variables[p[2]]=p[5]
+    else: 
+        errorsList.semanticErrors.append(f"Error: Variable '{p[2]}' ya esta definida.")
+        print(f"Error: Variable '{p[2]}' ya esta definida.")
+
+    
+def p_variable_declaration_short(p):
+    '''variable_declaration : VARIABLE SHORTASSIGN value
+                            | VARIABLE SHORTASSIGN operation'''
+    # Inicializacion de variables asegurando que no haya una constante con el mismo nombre creada
+    if p[1] not in constants:
+        variables[p[1]]=p[3]
+    else: 
+        errorsList.semanticErrors.append(f"Error: Variable '{p[1]}' ya esta definida.")
+        print(f"Error: Variable '{p[1]}' ya esta definida.")
+    
+def p_variable_declaration_multiple(p):
+    '''variable_declaration : VAR variables type
+                            | VAR variables type ASSIGN value'''
+    # Inicializacion de multiples variables en la misma linea
+    if len(p) == 4:
+        for var in p[2]:
+            variables[var] = -1 
+    else:
+        for var in p[2]:
+            variables[var] = p[5]
+
+def p_variable_declaration_constant(p):
+    '''variable_declaration : CONST VARIABLE ASSIGN value'''
+    # Inicializacion de constante asegurando que no hayan constantes con el mismo nombre ya creadas
+    if p[2] in variables or p[2] in constants:
+        errorsList.semanticErrors.append(f"Error: Variable '{p[2]}' ya esta definida.")
+        print(f"Error: Variable '{p[2]}' ya esta definida.")
+    else:
+        constants[p[2]] = p[4]
+    
+
     
 def p_variable_assignation(p):
     '''variable_assignation : VARIABLE assignation value
-                            | variables assignation value
-                            | VARIABLE assignation operation
-                            | VARIABLE double_operator
-                            | map_assign
+                            | VARIABLE assignation operation'''
+    # Asignacion de variable asegurando que la variable ya haya sido creada
+    if p[1] not in variables:
+        errorsList.semanticErrors.append(f"Error: Variable '{p[1]}' no inicializada")
+        print(f"Error: Variable '{p[1]}' no inicializada")
+        
+        variables[p[1]]=p[3]
+
+def p_variable_assignation_double(p):
+    '''variable_assignation : VARIABLE double_operator'''
+        
+    
+def p_variable_assignation_multiple(p):
+    '''variable_assignation : variables assignation value'''
+
+    # Asignacion de variables multiples asegurando que las variables ya hayan sido creadas
+    for var in p[1]:
+        if var in variables:
+            variables[var] = p[3]
+        else:
+            errorsList.semanticErrors.append(f"Error: Variable '{var}' no inicializada")
+            print(f"Error: Variable '{var}' no inicializada")
+
+def p_variable_assignation_structures(p):
+    '''variable_assignation : map_assign
                             | array_assign'''
     
 def p_variables(p):
     '''variables : VARIABLE
                  | VARIABLE COMMA variables'''
+    
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = [p[1]] + p[3]
     
 def p_assignation(p):
     '''assignation : ASSIGN
@@ -106,6 +175,10 @@ def p_value(p):
              | VARIABLE LBRACKET RBRACKET
              | VARIABLE LBRACKET value RBRACKET
              | not_variable_value'''
+    if isinstance(p[1],str) and p[1] in variables:
+        p[0] = variables[p[1]]
+    else:
+        p[0] =p[1]
     
 def p_not_variable_value(p):
     ''' not_variable_value : CHARSTRING
@@ -130,14 +203,21 @@ def p_input_statement(p):
 
 # Inicio Expresiones aritméticas con uno o más operadores.
 def p_operation(p):
-    '''operation : value operator value
-                 | value operator LPAREN value RPAREN
+    '''operation : value operator value'''
+    if not isinstance(p[1],str) or p[1] in variables:
+        pass
+    else:
+        errorsList.semanticErrors.append(f"Error semantico: La variable {p[1]} no ha sido inicializada")
+        print(f"Error semantico: La variable {p[1]} no ha sido inicializada")
+
+def p_operation_complex(p):
+    '''operation : value operator LPAREN value RPAREN
                  | LPAREN value RPAREN operator value
                  | LPAREN value operator value RPAREN
                  | value operator operation
                  | LPAREN value operator operation RPAREN
                  | LPAREN value RPAREN operator operation
-                 | value operator LPAREN operation RPAREN'''
+                 | value operator LPAREN operation RPAREN'''   
                  
     
 def p_operation_single(p):
@@ -155,7 +235,7 @@ def p_double_operator(p):
                        | DECREMENT'''
     
 # Fin Expresiones aritméticas con uno o más operadores.
-    
+        
 def p_parameters(p):
     '''parameters : parameter
                   | parameter COMMA parameters
