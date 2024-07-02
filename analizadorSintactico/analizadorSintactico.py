@@ -33,7 +33,8 @@ def p_main(p):
 
 def p_blocks(p):
     '''blocks : block
-              | block blocks'''
+              | block blocks
+              | block SEMICOLON blocks'''
 
 def p_block(p):
     '''block : print_statement
@@ -50,13 +51,16 @@ def p_block(p):
     
 def p_variable_declaration(p):
     '''variable_declaration : VAR VARIABLE type
+                            | VAR variables type
                             | VAR VARIABLE type ASSIGN value
+                            | VAR variables type ASSIGN value
                             | VARIABLE SHORTASSIGN value
                             | VARIABLE SHORTASSIGN operation
                             | CONST VARIABLE ASSIGN value'''
     
 def p_variable_assignation(p):
     '''variable_assignation : VARIABLE assignation value
+                            | variables assignation value
                             | VARIABLE assignation operation
                             | VARIABLE double_operator
                             | map_assign
@@ -99,6 +103,8 @@ def p_values(p):
     
 def p_value(p):
     '''value : VARIABLE
+             | VARIABLE LBRACKET RBRACKET
+             | VARIABLE LBRACKET value RBRACKET
              | not_variable_value'''
     
 def p_not_variable_value(p):
@@ -125,7 +131,14 @@ def p_input_statement(p):
 # Inicio Expresiones aritméticas con uno o más operadores.
 def p_operation(p):
     '''operation : value operator value
-                 | value operator operation'''
+                 | value operator LPAREN value RPAREN
+                 | LPAREN value RPAREN operator value
+                 | LPAREN value operator value RPAREN
+                 | value operator operation
+                 | LPAREN value operator operation RPAREN
+                 | LPAREN value RPAREN operator operation
+                 | value operator LPAREN operation RPAREN'''
+                 
     
 def p_operation_single(p):
     'operation : value double_operator'
@@ -216,7 +229,7 @@ def p_for_infinite_bucle(p):
     'for_infinite_bucle : FOR LBRACE statement RBRACE'
 
 def p_for_iterator(p):
-    'for_iterator : FOR VARIABLE SEMICOLON VARIABLE SHORTASSIGN RANGE VARIABLE LBRACE statement RBRACE'
+    'for_iterator : FOR VARIABLE COMMA VARIABLE SHORTASSIGN RANGE VARIABLE LBRACE statement RBRACE'
 
 # Brian Mite
 # Estructura switch
@@ -224,7 +237,7 @@ def p_switch_structure(p):
     '''switch_structure : SWITCH switch_expression LBRACE case_blocks RBRACE'''
     
 def p_switch_expression(p):
-    '''switch_expression : value
+    '''switch_expression : VARIABLE SHORTASSIGN value
                          | empty'''
     
 def p_case_blocks(p):

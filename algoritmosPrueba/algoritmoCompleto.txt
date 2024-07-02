@@ -85,6 +85,36 @@ func main(){
 			return false
 		}
 	}
+
+	func pruebaFor() {
+		var list[10] int
+		for i:=0; i<10 ; i++ {
+			fmt.Print(list[i])
+		}
+
+		for {
+			fmt.Print("Hola")
+		}
+
+		var nombres[10] string
+		for i, nombre:=range nombres{
+			fmt.Println(nombre)
+		}
+	}
+
+	func pruebaSwitch (){
+		switch caso:=1 {
+			case 1:
+				fmt.Print("Caso 1")
+			case 2:
+				fmt.Print("Caso 2")
+			case 3:
+				fmt.Print("Caso 3")
+			default:
+				fmt.Print("Caso default")
+		}
+	}
+
 }
 
 

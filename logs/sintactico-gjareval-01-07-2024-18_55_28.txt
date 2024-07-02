@@ -1,6 +1,0 @@
-Analizador sintactico:
-None
-
-Errores:
-Syntax error: unexpected end of input
-Syntax error at token '.'

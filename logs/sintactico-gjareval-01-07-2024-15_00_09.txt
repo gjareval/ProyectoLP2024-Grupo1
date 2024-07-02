@@ -1,5 +1,0 @@
-Analizador sintactico:
-None
-
-Errores:
-Syntax error at token '='
