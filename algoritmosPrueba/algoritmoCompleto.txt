@@ -38,6 +38,53 @@ func main(){
 
 		return estructura1.campo1
 	}
+
+	func pruebaArray(){
+		var array[10] int
+		var array2 = [10] int {10,9,8,7}
+	}
+
+	func pruebaMap(){
+		mapa1 := map[int] string {
+			10 : "value1",
+			11 : "value2",
+			12 : "value3"
+		}
+
+		mapa2 := make (map[int] int)
+		mapa1[10]="value4"
+	}
+
+	func pruebaSlice() {
+		slice1 := [] string {"valor1","valor2","valor3"}
+		var slice2[] string 
+		slice3 := [] int
+		slice3 = append (slice,9)
+		slice3 = append (slice,[]int{10,11,12})
+	}
+
+	func pruebaIf(valor1 int, valor2 int, valor3 int) bool {
+		if valor1>=valor2 {
+			valorNuevo=valor1/valor2
+			if valorNuevo==10 {
+				return true
+			}
+			return false
+		}
+
+		else if valor2==valor3 && valor3!=200 {
+			return true
+		}
+
+		else {
+			valorNuevo=valor2*valor3
+			if valorNuevo>10 || valorNuevo <100 {
+				return true
+			}
+
+			return false
+		}
+	}
 }
 
 

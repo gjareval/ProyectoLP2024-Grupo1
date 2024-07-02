@@ -45,6 +45,7 @@ def p_block(p):
              | parameters
              | variable_declaration
              | variable_assignation
+             | return
              '''
     
 def p_variable_declaration(p):
@@ -61,6 +62,10 @@ def p_variable_assignation(p):
                             | map_assign
                             | array_assign'''
     
+def p_variables(p):
+    '''variables : VARIABLE
+                 | VARIABLE COMMA variables'''
+    
 def p_assignation(p):
     '''assignation : ASSIGN
                    | PLUSASSIGN
@@ -74,16 +79,18 @@ def p_assignation(p):
 def p_function(p):
     '''function : FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE   
                 | FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE
-                | FUNCTION VARIABLE LPAREN RPAREN type LBRACE return RBRACE
-                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE return RBRACE
-                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks return RBRACE
-                | FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks return RBRACE
+                | FUNCTION VARIABLE LPAREN RPAREN type LBRACE RBRACE
+                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE RBRACE
+                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RBRACE
+                | FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks RBRACE
                 '''
     
 def p_return(p):
     '''return : RETURN values
               | RETURN value LBRACKET value RBRACKET
-              | RETURN value PERIOD value'''
+              | RETURN value PERIOD value
+              | RETURN TRUE
+              | RETURN FALSE'''
 
 
 def p_values(p):
@@ -287,15 +294,19 @@ def p_slice_structure(p):
                        | VARIABLE ASSIGN append_statement'''
 
 def p_append_statement(p):
-    'append_statement : APPEND LPAREN VARIABLE COMMA values RPAREN'
+    '''append_statement : APPEND LPAREN VARIABLE COMMA values RPAREN
+                        | APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN'''
+
 
 t_ignore = ' \t'
 
 def p_error(p):
     if p:
         errorsList.errors.append(f"Syntax error at token '{p.value}'")
+        print(f"Syntax error at token '{p.value}'")
     else:
-        errorsList.errors.append("Syntax error: unexpected end of input")
+        errorsList.errors.append(f"Syntax error at token '{p.value}'")
+        print(f"Syntax error at token '{p.value}'")
 
 # Construcción del parser
 parser = yacc.yacc()
