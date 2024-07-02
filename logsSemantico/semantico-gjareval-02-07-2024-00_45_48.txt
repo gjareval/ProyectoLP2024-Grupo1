@@ -1,0 +1,6 @@
+Analizador semantico:
+None
+
+Errores:
+Error semantico: Operando 'valor4' invalido para operaciones aritmeticas.
+Tipos incompatibles para comparar: <class 'str'> y <class 'int'>

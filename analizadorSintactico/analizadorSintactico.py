@@ -4,9 +4,10 @@ import ply.yacc as yacc
 from analizadorLexico.analizadorLexico import tokens
 import errorsList as errorsList
 
-#variables creadas
+# Variables creadas
 variables = {}
 constants = {}
+
 
 # Definicion de las definiciones  gramaticales
 def p_statement(p):
@@ -53,12 +54,13 @@ def p_block(p):
              | return
              '''
 
-# Regla semántica de inicializacion de variables, constantes, y asignacion de variables (Guillermo Arévalo)
+# Reglas semánticas de inicializacion de variables, constantes, y asignacion de variables (Guillermo Arévalo)
 
 def p_variable_declaration(p):
     '''variable_declaration : VAR VARIABLE type
                             | VAR VARIABLE type ASSIGN value'''
-    # Inicializacion de variables asegurando que no haya una constante con el mismo nombre creada
+    
+    # Inicializacion de variables asegurando que no haya una constante con el mismo nombre creada (Guillermo Arévalo)
     if p[2] not in constants:
         if len(p)==4:
             variables[p[2]]=-1
@@ -72,7 +74,8 @@ def p_variable_declaration(p):
 def p_variable_declaration_short(p):
     '''variable_declaration : VARIABLE SHORTASSIGN value
                             | VARIABLE SHORTASSIGN operation'''
-    # Inicializacion de variables asegurando que no haya una constante con el mismo nombre creada
+    
+    # Inicializacion de variables asegurando que no haya una constante con el mismo nombre creada (Guillermo Arévalo)
     if p[1] not in constants:
         variables[p[1]]=p[3]
     else: 
@@ -82,7 +85,8 @@ def p_variable_declaration_short(p):
 def p_variable_declaration_multiple(p):
     '''variable_declaration : VAR variables type
                             | VAR variables type ASSIGN value'''
-    # Inicializacion de multiples variables en la misma linea
+    
+    # Inicializacion de multiples variables en la misma linea (Guillermo Arévalo)
     if len(p) == 4:
         for var in p[2]:
             variables[var] = -1 
@@ -92,7 +96,8 @@ def p_variable_declaration_multiple(p):
 
 def p_variable_declaration_constant(p):
     '''variable_declaration : CONST VARIABLE ASSIGN value'''
-    # Inicializacion de constante asegurando que no hayan constantes con el mismo nombre ya creadas
+
+    # Inicializacion de constante asegurando que no hayan constantes con el mismo nombre ya creadas (Guillermo Arévalo)
     if p[2] in variables or p[2] in constants:
         errorsList.semanticErrors.append(f"Error: Variable '{p[2]}' ya esta definida.")
         print(f"Error: Variable '{p[2]}' ya esta definida.")
@@ -104,7 +109,8 @@ def p_variable_declaration_constant(p):
 def p_variable_assignation(p):
     '''variable_assignation : VARIABLE assignation value
                             | VARIABLE assignation operation'''
-    # Asignacion de variable asegurando que la variable ya haya sido creada
+    
+    # Asignacion de variable asegurando que la variable ya haya sido creada (Guillermo Arévalo)
     if p[1] not in variables:
         errorsList.semanticErrors.append(f"Error: Variable '{p[1]}' no inicializada")
         print(f"Error: Variable '{p[1]}' no inicializada")
@@ -118,7 +124,7 @@ def p_variable_assignation_double(p):
 def p_variable_assignation_multiple(p):
     '''variable_assignation : variables assignation value'''
 
-    # Asignacion de variables multiples asegurando que las variables ya hayan sido creadas
+    # Asignacion de variables multiples asegurando que las variables ya hayan sido creadas (Guillermo Arévalo)
     for var in p[1]:
         if var in variables:
             variables[var] = p[3]
@@ -133,7 +139,8 @@ def p_variable_assignation_structures(p):
 def p_variables(p):
     '''variables : VARIABLE
                  | VARIABLE COMMA variables'''
-    
+   
+    # Multiples variables en forma de lista (Guillermo Arévalo)
     if len(p) == 2:
         p[0] = [p[1]]
     else:
@@ -169,7 +176,8 @@ def p_return(p):
 def p_values(p):
     '''values : value 
               | value COMMA values'''
-    
+
+# Configuracion de values para ser reconocidos por las reglas semanticas (Guillermo Arevalo)   
 def p_value(p):
     '''value : VARIABLE
              | VARIABLE LBRACKET RBRACKET
@@ -183,10 +191,12 @@ def p_value(p):
 def p_not_variable_value(p):
     ''' not_variable_value : CHARSTRING
                            | number'''
+    p[0] =p[1]
       
 def p_number(p):
     '''number : INT
               | FLOAT'''
+    p[0] = p[1]
 
 # Impresión con cero, uno o más argumentos  
 def p_print_statement(p):
@@ -202,13 +212,26 @@ def p_input_statement(p):
                        | INPUT LPAREN RPAREN'''
 
 # Inicio Expresiones aritméticas con uno o más operadores.
+
+# Regla semantica para asegurarse que las operaciones sean de tipos numericos compatibles (Guillermo Arevalo)
 def p_operation(p):
     '''operation : value operator value'''
-    if not isinstance(p[1],str) or p[1] in variables:
-        pass
+
+    if isinstance(p[1], (int, float)) and isinstance(p[3], (int, float)):
+        if p[2] == '+' or p[2] == '-' or p[2] == '*' or p[2] == '/':
+            p[0] = p[1] + p[3] if p[2] == '+' else p[1] - p[3] if p[2] == '-' else p[1] * p[3] if p[2] == '*' else p[1] / p[3]
+        else:
+            errorsList.semanticErrors.append(f"Error semantico: Operador '{p[2]}' no es valido para operaciones aritmeticas.")
+            print(f"Error semantico: Operador '{p[2]}' no es valido para operaciones aritmeticas.")
     else:
-        errorsList.semanticErrors.append(f"Error semantico: La variable {p[1]} no ha sido inicializada")
-        print(f"Error semantico: La variable {p[1]} no ha sido inicializada")
+        if not isinstance(p[1], (int, float)):
+            errorsList.semanticErrors.append(f"Error semantico: Operando '{p[1]}' invalido para operaciones aritmeticas.")
+            print(f"Error semantico: Operando '{p[1]}' invalido para operaciones aritmeticas.")
+        else:
+            errorsList.semanticErrors.append(f"Error semantico: Operando '{p[3]}' invalido para operaciones aritmeticas.")
+            print(f"Error semantico: Operando '{p[3]}' invalido para operaciones aritmeticas.")
+
+
 
 def p_operation_complex(p):
     '''operation : value operator LPAREN value RPAREN
@@ -229,6 +252,7 @@ def p_operator(p):
                 | TIMES
                 | DIVIDE
                 | ASSIGN'''
+    p[0]=p[1]
     
 def p_double_operator(p):
     '''double_operator : INCREMENT
@@ -280,6 +304,25 @@ def p_conditions(p):
 def p_condition(p):
     'condition : value relational_operator value'
 
+    # Regla semantica para asegurar que los tipos de valores a comparar son compatibles (Guillermo Arevalo)
+    if type(p[1]) != type(p[3]):
+        errorsList.semanticErrors.append(f"Tipos incompatibles para comparar:{p[1]} de tipo: {type(p[1])} y {p[3]} de tipo: {type(p[3])}")
+        print(f"Tipos incompatibles para comparar:{p[1]} de tipo: {type(p[1])} y {p[3]} de tipo: {type(p[3])}")
+    else:
+        if p[2] == '==':
+            p[0] = p[1] == p[3]
+        elif p[2] == '<':
+            p[0] = p[1] < p[3]
+        elif p[2] == '>':
+            p[0] = p[1] > p[3]
+        elif p[2] == '<=':
+            p[0] = p[1] <= p[3]
+        elif p[2] == '>=':
+            p[0] = p[1] >= p[3]
+        elif p[2] == '!=':
+            p[0] = p[1] != p[3]
+
+
 def p_logical_operator(p):
     '''logical_operator : AND
                         | OR
@@ -293,6 +336,7 @@ def p_relational_operator(p):
                            | EQUALS
                            | DIFFERENT
     '''
+    p[0]=p[1]
 
 # Guillero Arevalo
 # Estructura for

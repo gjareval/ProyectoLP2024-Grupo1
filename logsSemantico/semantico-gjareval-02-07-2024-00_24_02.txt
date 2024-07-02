@@ -1,0 +1,5 @@
+Analizador semantico:
+None
+
+Errores:
+Error semántico: Operador 'None' no es válido para operaciones aritméticas.

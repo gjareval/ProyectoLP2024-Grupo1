@@ -10,6 +10,7 @@ func main(){
 
 	var valor1 int=10
 	var valor2 int=20
+	var valor3 int=30
 
 	func pruebaPrints(){
 		fmt.Println(10,11,12)
@@ -28,6 +29,7 @@ func main(){
 	}
 
 	func operaciones(valor1 int, valor2 int ) int {
+		var valor4 int
 		fmt.Scanln(valor4)
 		fmt.Println(valor4)
 		valor3=valor1+valor2+valor4
@@ -69,6 +71,7 @@ func main(){
 	}
 
 	func pruebaIf(valor1 int, valor2 int, valor3 int) bool {
+		var valorNuevo int
 		if valor1>=valor2 {
 			valorNuevo=valor1/valor2
 			if valorNuevo==10 {
@@ -93,6 +96,7 @@ func main(){
 
 	func pruebaFor() {
 		var list[10] int
+		var i int
 		for i:=0; i<10 ; i++ {
 			fmt.Print(list[i])
 		}

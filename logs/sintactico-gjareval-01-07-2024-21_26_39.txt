@@ -1,9 +1,0 @@
-Analizador sintactico:
-None
-
-Errores:
-Syntax error at token 'valor1'
-Syntax error at token '}'
-Syntax error at token 'valor1'
-Syntax error at token 'valor2'
-Syntax error at token '}'

@@ -1,0 +1,5 @@
+Analizador semantico:
+None
+
+Errores:
+Error semántico: Tipos de operandos inválidos para operaciones aritméticas.

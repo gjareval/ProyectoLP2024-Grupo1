@@ -1,8 +1,0 @@
-Analizador semantico:
-None
-
-Errores:
-Error semantico: La variable valor1 no ha sido inicializada
-Error semantico: La variable valor2 no ha sido inicializada
-Error semantico: La variable valor1 no ha sido inicializada
-Error semantico: La variable valor2 no ha sido inicializada
