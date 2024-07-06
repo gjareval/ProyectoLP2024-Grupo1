@@ -345,6 +345,20 @@ def p_conditional_body(p):
     '''conditional_body : LBRACE statement RBRACE
                         | LBRACE BREAK RBRACE
                         | LBRACE CONTINUE RBRACE'''
+    # Manejo de cuerpos condicionales (Maria Jose Moyano)
+    if len(p) == 3:
+        # Cuerpo con una declaración única
+        p[0] = p[2]
+    elif p[2] == 'break':
+        # Cuerpo con la declaración 'break'
+        p[0] = 'break'
+    elif p[2] == 'continue':
+        # Cuerpo con la declaración 'continue'
+        p[0] = 'continue'
+    else:
+        errorsList.semanticErrors.append(f"Error semántico: Cuerpo condicional mal formado.")
+        print(f"Error semántico: Cuerpo condicional mal formado.")
+
 
 def p_conditions(p):
     '''conditions : condition
@@ -458,6 +472,7 @@ def p_data_structure(p):
     
 def p_struct_structure(p):
     'struct_structure : TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE'
+    
 
 def p_struct_fields(p):
     '''struct_fields : struct_field
@@ -515,16 +530,80 @@ def p_array_assign(p):
 def p_map_structure(p):
     '''map_structure : VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
                       | VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN'''
+    #Inicialización de un mapa/diccionario (Maria Jose Moyano)
+    if p[2] == ':=':
+        # Caso 1: Inicialización directa con el operador :=
+        map_name = p[1]
+        key_type = p[5]
+        value_type = p[7]
+        map_entries = p[9]
+        
+        # Verificar tipos de las entradas del mapa
+        for key, value in map_entries:
+            if not isinstance(key, key_type):
+                errorsList.semanticErrors.append(f"Error: Tipo incorrecto para la clave '{key}' en el mapa '{map_name}'.")
+                print(f"Error: Tipo incorrecto para la clave '{key}' en el mapa '{map_name}'.")
+            if not isinstance(value, value_type):
+                errorsList.semanticErrors.append(f"Error: Tipo incorrecto para el valor '{value}' en el mapa '{map_name}'.")
+                print(f"Error: Tipo incorrecto para el valor '{value}' en el mapa '{map_name}'.")
+        
+        # Registrar el mapa en alguna estructura de datos o hacer otra acción según sea necesario
+        # Ejemplo: map_registry[map_name] = map_entries
+    elif p[2] == 'make':
+        # Caso 2: Inicialización con la función make()
+        map_name = p[1]
+        key_type = p[6]
+        value_type = p[8]
+        
+        # Registrar el mapa en alguna estructura de datos o hacer otra acción según sea necesario
+        # Ejemplo: map_registry[map_name] = {'key_type': key_type, 'value_type': value_type}
+    else:
+        errorsList.semanticErrors.append(f"Error de sintaxis en la declaración del mapa '{p[1]}'.")
+        print(f"Error de sintaxis en la declaración del mapa '{p[1]}'.")
+
+
 
 def p_map_values(p):
     '''map_values : map_value
                   | map_value COMMA map_values'''
+    # Valores de un mapa/diccionario (Maria Jose Moyano)
+    if len(p) == 2:
+        # Caso base: Un solo valor en el mapa
+        p[0] = [p[1]]
+    elif len(p) == 4:
+        # Caso recursivo: Más de un valor separado por comas
+        p[0] = [p[1]] + p[3]
+    else:
+        errorsList.semanticErrors.append("Error en la lista de valores del mapa.")
+        print("Error en la lista de valores del mapa.")
+
+
     
 def p_map_value(p):
     '''map_value : value COLON value'''
+      # Definición de un par clave-valor en un mapa (Maria Jose Moyano)
+    p[0] = (p[1], p[3])
+
 
 def p_map_assign(p):
     'map_assign : VARIABLE LBRACKET value RBRACKET ASSIGN value'
+    # Asignación de valor a una entrada específica en un mapa (Maria Jose Moyano)
+    map_name = p[1]
+    key = p[3]
+    value = p[6]
+
+    if map_name in variables and isinstance(variables[map_name], dict):
+        # Verificar si la clave existe en el mapa
+        if key in variables[map_name]:
+            # Asignar nuevo valor a la clave existente
+            variables[map_name][key] = value
+        else:
+            errorsList.semanticErrors.append(f"Error: La clave '{key}' no existe en el mapa '{map_name}'.")
+            print(f"Error: La clave '{key}' no existe en el mapa '{map_name}'.")
+    else:
+        errorsList.semanticErrors.append(f"Error: '{map_name}' no es un mapa válido o no ha sido inicializado correctamente.")
+        print(f"Error: '{map_name}' no es un mapa válido o no ha sido inicializado correctamente.")
+        
 
 # Brian Mite
 # Slice
