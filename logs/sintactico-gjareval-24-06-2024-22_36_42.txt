@@ -1,0 +1,8 @@
+Analizador sintactico:
+None
+
+Errores:
+Syntax error at token 'for'
+Syntax error at token ';'
+Syntax error at token 'fmt.Print'
+Syntax error at token '('

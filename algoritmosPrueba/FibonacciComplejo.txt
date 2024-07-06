@@ -1,0 +1,38 @@
+//Maria Jose Moyano
+
+package main1
+
+import (
+	"fmt"
+)
+
+func main() {
+
+	func fibonacci(n int) int {
+		if n < 0 {                  
+			fmt.Print(int)
+		}
+		series := make(map [int] int)
+		series[0] = 0
+		return series
+	}
+	num := 10	
+	var input int 
+	fmt.Print("Ingrese un número: ")
+	fmt.Scan(input) 
+	if err != nil {              
+		fmt.Println("Entrada inválida")
+	} else {                
+		fmt.Print(fibSeries) 
+	}
+
+	func sum(series int) int {
+		total := 0
+		for val; value := range series {
+				var total = value     
+		}
+			return value
+	}
+}
+
+

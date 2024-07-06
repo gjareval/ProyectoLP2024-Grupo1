@@ -1,4 +1,5 @@
 // Ejemplo de uso de todos los tokens
+//Brian Mite
 package main
 
 import "fmt"

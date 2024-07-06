@@ -1,0 +1,5 @@
+Analizador semantico:
+None
+
+Errores:
+Tipos incompatibles para comparar:i de tipo: <class 'str'> y < de tipo: <class 'int'>
