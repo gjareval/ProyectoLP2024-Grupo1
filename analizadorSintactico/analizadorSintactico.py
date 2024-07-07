@@ -21,10 +21,10 @@ def p_statement(p):
                  | package import main LBRACE blocks RBRACE'''
 
 def p_import(p):
-    '''import :
+    '''import : 
               | IMPORT CHARSTRING
               | IMPORT LPAREN values_for_import RPAREN'''
-    
+
 def p_values_for_import(p):
     '''values_for_import : CHARSTRING
                          | CHARSTRING values_for_import'''
@@ -117,10 +117,19 @@ def p_variable_assignation(p):
         
         variables[p[1]]=p[3]
 
+#Brian Mite Semantico
 def p_variable_assignation_double(p):
     '''variable_assignation : VARIABLE double_operator'''
+    if p[1] in variables:
+        if p[2] == '++':
+            variables[p[1]] += 1
+        elif p[2] == '--':
+            variables[p[1]] -= 1
+    else:
+        errorsList.semanticErrors.append(f"Error: Variable '{p[1]}' no inicializada.")
+        print(f"Error: Variable '{p[1]}' no inicializada.")
         
-    
+ 
 def p_variable_assignation_multiple(p):
     '''variable_assignation : variables assignation value'''
 
@@ -198,10 +207,14 @@ def p_return(p):
               | RETURN TRUE
               | RETURN FALSE'''
 
-
+#Brian Mite Semantico
 def p_values(p):
     '''values : value 
               | value COMMA values'''
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = [p[1]] + p[3]
 
 # Configuracion de values para ser reconocidos por las reglas semanticas (Guillermo Arevalo)   
 def p_value(p):
@@ -283,6 +296,7 @@ def p_operator(p):
 def p_double_operator(p):
     '''double_operator : INCREMENT
                        | DECREMENT'''
+    p[0] = p[1]    
     
 # Fin Expresiones aritméticas con uno o más operadores.
         
@@ -337,8 +351,6 @@ def p_conditional_structure(p):
         else:
             errorsList.semanticErrors.append(f"Error semántico: Estructura condicional mal formada.")
             print(f"Error semántico: Estructura condicional mal formada.")
-
-
 
 
 def p_conditional_body(p):
@@ -462,7 +474,7 @@ def p_empty(p):
     pass
 
 # Estructura de datos
-
+#Brian Mite
 # Struct
 def p_data_structure(p):
     '''data_structure : array_structure
@@ -472,19 +484,38 @@ def p_data_structure(p):
     
 def p_struct_structure(p):
     'struct_structure : TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE'
+
+    struct_name = p[2]
+    struct_fields = p[5]
+
+    if struct_name not in variables and struct_name not in constants:
+        variables[struct_name] = {
+            'type': 'struct',
+            'fields': struct_fields
+        }
+    else:
+        errorsList.semanticErrors.append(f"Error: El struct '{struct_name}' ya está definido.")
+        print(f"Error: El struct '{struct_name}' ya está definido.")
     
 
 def p_struct_fields(p):
     '''struct_fields : struct_field
                      | struct_field struct_fields'''
 
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = [p[1]] + p[2]
+
 def p_struct_field(p):
     'struct_field : VARIABLE type'
+    
+    p[0] = {'name': p[1], 'type': p[2]}
 
 #Maria Jose Moyano 
 # Array
 def p_array_structure(p):
-    '''array_structure  VAR VARIABLE LBRACKET INT RBRACKET type
+    '''array_structure : VAR VARIABLE LBRACKET INT RBRACKET type
                        | VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
                        | VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET'''
     # Regla semantica para la inicialización de un arreglo en diferentes formas
@@ -502,9 +533,6 @@ def p_array_structure(p):
     else:
         errorsList.semanticErrors.append(f"Error de sintaxis en la declaración del arreglo '{p[2]}'.")
         print(f"Error de sintaxis en la declaración del arreglo '{p[2]}'.")
-
-
-
     
 def p_array_assign(p):
     'array_assign : VARIABLE LBRACKET INT RBRACKET ASSIGN value'
@@ -613,10 +641,76 @@ def p_slice_structure(p):
                        | VARIABLE SHORTASSIGN LBRACKET RBRACKET type
                        | VARIABLE ASSIGN append_statement'''
 
+    slice_name = p[1]
+
+    if p[2] == ':=':  # Short assignment :=
+        if len(p) == 8:  # Variable := []type{values}
+            slice_type = p[5]
+            slice_values = p[7]
+            # Verifica si la slice ya está definida
+            if slice_name not in variables and slice_name not in constants:
+                variables[slice_name] = {
+                    'type': 'slice',
+                    'element_type': slice_type,
+                    'values': slice_values
+                }
+            else:
+                errorsList.semanticErrors.append(f"Error: La slice '{slice_name}' ya está definida.")
+                print(f"Error: La slice '{slice_name}' ya está definida.")
+        elif len(p) == 5:  # Variable := []type
+            slice_type = p[4]
+            # Verifica si la slice ya está definida
+            if slice_name not in variables and slice_name not in constants:
+                variables[slice_name] = {
+                    'type': 'slice',
+                    'element_type': slice_type,
+                    'values': []
+                }
+            else:
+                errorsList.semanticErrors.append(f"Error: La slice '{slice_name}' ya está definida.")
+                print(f"Error: La slice '{slice_name}' ya está definida.")
+    elif p[2] == '=':  # Assignment =
+        if p[3] == 'append_statement':  # Variable = append_statement
+            append_result = p[4]
+            # Actualiza la slice con los resultados del append_statement
+            if slice_name in variables and variables[slice_name]['type'] == 'slice':
+                variables[slice_name]['values'].extend(append_result)
+            else:
+                errorsList.semanticErrors.append(f"Error: '{slice_name}' no es una slice válida o no está inicializada como una slice.")
+                print(f"Error: '{slice_name}' no es una slice válida o no está inicializada como una slice.")
+
+
 def p_append_statement(p):
     '''append_statement : APPEND LPAREN VARIABLE COMMA values RPAREN
                         | APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN'''
 
+    append_result = []
+
+    if len(p) == 7:  # APPEND(VARIABLE, values)
+        slice_name = p[3]
+        values = p[5]
+
+        if slice_name in variables and variables[slice_name]['type'] == 'slice':
+            variables[slice_name]['values'].extend(values)
+            append_result = values
+        else:
+            errorsList.semanticErrors.append(f"Error: '{slice_name}' no es una slice válida o no está inicializada como una slice.")
+            print(f"Error: '{slice_name}' no es una slice válida o no está inicializada como una slice.")
+
+    elif len(p) == 11:  # APPEND(VARIABLE, []type{values})
+        slice_name = p[3]
+        slice_type = p[7]
+        values = p[9]
+
+        # Verifica si la slice está definida y es del tipo correcto
+        if slice_name in variables and variables[slice_name]['type'] == 'slice' and variables[slice_name]['element_type'] == slice_type:
+            variables[slice_name]['values'].extend(values)
+            append_result = values
+        else:
+            errorsList.semanticErrors.append(f"Error: '{slice_name}' no es una slice válida o no está inicializada como una slice del tipo '{slice_type}'.")
+            print(f"Error: '{slice_name}' no es una slice válida o no está inicializada como una slice del tipo '{slice_type}'.")
+
+    return append_result
 
 t_ignore = ' \t'
 

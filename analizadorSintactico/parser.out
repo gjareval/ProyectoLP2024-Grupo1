@@ -160,32 +160,33 @@ Rule 147   struct_fields -> struct_field struct_fields
 Rule 148   struct_field -> VARIABLE type
 Rule 149   array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type
 Rule 150   array_structure -> VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-Rule 151   array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value
-Rule 152   map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-Rule 153   map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-Rule 154   map_values -> map_value
-Rule 155   map_values -> map_value COMMA map_values
-Rule 156   map_value -> value COLON value
-Rule 157   map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value
-Rule 158   slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-Rule 159   slice_structure -> VAR VARIABLE LBRACKET RBRACKET type
-Rule 160   slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-Rule 161   slice_structure -> VARIABLE ASSIGN append_statement
-Rule 162   append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN
-Rule 163   append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN
+Rule 151   array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+Rule 152   array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value
+Rule 153   map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+Rule 154   map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+Rule 155   map_values -> map_value
+Rule 156   map_values -> map_value COMMA map_values
+Rule 157   map_value -> value COLON value
+Rule 158   map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value
+Rule 159   slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+Rule 160   slice_structure -> VAR VARIABLE LBRACKET RBRACKET type
+Rule 161   slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+Rule 162   slice_structure -> VARIABLE ASSIGN append_statement
+Rule 163   append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN
+Rule 164   append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN
 
 Terminals, with rules where they appear
 
 AMPERSAND            : 
 AND                  : 118
-APPEND               : 162 163
-ASSIGN               : 31 35 36 45 92 150 151 157 161
+APPEND               : 163 164
+ASSIGN               : 31 35 36 45 92 150 151 152 158 162
 BOOL                 : 105
 BREAK                : 113
 CASE                 : 138
 CHARSTRING           : 10 12 13 68
-COLON                : 138 139 156
-COMMA                : 44 63 73 96 132 155 162 163
+COLON                : 138 139 157
+COMMA                : 44 63 73 96 132 156 163 164
 CONST                : 36
 CONTINUE             : 114
 DECREMENT            : 94
@@ -209,17 +210,17 @@ IF                   : 109 110 111 111
 IMPORT               : 10 11
 INCREMENT            : 93
 INPUT                : 76 77 78
-INT                  : 70 98 149 150 151
+INT                  : 70 98 149 150 151 152
 INT32                : 99
 INT64                : 100
-LBRACE               : 5 6 7 8 51 52 53 54 55 56 112 113 114 130 131 132 133 145 150 152 158 163
-LBRACKET             : 58 65 66 149 150 151 152 153 157 158 159 160 163
+LBRACE               : 5 6 7 8 51 52 53 54 55 56 112 113 114 130 131 132 133 145 150 153 159 164
+LBRACKET             : 58 65 66 149 150 151 151 152 153 154 158 159 160 161 164
 LESS                 : 122
 LESSEQUALS           : 124
-LPAREN               : 11 16 51 52 53 54 55 56 72 73 74 75 76 77 78 80 81 82 84 85 86 153 162 163
+LPAREN               : 11 16 51 52 53 54 55 56 72 73 74 75 76 77 78 80 81 82 84 85 86 154 163 164
 MAIN                 : 15 16
-MAKE                 : 153
-MAP                  : 152 153
+MAKE                 : 154
+MAP                  : 153 154
 MINUS                : 89
 MINUSASSIGN          : 47
 MOD                  : 
@@ -233,12 +234,12 @@ PLUSASSIGN           : 46
 PRINT                : 72 74 75
 PRINTF               : 73
 RANGE                : 132
-RBRACE               : 5 6 7 8 51 52 53 54 55 56 112 113 114 130 131 132 133 145 150 152 158 163
-RBRACKET             : 58 65 66 149 150 151 152 153 157 158 159 160 163
+RBRACE               : 5 6 7 8 51 52 53 54 55 56 112 113 114 130 131 132 133 145 150 153 159 164
+RBRACKET             : 58 65 66 149 150 151 151 152 153 154 158 159 160 161 164
 RETURN               : 57 58 59 60 61
-RPAREN               : 11 16 51 52 53 54 55 56 72 73 74 75 76 77 78 80 81 82 84 85 86 153 162 163
+RPAREN               : 11 16 51 52 53 54 55 56 72 73 74 75 76 77 78 80 81 82 84 85 86 154 163 164
 SEMICOLON            : 19 130 130
-SHORTASSIGN          : 32 33 130 132 134 152 153 158 160
+SHORTASSIGN          : 32 33 130 132 134 153 154 159 161
 STRING               : 101
 STRUCT               : 145
 SWITCH               : 133
@@ -247,13 +248,13 @@ TIMES                : 90
 TIMESASSIGN          : 48
 TRUE                 : 60
 TYPE                 : 145
-VAR                  : 30 31 34 35 149 150 159
-VARIABLE             : 14 30 31 32 33 36 37 38 39 43 44 51 52 53 54 55 56 64 65 66 97 130 132 132 132 134 145 148 149 150 151 152 153 157 158 159 160 161 162 163
+VAR                  : 30 31 34 35 149 150 151 160
+VARIABLE             : 14 30 31 32 33 36 37 38 39 43 44 51 52 53 54 55 56 64 65 66 97 130 132 132 132 134 145 148 149 150 151 152 153 154 158 159 160 161 162 163 164
 error                : 
 
 Nonterminals, with rules where they appear
 
-append_statement     : 161
+append_statement     : 162
 array_assign         : 42
 array_structure      : 141
 assignation          : 37 38 40
@@ -280,8 +281,8 @@ logical_operator     : 116
 main                 : 5 6 7 8
 map_assign           : 41
 map_structure        : 142
-map_value            : 154 155
-map_values           : 152 155
+map_value            : 155 156
+map_values           : 153 156
 not_variable_value   : 67
 number               : 69
 operation            : 22 33 38 74 77 83 84 85 86
@@ -299,9 +300,9 @@ struct_fields        : 145 147
 struct_structure     : 144
 switch_expression    : 133
 switch_structure     : 108
-type                 : 30 31 34 35 53 54 55 56 97 148 149 150 152 152 153 153 158 159 160 163
-value                : 31 32 35 36 37 40 58 58 59 59 62 63 66 79 79 80 80 81 81 82 82 83 84 85 86 87 117 117 130 130 134 151 156 156 157 157
-values               : 57 63 72 73 76 138 150 158 162 163
+type                 : 30 31 34 35 53 54 55 56 97 148 149 150 151 153 153 154 154 159 160 161 164
+value                : 31 32 35 36 37 40 58 58 59 59 62 63 66 79 79 80 80 81 81 82 82 83 84 85 86 87 117 117 130 130 134 152 157 157 158 158
+values               : 57 63 72 73 76 138 150 151 159 163 164
 values_for_import    : 11 13
 variable_assignation : 28
 variable_declaration : 27
@@ -394,12 +395,13 @@ state 0
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -411,8 +413,8 @@ state 0
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -596,12 +598,13 @@ state 3
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -613,8 +616,8 @@ state 3
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -749,12 +752,13 @@ state 4
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -766,8 +770,8 @@ state 4
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -939,12 +943,13 @@ state 6
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -956,8 +961,8 @@ state 6
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -1120,16 +1125,16 @@ state 11
     (64) value -> VARIABLE .
     (65) value -> VARIABLE . LBRACKET RBRACKET
     (66) value -> VARIABLE . LBRACKET value RBRACKET
-    (152) map_structure -> VARIABLE . SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> VARIABLE . SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> VARIABLE . SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (160) slice_structure -> VARIABLE . SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> VARIABLE . ASSIGN append_statement
+    (153) map_structure -> VARIABLE . SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> VARIABLE . SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> VARIABLE . SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (161) slice_structure -> VARIABLE . SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> VARIABLE . ASSIGN append_statement
     (97) parameter -> VARIABLE . type
     (43) variables -> VARIABLE .
     (44) variables -> VARIABLE . COMMA variables
-    (157) map_assign -> VARIABLE . LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> VARIABLE . LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> VARIABLE . LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> VARIABLE . LBRACKET INT RBRACKET ASSIGN value
     (45) assignation -> . ASSIGN
     (46) assignation -> . PLUSASSIGN
     (47) assignation -> . MINUSASSIGN
@@ -1756,7 +1761,8 @@ state 35
     (35) variable_declaration -> VAR . variables type ASSIGN value
     (149) array_structure -> VAR . VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> VAR . VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> VAR . VARIABLE LBRACKET RBRACKET type
+    (151) array_structure -> VAR . VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (160) slice_structure -> VAR . VARIABLE LBRACKET RBRACKET type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
 
@@ -2313,12 +2319,13 @@ state 55
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -2330,8 +2337,8 @@ state 55
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -2466,12 +2473,13 @@ state 57
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -2483,8 +2491,8 @@ state 57
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -2621,12 +2629,13 @@ state 59
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -2638,8 +2647,8 @@ state 59
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -2865,10 +2874,10 @@ state 67
 
     (32) variable_declaration -> VARIABLE SHORTASSIGN . value
     (33) variable_declaration -> VARIABLE SHORTASSIGN . operation
-    (152) map_structure -> VARIABLE SHORTASSIGN . MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> VARIABLE SHORTASSIGN . MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> VARIABLE SHORTASSIGN . LBRACKET RBRACKET type LBRACE values RBRACE
-    (160) slice_structure -> VARIABLE SHORTASSIGN . LBRACKET RBRACKET type
+    (153) map_structure -> VARIABLE SHORTASSIGN . MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> VARIABLE SHORTASSIGN . MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> VARIABLE SHORTASSIGN . LBRACKET RBRACKET type LBRACE values RBRACE
+    (161) slice_structure -> VARIABLE SHORTASSIGN . LBRACKET RBRACKET type
     (64) value -> . VARIABLE
     (65) value -> . VARIABLE LBRACKET RBRACKET
     (66) value -> . VARIABLE LBRACKET value RBRACKET
@@ -2965,8 +2974,8 @@ state 70
 
     (65) value -> VARIABLE LBRACKET . RBRACKET
     (66) value -> VARIABLE LBRACKET . value RBRACKET
-    (157) map_assign -> VARIABLE LBRACKET . value RBRACKET ASSIGN value
-    (151) array_assign -> VARIABLE LBRACKET . INT RBRACKET ASSIGN value
+    (158) map_assign -> VARIABLE LBRACKET . value RBRACKET ASSIGN value
+    (152) array_assign -> VARIABLE LBRACKET . INT RBRACKET ASSIGN value
     (64) value -> . VARIABLE
     (65) value -> . VARIABLE LBRACKET RBRACKET
     (66) value -> . VARIABLE LBRACKET value RBRACKET
@@ -3017,10 +3026,10 @@ state 71
 
 state 72
 
-    (161) slice_structure -> VARIABLE ASSIGN . append_statement
+    (162) slice_structure -> VARIABLE ASSIGN . append_statement
     (45) assignation -> ASSIGN .
-    (162) append_statement -> . APPEND LPAREN VARIABLE COMMA values RPAREN
-    (163) append_statement -> . APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN
+    (163) append_statement -> . APPEND LPAREN VARIABLE COMMA values RPAREN
+    (164) append_statement -> . APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN
 
     VARIABLE        reduce using rule 45 (assignation -> ASSIGN .)
     LPAREN          reduce using rule 45 (assignation -> ASSIGN .)
@@ -3648,7 +3657,8 @@ state 102
     (31) variable_declaration -> VAR VARIABLE . type ASSIGN value
     (149) array_structure -> VAR VARIABLE . LBRACKET INT RBRACKET type
     (150) array_structure -> VAR VARIABLE . ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> VAR VARIABLE . LBRACKET RBRACKET type
+    (151) array_structure -> VAR VARIABLE . LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (160) slice_structure -> VAR VARIABLE . LBRACKET RBRACKET type
     (43) variables -> VARIABLE .
     (44) variables -> VARIABLE . COMMA variables
     (98) type -> . INT
@@ -4036,12 +4046,13 @@ state 119
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -4053,8 +4064,8 @@ state 119
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -4220,12 +4231,13 @@ state 120
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -4237,8 +4249,8 @@ state 120
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -4382,12 +4394,13 @@ state 123
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -4399,8 +4412,8 @@ state 123
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -4643,22 +4656,22 @@ state 132
 
 state 133
 
-    (152) map_structure -> VARIABLE SHORTASSIGN MAP . LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (153) map_structure -> VARIABLE SHORTASSIGN MAP . LBRACKET type RBRACKET type LBRACE map_values RBRACE
 
     LBRACKET        shift and go to state 198
 
 
 state 134
 
-    (158) slice_structure -> VARIABLE SHORTASSIGN LBRACKET . RBRACKET type LBRACE values RBRACE
-    (160) slice_structure -> VARIABLE SHORTASSIGN LBRACKET . RBRACKET type
+    (159) slice_structure -> VARIABLE SHORTASSIGN LBRACKET . RBRACKET type LBRACE values RBRACE
+    (161) slice_structure -> VARIABLE SHORTASSIGN LBRACKET . RBRACKET type
 
     RBRACKET        shift and go to state 199
 
 
 state 135
 
-    (153) map_structure -> VARIABLE SHORTASSIGN MAKE . LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (154) map_structure -> VARIABLE SHORTASSIGN MAKE . LPAREN MAP LBRACKET type RBRACKET type RPAREN
 
     LPAREN          shift and go to state 200
 
@@ -4791,14 +4804,14 @@ state 138
 state 139
 
     (66) value -> VARIABLE LBRACKET value . RBRACKET
-    (157) map_assign -> VARIABLE LBRACKET value . RBRACKET ASSIGN value
+    (158) map_assign -> VARIABLE LBRACKET value . RBRACKET ASSIGN value
 
     RBRACKET        shift and go to state 201
 
 
 state 140
 
-    (151) array_assign -> VARIABLE LBRACKET INT . RBRACKET ASSIGN value
+    (152) array_assign -> VARIABLE LBRACKET INT . RBRACKET ASSIGN value
     (70) number -> INT .
 
   ! shift/reduce conflict for RBRACKET resolved as shift
@@ -4809,35 +4822,35 @@ state 140
 
 state 141
 
-    (161) slice_structure -> VARIABLE ASSIGN append_statement .
+    (162) slice_structure -> VARIABLE ASSIGN append_statement .
 
-    SEMICOLON       reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    PRINT           reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    PRINTF          reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    INPUT           reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    LPAREN          reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    FUNCTION        reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    VAR             reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    VARIABLE        reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    CONST           reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    RETURN          reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    TYPE            reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    IF              reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    SWITCH          reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    CHARSTRING      reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    FOR             reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    INT             reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    FLOAT           reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    $end            reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    RBRACE          reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    CASE            reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
-    DEFAULT         reduce using rule 161 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    SEMICOLON       reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    PRINT           reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    PRINTF          reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    INPUT           reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    LPAREN          reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    FUNCTION        reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    VAR             reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    VARIABLE        reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    CONST           reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    RETURN          reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    TYPE            reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    IF              reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    SWITCH          reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    CHARSTRING      reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    FOR             reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    INT             reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    FLOAT           reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    $end            reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    RBRACE          reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    CASE            reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
+    DEFAULT         reduce using rule 162 (slice_structure -> VARIABLE ASSIGN append_statement .)
 
 
 state 142
 
-    (162) append_statement -> APPEND . LPAREN VARIABLE COMMA values RPAREN
-    (163) append_statement -> APPEND . LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN
+    (163) append_statement -> APPEND . LPAREN VARIABLE COMMA values RPAREN
+    (164) append_statement -> APPEND . LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN
 
     LPAREN          shift and go to state 203
 
@@ -5232,7 +5245,8 @@ state 161
 state 162
 
     (149) array_structure -> VAR VARIABLE LBRACKET . INT RBRACKET type
-    (159) slice_structure -> VAR VARIABLE LBRACKET . RBRACKET type
+    (151) array_structure -> VAR VARIABLE LBRACKET . INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (160) slice_structure -> VAR VARIABLE LBRACKET . RBRACKET type
 
     INT             shift and go to state 216
     RBRACKET        shift and go to state 217
@@ -5505,12 +5519,13 @@ state 171
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -5522,8 +5537,8 @@ state 171
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -5905,12 +5920,13 @@ state 189
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -5922,8 +5938,8 @@ state 189
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -6102,7 +6118,7 @@ state 197
 
 state 198
 
-    (152) map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET . type RBRACKET type LBRACE map_values RBRACE
+    (153) map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET . type RBRACKET type LBRACE map_values RBRACE
     (98) type -> . INT
     (99) type -> . INT32
     (100) type -> . INT64
@@ -6125,8 +6141,8 @@ state 198
 
 state 199
 
-    (158) slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET . type LBRACE values RBRACE
-    (160) slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET . type
+    (159) slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET . type LBRACE values RBRACE
+    (161) slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET . type
     (98) type -> . INT
     (99) type -> . INT32
     (100) type -> . INT64
@@ -6149,7 +6165,7 @@ state 199
 
 state 200
 
-    (153) map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN . MAP LBRACKET type RBRACKET type RPAREN
+    (154) map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN . MAP LBRACKET type RBRACKET type RPAREN
 
     MAP             shift and go to state 249
 
@@ -6157,7 +6173,7 @@ state 200
 state 201
 
     (66) value -> VARIABLE LBRACKET value RBRACKET .
-    (157) map_assign -> VARIABLE LBRACKET value RBRACKET . ASSIGN value
+    (158) map_assign -> VARIABLE LBRACKET value RBRACKET . ASSIGN value
 
   ! shift/reduce conflict for ASSIGN resolved as shift
     PLUS            reduce using rule 66 (value -> VARIABLE LBRACKET value RBRACKET .)
@@ -6173,15 +6189,15 @@ state 201
 
 state 202
 
-    (151) array_assign -> VARIABLE LBRACKET INT RBRACKET . ASSIGN value
+    (152) array_assign -> VARIABLE LBRACKET INT RBRACKET . ASSIGN value
 
     ASSIGN          shift and go to state 251
 
 
 state 203
 
-    (162) append_statement -> APPEND LPAREN . VARIABLE COMMA values RPAREN
-    (163) append_statement -> APPEND LPAREN . VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN
+    (163) append_statement -> APPEND LPAREN . VARIABLE COMMA values RPAREN
+    (164) append_statement -> APPEND LPAREN . VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN
 
     VARIABLE        shift and go to state 252
 
@@ -6430,13 +6446,14 @@ state 215
 state 216
 
     (149) array_structure -> VAR VARIABLE LBRACKET INT . RBRACKET type
+    (151) array_structure -> VAR VARIABLE LBRACKET INT . RBRACKET type ASSIGN LBRACKET values RBRACKET
 
     RBRACKET        shift and go to state 262
 
 
 state 217
 
-    (159) slice_structure -> VAR VARIABLE LBRACKET RBRACKET . type
+    (160) slice_structure -> VAR VARIABLE LBRACKET RBRACKET . type
     (98) type -> . INT
     (99) type -> . INT32
     (100) type -> . INT64
@@ -6567,6 +6584,7 @@ state 222
     DEFAULT         reduce using rule 62 (values -> value .)
     RPAREN          reduce using rule 62 (values -> value .)
     COLON           reduce using rule 62 (values -> value .)
+    RBRACKET        reduce using rule 62 (values -> value .)
     COMMA           shift and go to state 168
 
 
@@ -6597,6 +6615,7 @@ state 223
     DEFAULT         reduce using rule 63 (values -> value COMMA values .)
     RPAREN          reduce using rule 63 (values -> value COMMA values .)
     COLON           reduce using rule 63 (values -> value COMMA values .)
+    RBRACKET        reduce using rule 63 (values -> value COMMA values .)
 
 
 state 224
@@ -6977,50 +6996,50 @@ state 246
 
 state 247
 
-    (152) map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type . RBRACKET type LBRACE map_values RBRACE
+    (153) map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type . RBRACKET type LBRACE map_values RBRACE
 
     RBRACKET        shift and go to state 281
 
 
 state 248
 
-    (158) slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type . LBRACE values RBRACE
-    (160) slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .
+    (159) slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type . LBRACE values RBRACE
+    (161) slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .
 
     LBRACE          shift and go to state 282
-    SEMICOLON       reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    PRINT           reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    PRINTF          reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    INPUT           reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    LPAREN          reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    FUNCTION        reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    VAR             reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    VARIABLE        reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    CONST           reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    RETURN          reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    TYPE            reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    IF              reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    SWITCH          reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    CHARSTRING      reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    FOR             reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    INT             reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    FLOAT           reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    $end            reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    RBRACE          reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    CASE            reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
-    DEFAULT         reduce using rule 160 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    SEMICOLON       reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    PRINT           reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    PRINTF          reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    INPUT           reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    LPAREN          reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    FUNCTION        reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    VAR             reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    VARIABLE        reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    CONST           reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    RETURN          reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    TYPE            reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    IF              reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    SWITCH          reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    CHARSTRING      reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    FOR             reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    INT             reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    FLOAT           reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    $end            reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    RBRACE          reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    CASE            reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
+    DEFAULT         reduce using rule 161 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type .)
 
 
 state 249
 
-    (153) map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP . LBRACKET type RBRACKET type RPAREN
+    (154) map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP . LBRACKET type RBRACKET type RPAREN
 
     LBRACKET        shift and go to state 283
 
 
 state 250
 
-    (157) map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN . value
+    (158) map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN . value
     (64) value -> . VARIABLE
     (65) value -> . VARIABLE LBRACKET RBRACKET
     (66) value -> . VARIABLE LBRACKET value RBRACKET
@@ -7041,7 +7060,7 @@ state 250
 
 state 251
 
-    (151) array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN . value
+    (152) array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN . value
     (64) value -> . VARIABLE
     (65) value -> . VARIABLE LBRACKET RBRACKET
     (66) value -> . VARIABLE LBRACKET value RBRACKET
@@ -7062,8 +7081,8 @@ state 251
 
 state 252
 
-    (162) append_statement -> APPEND LPAREN VARIABLE . COMMA values RPAREN
-    (163) append_statement -> APPEND LPAREN VARIABLE . COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN
+    (163) append_statement -> APPEND LPAREN VARIABLE . COMMA values RPAREN
+    (164) append_statement -> APPEND LPAREN VARIABLE . COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN
 
     COMMA           shift and go to state 286
 
@@ -7139,12 +7158,13 @@ state 253
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -7156,8 +7176,8 @@ state 253
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -7397,6 +7417,7 @@ state 261
 state 262
 
     (149) array_structure -> VAR VARIABLE LBRACKET INT RBRACKET . type
+    (151) array_structure -> VAR VARIABLE LBRACKET INT RBRACKET . type ASSIGN LBRACKET values RBRACKET
     (98) type -> . INT
     (99) type -> . INT32
     (100) type -> . INT64
@@ -7419,29 +7440,29 @@ state 262
 
 state 263
 
-    (159) slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .
+    (160) slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .
 
-    SEMICOLON       reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    PRINT           reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    PRINTF          reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    INPUT           reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    LPAREN          reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    FUNCTION        reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    VAR             reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    VARIABLE        reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    CONST           reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    RETURN          reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    TYPE            reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    IF              reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    SWITCH          reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    CHARSTRING      reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    FOR             reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    INT             reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    FLOAT           reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    $end            reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    RBRACE          reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    CASE            reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
-    DEFAULT         reduce using rule 159 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    SEMICOLON       reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    PRINT           reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    PRINTF          reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    INPUT           reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    LPAREN          reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    FUNCTION        reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    VAR             reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    VARIABLE        reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    CONST           reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    RETURN          reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    TYPE            reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    IF              reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    SWITCH          reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    CHARSTRING      reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    FOR             reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    INT             reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    FLOAT           reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    $end            reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    RBRACE          reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    CASE            reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
+    DEFAULT         reduce using rule 160 (slice_structure -> VAR VARIABLE LBRACKET RBRACKET type .)
 
 
 state 264
@@ -7805,12 +7826,13 @@ state 277
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -7822,8 +7844,8 @@ state 277
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -7960,7 +7982,7 @@ state 280
 
 state 281
 
-    (152) map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET . type LBRACE map_values RBRACE
+    (153) map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET . type LBRACE map_values RBRACE
     (98) type -> . INT
     (99) type -> . INT32
     (100) type -> . INT64
@@ -7983,7 +8005,7 @@ state 281
 
 state 282
 
-    (158) slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE . values RBRACE
+    (159) slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE . values RBRACE
     (62) values -> . value
     (63) values -> . value COMMA values
     (64) value -> . VARIABLE
@@ -8007,7 +8029,7 @@ state 282
 
 state 283
 
-    (153) map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET . type RBRACKET type RPAREN
+    (154) map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET . type RBRACKET type RPAREN
     (98) type -> . INT
     (99) type -> . INT32
     (100) type -> . INT64
@@ -8030,62 +8052,62 @@ state 283
 
 state 284
 
-    (157) map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .
+    (158) map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .
 
-    SEMICOLON       reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    PRINT           reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    PRINTF          reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    INPUT           reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    LPAREN          reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    FUNCTION        reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    VAR             reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    VARIABLE        reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    CONST           reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    RETURN          reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    TYPE            reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    IF              reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    SWITCH          reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    CHARSTRING      reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    FOR             reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    INT             reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    FLOAT           reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    $end            reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    RBRACE          reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    CASE            reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
-    DEFAULT         reduce using rule 157 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    SEMICOLON       reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    PRINT           reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    PRINTF          reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    INPUT           reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    LPAREN          reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    FUNCTION        reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    VAR             reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    VARIABLE        reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    CONST           reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    RETURN          reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    TYPE            reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    IF              reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    SWITCH          reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    CHARSTRING      reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    FOR             reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    INT             reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    FLOAT           reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    $end            reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    RBRACE          reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    CASE            reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
+    DEFAULT         reduce using rule 158 (map_assign -> VARIABLE LBRACKET value RBRACKET ASSIGN value .)
 
 
 state 285
 
-    (151) array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .
+    (152) array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .
 
-    SEMICOLON       reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    PRINT           reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    PRINTF          reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    INPUT           reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    LPAREN          reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    FUNCTION        reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    VAR             reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    VARIABLE        reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    CONST           reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    RETURN          reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    TYPE            reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    IF              reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    SWITCH          reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    CHARSTRING      reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    FOR             reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    INT             reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    FLOAT           reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    $end            reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    RBRACE          reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    CASE            reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
-    DEFAULT         reduce using rule 151 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    SEMICOLON       reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    PRINT           reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    PRINTF          reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    INPUT           reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    LPAREN          reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    FUNCTION        reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    VAR             reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    VARIABLE        reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    CONST           reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    RETURN          reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    TYPE            reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    IF              reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    SWITCH          reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    CHARSTRING      reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    FOR             reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    INT             reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    FLOAT           reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    $end            reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    RBRACE          reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    CASE            reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
+    DEFAULT         reduce using rule 152 (array_assign -> VARIABLE LBRACKET INT RBRACKET ASSIGN value .)
 
 
 state 286
 
-    (162) append_statement -> APPEND LPAREN VARIABLE COMMA . values RPAREN
-    (163) append_statement -> APPEND LPAREN VARIABLE COMMA . LBRACKET RBRACKET type LBRACE values RBRACE RPAREN
+    (163) append_statement -> APPEND LPAREN VARIABLE COMMA . values RPAREN
+    (164) append_statement -> APPEND LPAREN VARIABLE COMMA . LBRACKET RBRACKET type LBRACE values RBRACE RPAREN
     (62) values -> . value
     (63) values -> . value COMMA values
     (64) value -> . VARIABLE
@@ -8187,12 +8209,13 @@ state 288
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -8204,8 +8227,8 @@ state 288
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -8333,12 +8356,13 @@ state 289
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -8350,8 +8374,8 @@ state 289
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -8511,6 +8535,7 @@ state 294
 state 295
 
     (149) array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type .
+    (151) array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type . ASSIGN LBRACKET values RBRACKET
 
     SEMICOLON       reduce using rule 149 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type .)
     PRINT           reduce using rule 149 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type .)
@@ -8533,6 +8558,7 @@ state 295
     RBRACE          reduce using rule 149 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type .)
     CASE            reduce using rule 149 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type .)
     DEFAULT         reduce using rule 149 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type .)
+    ASSIGN          shift and go to state 315
 
 
 state 296
@@ -8586,7 +8612,7 @@ state 299
 
     LBRACE          shift and go to state 171
 
-    conditional_body               shift and go to state 315
+    conditional_body               shift and go to state 316
 
 state 300
 
@@ -8673,12 +8699,13 @@ state 300
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -8690,8 +8717,8 @@ state 300
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -8752,7 +8779,7 @@ state 300
   ! INT             [ reduce using rule 9 (import -> .) ]
   ! FLOAT           [ reduce using rule 9 (import -> .) ]
 
-    statement                      shift and go to state 316
+    statement                      shift and go to state 317
     blocks                         shift and go to state 2
     import                         shift and go to state 3
     package                        shift and go to state 4
@@ -8799,49 +8826,49 @@ state 302
 
     (130) for_initialization -> FOR VARIABLE SHORTASSIGN value SEMICOLON condition . SEMICOLON value double_operator LBRACE statement RBRACE
 
-    SEMICOLON       shift and go to state 317
+    SEMICOLON       shift and go to state 318
 
 
 state 303
 
     (132) for_iterator -> FOR VARIABLE COMMA VARIABLE SHORTASSIGN RANGE . VARIABLE LBRACE statement RBRACE
 
-    VARIABLE        shift and go to state 318
+    VARIABLE        shift and go to state 319
 
 
 state 304
 
-    (152) map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type . LBRACE map_values RBRACE
+    (153) map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type . LBRACE map_values RBRACE
 
-    LBRACE          shift and go to state 319
+    LBRACE          shift and go to state 320
 
 
 state 305
 
-    (158) slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values . RBRACE
+    (159) slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values . RBRACE
 
-    RBRACE          shift and go to state 320
+    RBRACE          shift and go to state 321
 
 
 state 306
 
-    (153) map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type . RBRACKET type RPAREN
+    (154) map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type . RBRACKET type RPAREN
 
-    RBRACKET        shift and go to state 321
+    RBRACKET        shift and go to state 322
 
 
 state 307
 
-    (162) append_statement -> APPEND LPAREN VARIABLE COMMA values . RPAREN
+    (163) append_statement -> APPEND LPAREN VARIABLE COMMA values . RPAREN
 
-    RPAREN          shift and go to state 322
+    RPAREN          shift and go to state 323
 
 
 state 308
 
-    (163) append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET . RBRACKET type LBRACE values RBRACE RPAREN
+    (164) append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET . RBRACKET type LBRACE values RBRACE RPAREN
 
-    RBRACKET        shift and go to state 323
+    RBRACKET        shift and go to state 324
 
 
 state 309
@@ -8902,14 +8929,14 @@ state 311
 
     (56) function -> FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks . RBRACE
 
-    RBRACE          shift and go to state 324
+    RBRACE          shift and go to state 325
 
 
 state 312
 
     (52) function -> FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks . RBRACE
 
-    RBRACE          shift and go to state 325
+    RBRACE          shift and go to state 326
 
 
 state 313
@@ -8984,12 +9011,13 @@ state 313
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -9001,8 +9029,8 @@ state 313
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -9011,7 +9039,7 @@ state 313
     (70) number -> . INT
     (71) number -> . FLOAT
 
-    RBRACE          shift and go to state 326
+    RBRACE          shift and go to state 327
     PRINT           shift and go to state 23
     PRINTF          shift and go to state 24
     INPUT           shift and go to state 25
@@ -9030,7 +9058,7 @@ state 313
     FLOAT           shift and go to state 51
 
     parameters                     shift and go to state 19
-    blocks                         shift and go to state 327
+    blocks                         shift and go to state 328
     block                          shift and go to state 6
     print_statement                shift and go to state 13
     input_statement                shift and go to state 14
@@ -9063,17 +9091,24 @@ state 314
 
     (150) array_structure -> VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type . LBRACE values RBRACE
 
-    LBRACE          shift and go to state 328
+    LBRACE          shift and go to state 329
 
 
 state 315
 
-    (111) conditional_structure -> IF conditions conditional_body ELSE IF conditions conditional_body . ELSE conditional_body
+    (151) array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN . LBRACKET values RBRACKET
 
-    ELSE            shift and go to state 329
+    LBRACKET        shift and go to state 330
 
 
 state 316
+
+    (111) conditional_structure -> IF conditions conditional_body ELSE IF conditions conditional_body . ELSE conditional_body
+
+    ELSE            shift and go to state 331
+
+
+state 317
 
     (138) case_block -> CASE values COLON statement .
 
@@ -9082,7 +9117,7 @@ state 316
     RBRACE          reduce using rule 138 (case_block -> CASE values COLON statement .)
 
 
-state 317
+state 318
 
     (130) for_initialization -> FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON . value double_operator LBRACE statement RBRACE
     (64) value -> . VARIABLE
@@ -9099,23 +9134,23 @@ state 317
     INT             shift and go to state 42
     FLOAT           shift and go to state 51
 
-    value                          shift and go to state 330
+    value                          shift and go to state 332
     not_variable_value             shift and go to state 41
     number                         shift and go to state 49
 
-state 318
+state 319
 
     (132) for_iterator -> FOR VARIABLE COMMA VARIABLE SHORTASSIGN RANGE VARIABLE . LBRACE statement RBRACE
 
-    LBRACE          shift and go to state 331
+    LBRACE          shift and go to state 333
 
 
-state 319
+state 320
 
-    (152) map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE . map_values RBRACE
-    (154) map_values -> . map_value
-    (155) map_values -> . map_value COMMA map_values
-    (156) map_value -> . value COLON value
+    (153) map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE . map_values RBRACE
+    (155) map_values -> . map_value
+    (156) map_values -> . map_value COMMA map_values
+    (157) map_value -> . value COLON value
     (64) value -> . VARIABLE
     (65) value -> . VARIABLE LBRACKET RBRACKET
     (66) value -> . VARIABLE LBRACKET value RBRACKET
@@ -9130,92 +9165,42 @@ state 319
     INT             shift and go to state 42
     FLOAT           shift and go to state 51
 
-    map_values                     shift and go to state 332
-    map_value                      shift and go to state 333
-    value                          shift and go to state 334
+    map_values                     shift and go to state 334
+    map_value                      shift and go to state 335
+    value                          shift and go to state 336
     not_variable_value             shift and go to state 41
     number                         shift and go to state 49
 
-state 320
-
-    (158) slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .
-
-    SEMICOLON       reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    PRINT           reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    PRINTF          reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    INPUT           reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    LPAREN          reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    FUNCTION        reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    VAR             reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    VARIABLE        reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    CONST           reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    RETURN          reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    TYPE            reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    IF              reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    SWITCH          reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    CHARSTRING      reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    FOR             reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    INT             reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    FLOAT           reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    $end            reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    RBRACE          reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    CASE            reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-    DEFAULT         reduce using rule 158 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
-
-
 state 321
 
-    (153) map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET . type RPAREN
-    (98) type -> . INT
-    (99) type -> . INT32
-    (100) type -> . INT64
-    (101) type -> . STRING
-    (102) type -> . FLOAT
-    (103) type -> . FLOAT32
-    (104) type -> . FLOAT64
-    (105) type -> . BOOL
+    (159) slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .
 
-    INT             shift and go to state 74
-    INT32           shift and go to state 82
-    INT64           shift and go to state 83
-    STRING          shift and go to state 84
-    FLOAT           shift and go to state 85
-    FLOAT32         shift and go to state 86
-    FLOAT64         shift and go to state 87
-    BOOL            shift and go to state 88
+    SEMICOLON       reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    PRINT           reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    PRINTF          reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    INPUT           reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    LPAREN          reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    FUNCTION        reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    VAR             reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    VARIABLE        reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    CONST           reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    RETURN          reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    TYPE            reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    IF              reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    SWITCH          reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    CHARSTRING      reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    FOR             reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    INT             reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    FLOAT           reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    $end            reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    RBRACE          reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    CASE            reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
+    DEFAULT         reduce using rule 159 (slice_structure -> VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE .)
 
-    type                           shift and go to state 335
 
 state 322
 
-    (162) append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .
-
-    SEMICOLON       reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    PRINT           reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    PRINTF          reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    INPUT           reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    LPAREN          reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    FUNCTION        reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    VAR             reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    VARIABLE        reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    CONST           reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    RETURN          reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    TYPE            reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    IF              reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    SWITCH          reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    CHARSTRING      reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    FOR             reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    INT             reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    FLOAT           reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    $end            reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    RBRACE          reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    CASE            reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-    DEFAULT         reduce using rule 162 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
-
-
-state 323
-
-    (163) append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET . type LBRACE values RBRACE RPAREN
+    (154) map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET . type RPAREN
     (98) type -> . INT
     (99) type -> . INT32
     (100) type -> . INT64
@@ -9234,9 +9219,59 @@ state 323
     FLOAT64         shift and go to state 87
     BOOL            shift and go to state 88
 
-    type                           shift and go to state 336
+    type                           shift and go to state 337
+
+state 323
+
+    (163) append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .
+
+    SEMICOLON       reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    PRINT           reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    PRINTF          reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    INPUT           reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    LPAREN          reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    FUNCTION        reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    VAR             reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    VARIABLE        reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    CONST           reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    RETURN          reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    TYPE            reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    IF              reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    SWITCH          reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    CHARSTRING      reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    FOR             reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    INT             reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    FLOAT           reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    $end            reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    RBRACE          reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    CASE            reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+    DEFAULT         reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA values RPAREN .)
+
 
 state 324
+
+    (164) append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET . type LBRACE values RBRACE RPAREN
+    (98) type -> . INT
+    (99) type -> . INT32
+    (100) type -> . INT64
+    (101) type -> . STRING
+    (102) type -> . FLOAT
+    (103) type -> . FLOAT32
+    (104) type -> . FLOAT64
+    (105) type -> . BOOL
+
+    INT             shift and go to state 74
+    INT32           shift and go to state 82
+    INT64           shift and go to state 83
+    STRING          shift and go to state 84
+    FLOAT           shift and go to state 85
+    FLOAT32         shift and go to state 86
+    FLOAT64         shift and go to state 87
+    BOOL            shift and go to state 88
+
+    type                           shift and go to state 338
+
+state 325
 
     (56) function -> FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks RBRACE .
 
@@ -9263,7 +9298,7 @@ state 324
     DEFAULT         reduce using rule 56 (function -> FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks RBRACE .)
 
 
-state 325
+state 326
 
     (52) function -> FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE .
 
@@ -9290,7 +9325,7 @@ state 325
     DEFAULT         reduce using rule 52 (function -> FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE .)
 
 
-state 326
+state 327
 
     (54) function -> FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE RBRACE .
 
@@ -9317,14 +9352,14 @@ state 326
     DEFAULT         reduce using rule 54 (function -> FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE RBRACE .)
 
 
-state 327
+state 328
 
     (55) function -> FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks . RBRACE
 
-    RBRACE          shift and go to state 337
+    RBRACE          shift and go to state 339
 
 
-state 328
+state 329
 
     (150) array_structure -> VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE . values RBRACE
     (62) values -> . value
@@ -9343,12 +9378,36 @@ state 328
     INT             shift and go to state 42
     FLOAT           shift and go to state 51
 
-    values                         shift and go to state 338
+    values                         shift and go to state 340
     value                          shift and go to state 222
     not_variable_value             shift and go to state 41
     number                         shift and go to state 49
 
-state 329
+state 330
+
+    (151) array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET . values RBRACKET
+    (62) values -> . value
+    (63) values -> . value COMMA values
+    (64) value -> . VARIABLE
+    (65) value -> . VARIABLE LBRACKET RBRACKET
+    (66) value -> . VARIABLE LBRACKET value RBRACKET
+    (67) value -> . not_variable_value
+    (68) not_variable_value -> . CHARSTRING
+    (69) not_variable_value -> . number
+    (70) number -> . INT
+    (71) number -> . FLOAT
+
+    VARIABLE        shift and go to state 64
+    CHARSTRING      shift and go to state 8
+    INT             shift and go to state 42
+    FLOAT           shift and go to state 51
+
+    values                         shift and go to state 341
+    value                          shift and go to state 222
+    not_variable_value             shift and go to state 41
+    number                         shift and go to state 49
+
+state 331
 
     (111) conditional_structure -> IF conditions conditional_body ELSE IF conditions conditional_body ELSE . conditional_body
     (112) conditional_body -> . LBRACE statement RBRACE
@@ -9357,9 +9416,9 @@ state 329
 
     LBRACE          shift and go to state 171
 
-    conditional_body               shift and go to state 339
+    conditional_body               shift and go to state 342
 
-state 330
+state 332
 
     (130) for_initialization -> FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value . double_operator LBRACE statement RBRACE
     (93) double_operator -> . INCREMENT
@@ -9368,9 +9427,9 @@ state 330
     INCREMENT       shift and go to state 80
     DECREMENT       shift and go to state 81
 
-    double_operator                shift and go to state 340
+    double_operator                shift and go to state 343
 
-state 331
+state 333
 
     (132) for_iterator -> FOR VARIABLE COMMA VARIABLE SHORTASSIGN RANGE VARIABLE LBRACE . statement RBRACE
     (1) statement -> . blocks
@@ -9455,12 +9514,13 @@ state 331
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -9472,8 +9532,8 @@ state 331
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -9534,7 +9594,7 @@ state 331
   ! INT             [ reduce using rule 9 (import -> .) ]
   ! FLOAT           [ reduce using rule 9 (import -> .) ]
 
-    statement                      shift and go to state 341
+    statement                      shift and go to state 344
     blocks                         shift and go to state 2
     import                         shift and go to state 3
     package                        shift and go to state 4
@@ -9568,44 +9628,44 @@ state 331
     for_iterator                   shift and go to state 47
     number                         shift and go to state 49
 
-state 332
-
-    (152) map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values . RBRACE
-
-    RBRACE          shift and go to state 342
-
-
-state 333
-
-    (154) map_values -> map_value .
-    (155) map_values -> map_value . COMMA map_values
-
-    RBRACE          reduce using rule 154 (map_values -> map_value .)
-    COMMA           shift and go to state 343
-
-
 state 334
 
-    (156) map_value -> value . COLON value
+    (153) map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values . RBRACE
 
-    COLON           shift and go to state 344
+    RBRACE          shift and go to state 345
 
 
 state 335
 
-    (153) map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type . RPAREN
+    (155) map_values -> map_value .
+    (156) map_values -> map_value . COMMA map_values
 
-    RPAREN          shift and go to state 345
+    RBRACE          reduce using rule 155 (map_values -> map_value .)
+    COMMA           shift and go to state 346
 
 
 state 336
 
-    (163) append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type . LBRACE values RBRACE RPAREN
+    (157) map_value -> value . COLON value
 
-    LBRACE          shift and go to state 346
+    COLON           shift and go to state 347
 
 
 state 337
+
+    (154) map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type . RPAREN
+
+    RPAREN          shift and go to state 348
+
+
+state 338
+
+    (164) append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type . LBRACE values RBRACE RPAREN
+
+    LBRACE          shift and go to state 349
+
+
+state 339
 
     (55) function -> FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RBRACE .
 
@@ -9632,14 +9692,21 @@ state 337
     DEFAULT         reduce using rule 55 (function -> FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RBRACE .)
 
 
-state 338
+state 340
 
     (150) array_structure -> VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values . RBRACE
 
-    RBRACE          shift and go to state 347
+    RBRACE          shift and go to state 350
 
 
-state 339
+state 341
+
+    (151) array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values . RBRACKET
+
+    RBRACKET        shift and go to state 351
+
+
+state 342
 
     (111) conditional_structure -> IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body .
 
@@ -9666,124 +9733,124 @@ state 339
     DEFAULT         reduce using rule 111 (conditional_structure -> IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body .)
 
 
-state 340
+state 343
 
     (130) for_initialization -> FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator . LBRACE statement RBRACE
 
-    LBRACE          shift and go to state 348
+    LBRACE          shift and go to state 352
 
-
-state 341
-
-    (132) for_iterator -> FOR VARIABLE COMMA VARIABLE SHORTASSIGN RANGE VARIABLE LBRACE statement . RBRACE
-
-    RBRACE          shift and go to state 349
-
-
-state 342
-
-    (152) map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .
-
-    SEMICOLON       reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    PRINT           reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    PRINTF          reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    INPUT           reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    LPAREN          reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    FUNCTION        reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    VAR             reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    VARIABLE        reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    CONST           reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    RETURN          reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    TYPE            reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    IF              reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    SWITCH          reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    CHARSTRING      reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    FOR             reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    INT             reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    FLOAT           reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    $end            reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    RBRACE          reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    CASE            reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-    DEFAULT         reduce using rule 152 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
-
-
-state 343
-
-    (155) map_values -> map_value COMMA . map_values
-    (154) map_values -> . map_value
-    (155) map_values -> . map_value COMMA map_values
-    (156) map_value -> . value COLON value
-    (64) value -> . VARIABLE
-    (65) value -> . VARIABLE LBRACKET RBRACKET
-    (66) value -> . VARIABLE LBRACKET value RBRACKET
-    (67) value -> . not_variable_value
-    (68) not_variable_value -> . CHARSTRING
-    (69) not_variable_value -> . number
-    (70) number -> . INT
-    (71) number -> . FLOAT
-
-    VARIABLE        shift and go to state 64
-    CHARSTRING      shift and go to state 8
-    INT             shift and go to state 42
-    FLOAT           shift and go to state 51
-
-    map_value                      shift and go to state 333
-    map_values                     shift and go to state 350
-    value                          shift and go to state 334
-    not_variable_value             shift and go to state 41
-    number                         shift and go to state 49
 
 state 344
 
-    (156) map_value -> value COLON . value
-    (64) value -> . VARIABLE
-    (65) value -> . VARIABLE LBRACKET RBRACKET
-    (66) value -> . VARIABLE LBRACKET value RBRACKET
-    (67) value -> . not_variable_value
-    (68) not_variable_value -> . CHARSTRING
-    (69) not_variable_value -> . number
-    (70) number -> . INT
-    (71) number -> . FLOAT
+    (132) for_iterator -> FOR VARIABLE COMMA VARIABLE SHORTASSIGN RANGE VARIABLE LBRACE statement . RBRACE
 
-    VARIABLE        shift and go to state 64
-    CHARSTRING      shift and go to state 8
-    INT             shift and go to state 42
-    FLOAT           shift and go to state 51
+    RBRACE          shift and go to state 353
 
-    value                          shift and go to state 351
-    not_variable_value             shift and go to state 41
-    number                         shift and go to state 49
 
 state 345
 
-    (153) map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .
+    (153) map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .
 
-    SEMICOLON       reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    PRINT           reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    PRINTF          reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    INPUT           reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    LPAREN          reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    FUNCTION        reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    VAR             reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    VARIABLE        reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    CONST           reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    RETURN          reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    TYPE            reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    IF              reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    SWITCH          reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    CHARSTRING      reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    FOR             reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    INT             reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    FLOAT           reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    $end            reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    RBRACE          reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    CASE            reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
-    DEFAULT         reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    SEMICOLON       reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    PRINT           reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    PRINTF          reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    INPUT           reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    LPAREN          reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    FUNCTION        reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    VAR             reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    VARIABLE        reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    CONST           reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    RETURN          reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    TYPE            reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    IF              reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    SWITCH          reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    CHARSTRING      reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    FOR             reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    INT             reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    FLOAT           reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    $end            reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    RBRACE          reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    CASE            reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
+    DEFAULT         reduce using rule 153 (map_structure -> VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE .)
 
 
 state 346
 
-    (163) append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE . values RBRACE RPAREN
+    (156) map_values -> map_value COMMA . map_values
+    (155) map_values -> . map_value
+    (156) map_values -> . map_value COMMA map_values
+    (157) map_value -> . value COLON value
+    (64) value -> . VARIABLE
+    (65) value -> . VARIABLE LBRACKET RBRACKET
+    (66) value -> . VARIABLE LBRACKET value RBRACKET
+    (67) value -> . not_variable_value
+    (68) not_variable_value -> . CHARSTRING
+    (69) not_variable_value -> . number
+    (70) number -> . INT
+    (71) number -> . FLOAT
+
+    VARIABLE        shift and go to state 64
+    CHARSTRING      shift and go to state 8
+    INT             shift and go to state 42
+    FLOAT           shift and go to state 51
+
+    map_value                      shift and go to state 335
+    map_values                     shift and go to state 354
+    value                          shift and go to state 336
+    not_variable_value             shift and go to state 41
+    number                         shift and go to state 49
+
+state 347
+
+    (157) map_value -> value COLON . value
+    (64) value -> . VARIABLE
+    (65) value -> . VARIABLE LBRACKET RBRACKET
+    (66) value -> . VARIABLE LBRACKET value RBRACKET
+    (67) value -> . not_variable_value
+    (68) not_variable_value -> . CHARSTRING
+    (69) not_variable_value -> . number
+    (70) number -> . INT
+    (71) number -> . FLOAT
+
+    VARIABLE        shift and go to state 64
+    CHARSTRING      shift and go to state 8
+    INT             shift and go to state 42
+    FLOAT           shift and go to state 51
+
+    value                          shift and go to state 355
+    not_variable_value             shift and go to state 41
+    number                         shift and go to state 49
+
+state 348
+
+    (154) map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .
+
+    SEMICOLON       reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    PRINT           reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    PRINTF          reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    INPUT           reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    LPAREN          reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    FUNCTION        reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    VAR             reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    VARIABLE        reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    CONST           reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    RETURN          reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    TYPE            reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    IF              reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    SWITCH          reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    CHARSTRING      reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    FOR             reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    INT             reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    FLOAT           reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    $end            reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    RBRACE          reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    CASE            reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+    DEFAULT         reduce using rule 154 (map_structure -> VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN .)
+
+
+state 349
+
+    (164) append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE . values RBRACE RPAREN
     (62) values -> . value
     (63) values -> . value COMMA values
     (64) value -> . VARIABLE
@@ -9800,12 +9867,12 @@ state 346
     INT             shift and go to state 42
     FLOAT           shift and go to state 51
 
-    values                         shift and go to state 352
+    values                         shift and go to state 356
     value                          shift and go to state 222
     not_variable_value             shift and go to state 41
     number                         shift and go to state 49
 
-state 347
+state 350
 
     (150) array_structure -> VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE .
 
@@ -9832,7 +9899,34 @@ state 347
     DEFAULT         reduce using rule 150 (array_structure -> VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE .)
 
 
-state 348
+state 351
+
+    (151) array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .
+
+    SEMICOLON       reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    PRINT           reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    PRINTF          reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    INPUT           reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    LPAREN          reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    FUNCTION        reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    VAR             reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    VARIABLE        reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    CONST           reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    RETURN          reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    TYPE            reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    IF              reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    SWITCH          reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    CHARSTRING      reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    FOR             reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    INT             reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    FLOAT           reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    $end            reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    RBRACE          reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    CASE            reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+    DEFAULT         reduce using rule 151 (array_structure -> VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET .)
+
+
+state 352
 
     (130) for_initialization -> FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE . statement RBRACE
     (1) statement -> . blocks
@@ -9917,12 +10011,13 @@ state 348
     (67) value -> . not_variable_value
     (149) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type
     (150) array_structure -> . VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
-    (152) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-    (153) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
-    (158) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
-    (159) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
-    (160) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
-    (161) slice_structure -> . VARIABLE ASSIGN append_statement
+    (151) array_structure -> . VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET
+    (153) map_structure -> . VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
+    (154) map_structure -> . VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN
+    (159) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type LBRACE values RBRACE
+    (160) slice_structure -> . VAR VARIABLE LBRACKET RBRACKET type
+    (161) slice_structure -> . VARIABLE SHORTASSIGN LBRACKET RBRACKET type
+    (162) slice_structure -> . VARIABLE ASSIGN append_statement
     (145) struct_structure -> . TYPE VARIABLE STRUCT LBRACE struct_fields RBRACE
     (109) conditional_structure -> . IF conditions conditional_body
     (110) conditional_structure -> . IF conditions conditional_body ELSE conditional_body
@@ -9934,8 +10029,8 @@ state 348
     (97) parameter -> . VARIABLE type
     (43) variables -> . VARIABLE
     (44) variables -> . VARIABLE COMMA variables
-    (157) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
-    (151) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
+    (158) map_assign -> . VARIABLE LBRACKET value RBRACKET ASSIGN value
+    (152) array_assign -> . VARIABLE LBRACKET INT RBRACKET ASSIGN value
     (68) not_variable_value -> . CHARSTRING
     (69) not_variable_value -> . number
     (130) for_initialization -> . FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE
@@ -9997,7 +10092,7 @@ state 348
   ! FLOAT           [ reduce using rule 9 (import -> .) ]
 
     value                          shift and go to state 26
-    statement                      shift and go to state 353
+    statement                      shift and go to state 357
     blocks                         shift and go to state 2
     import                         shift and go to state 3
     package                        shift and go to state 4
@@ -10030,7 +10125,7 @@ state 348
     for_iterator                   shift and go to state 47
     number                         shift and go to state 49
 
-state 349
+state 353
 
     (132) for_iterator -> FOR VARIABLE COMMA VARIABLE SHORTASSIGN RANGE VARIABLE LBRACE statement RBRACE .
 
@@ -10057,43 +10152,43 @@ state 349
     DEFAULT         reduce using rule 132 (for_iterator -> FOR VARIABLE COMMA VARIABLE SHORTASSIGN RANGE VARIABLE LBRACE statement RBRACE .)
 
 
-state 350
-
-    (155) map_values -> map_value COMMA map_values .
-
-    RBRACE          reduce using rule 155 (map_values -> map_value COMMA map_values .)
-
-
-state 351
-
-    (156) map_value -> value COLON value .
-
-    COMMA           reduce using rule 156 (map_value -> value COLON value .)
-    RBRACE          reduce using rule 156 (map_value -> value COLON value .)
-
-
-state 352
-
-    (163) append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values . RBRACE RPAREN
-
-    RBRACE          shift and go to state 354
-
-
-state 353
-
-    (130) for_initialization -> FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement . RBRACE
-
-    RBRACE          shift and go to state 355
-
-
 state 354
 
-    (163) append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE . RPAREN
+    (156) map_values -> map_value COMMA map_values .
 
-    RPAREN          shift and go to state 356
+    RBRACE          reduce using rule 156 (map_values -> map_value COMMA map_values .)
 
 
 state 355
+
+    (157) map_value -> value COLON value .
+
+    COMMA           reduce using rule 157 (map_value -> value COLON value .)
+    RBRACE          reduce using rule 157 (map_value -> value COLON value .)
+
+
+state 356
+
+    (164) append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values . RBRACE RPAREN
+
+    RBRACE          shift and go to state 358
+
+
+state 357
+
+    (130) for_initialization -> FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement . RBRACE
+
+    RBRACE          shift and go to state 359
+
+
+state 358
+
+    (164) append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE . RPAREN
+
+    RPAREN          shift and go to state 360
+
+
+state 359
 
     (130) for_initialization -> FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE .
 
@@ -10120,31 +10215,31 @@ state 355
     DEFAULT         reduce using rule 130 (for_initialization -> FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE .)
 
 
-state 356
+state 360
 
-    (163) append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .
+    (164) append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .
 
-    SEMICOLON       reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    PRINT           reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    PRINTF          reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    INPUT           reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    LPAREN          reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    FUNCTION        reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    VAR             reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    VARIABLE        reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    CONST           reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    RETURN          reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    TYPE            reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    IF              reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    SWITCH          reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    CHARSTRING      reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    FOR             reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    INT             reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    FLOAT           reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    $end            reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    RBRACE          reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    CASE            reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
-    DEFAULT         reduce using rule 163 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    SEMICOLON       reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    PRINT           reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    PRINTF          reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    INPUT           reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    LPAREN          reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    FUNCTION        reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    VAR             reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    VARIABLE        reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    CONST           reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    RETURN          reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    TYPE            reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    IF              reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    SWITCH          reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    CHARSTRING      reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    FOR             reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    INT             reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    FLOAT           reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    $end            reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    RBRACE          reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    CASE            reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
+    DEFAULT         reduce using rule 164 (append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET type LBRACE values RBRACE RPAREN .)
 
 WARNING: 
 WARNING: Conflicts:
@@ -10267,35 +10362,35 @@ WARNING: shift/reduce conflict for CHARSTRING in state 300 resolved as shift
 WARNING: shift/reduce conflict for FOR in state 300 resolved as shift
 WARNING: shift/reduce conflict for INT in state 300 resolved as shift
 WARNING: shift/reduce conflict for FLOAT in state 300 resolved as shift
-WARNING: shift/reduce conflict for FUNCTION in state 331 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 331 resolved as shift
-WARNING: shift/reduce conflict for PRINTF in state 331 resolved as shift
-WARNING: shift/reduce conflict for INPUT in state 331 resolved as shift
-WARNING: shift/reduce conflict for LPAREN in state 331 resolved as shift
-WARNING: shift/reduce conflict for VAR in state 331 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE in state 331 resolved as shift
-WARNING: shift/reduce conflict for CONST in state 331 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 331 resolved as shift
-WARNING: shift/reduce conflict for TYPE in state 331 resolved as shift
-WARNING: shift/reduce conflict for IF in state 331 resolved as shift
-WARNING: shift/reduce conflict for SWITCH in state 331 resolved as shift
-WARNING: shift/reduce conflict for CHARSTRING in state 331 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 331 resolved as shift
-WARNING: shift/reduce conflict for INT in state 331 resolved as shift
-WARNING: shift/reduce conflict for FLOAT in state 331 resolved as shift
-WARNING: shift/reduce conflict for FUNCTION in state 348 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 348 resolved as shift
-WARNING: shift/reduce conflict for PRINTF in state 348 resolved as shift
-WARNING: shift/reduce conflict for INPUT in state 348 resolved as shift
-WARNING: shift/reduce conflict for LPAREN in state 348 resolved as shift
-WARNING: shift/reduce conflict for VAR in state 348 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE in state 348 resolved as shift
-WARNING: shift/reduce conflict for CONST in state 348 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 348 resolved as shift
-WARNING: shift/reduce conflict for TYPE in state 348 resolved as shift
-WARNING: shift/reduce conflict for IF in state 348 resolved as shift
-WARNING: shift/reduce conflict for SWITCH in state 348 resolved as shift
-WARNING: shift/reduce conflict for CHARSTRING in state 348 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 348 resolved as shift
-WARNING: shift/reduce conflict for INT in state 348 resolved as shift
-WARNING: shift/reduce conflict for FLOAT in state 348 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 333 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 333 resolved as shift
+WARNING: shift/reduce conflict for PRINTF in state 333 resolved as shift
+WARNING: shift/reduce conflict for INPUT in state 333 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 333 resolved as shift
+WARNING: shift/reduce conflict for VAR in state 333 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 333 resolved as shift
+WARNING: shift/reduce conflict for CONST in state 333 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 333 resolved as shift
+WARNING: shift/reduce conflict for TYPE in state 333 resolved as shift
+WARNING: shift/reduce conflict for IF in state 333 resolved as shift
+WARNING: shift/reduce conflict for SWITCH in state 333 resolved as shift
+WARNING: shift/reduce conflict for CHARSTRING in state 333 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 333 resolved as shift
+WARNING: shift/reduce conflict for INT in state 333 resolved as shift
+WARNING: shift/reduce conflict for FLOAT in state 333 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 352 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 352 resolved as shift
+WARNING: shift/reduce conflict for PRINTF in state 352 resolved as shift
+WARNING: shift/reduce conflict for INPUT in state 352 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 352 resolved as shift
+WARNING: shift/reduce conflict for VAR in state 352 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 352 resolved as shift
+WARNING: shift/reduce conflict for CONST in state 352 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 352 resolved as shift
+WARNING: shift/reduce conflict for TYPE in state 352 resolved as shift
+WARNING: shift/reduce conflict for IF in state 352 resolved as shift
+WARNING: shift/reduce conflict for SWITCH in state 352 resolved as shift
+WARNING: shift/reduce conflict for CHARSTRING in state 352 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 352 resolved as shift
+WARNING: shift/reduce conflict for INT in state 352 resolved as shift
+WARNING: shift/reduce conflict for FLOAT in state 352 resolved as shift
