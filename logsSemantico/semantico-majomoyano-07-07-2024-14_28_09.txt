@@ -1,0 +1,5 @@
+Analizador semantico:
+None
+
+Errores:
+Error de sintaxis en la declaración del arreglo 'array2'.
