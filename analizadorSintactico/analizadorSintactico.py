@@ -504,18 +504,16 @@ def p_map_structure(p):
 def p_map_values(p):
     '''map_values : map_value
                   | map_value COMMA map_values'''
-    # (Maria Jose Moyano)
     
 
     
 def p_map_value(p):
     '''map_value : value COLON value'''
-      #  (Maria Jose Moyano)
-    
+      
 
 def p_map_assign(p):
     'map_assign : VARIABLE LBRACKET value RBRACKET ASSIGN value'
-    #  (Maria Jose Moyano)
+    
     
         
 
