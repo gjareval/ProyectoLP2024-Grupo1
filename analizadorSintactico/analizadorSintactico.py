@@ -332,97 +332,52 @@ def p_conditional_structure(p):
                              | IF conditions conditional_body ELSE conditional_body
                              | IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body'''
      # Manejo de estructuras condicionales (Maria Jose Moyano)
-    if p[1] == 'if':
-        if len(p) == 4:
-            # if (condición) { cuerpo }
-            if p[2]:
-                # Evaluar el cuerpo de la condición
-                p[0] = p[3]
-        elif len(p) == 6 and p[4] == 'else':
-            # if (condición) { cuerpo } else { cuerpo }
-            if p[2]:
-                # Evaluar el cuerpo del else
-                p[0] = p[5]
-        elif len(p) == 8 and p[4] == 'else' and p[6] == 'if':
-            # if (condición) { cuerpo } else if (condición) { cuerpo } else { cuerpo }
-            if p[2]:
-                # Evaluar el cuerpo del else-if
-                p[0] = p[5] if p[2] else p[7]
-        else:
-            errorsList.semanticErrors.append(f"Error semántico: Estructura condicional mal formada.")
-            print(f"Error semántico: Estructura condicional mal formada.")
+    if len(p) == 4:
+        # Estructura básica: IF conditions conditional_body
+        p[0] = ('if', p[2], p[3])
+    elif len(p) == 6:
+        # Estructura: IF conditions conditional_body ELSE conditional_body
+        p[0] = ('if-else', p[2], p[3], p[5])
+    elif len(p) == 10:
+        # Estructura: IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body
+        p[0] = ('if-else-if-else', p[2], p[3], p[6], p[8], p[9])
 
+    # Verificación semántica de la condición
+    if not isinstance(p[2], bool):
+        errorsList.semanticErrors.append(f"Error semántico: La condición '{p[2]}' no es una expresión booleana.")
+        print(f"Error semántico: La condición '{p[2]}' no es una expresión booleana.")
 
 def p_conditional_body(p):
     '''conditional_body : LBRACE statement RBRACE
                         | LBRACE BREAK RBRACE
                         | LBRACE CONTINUE RBRACE'''
     # Manejo de cuerpos condicionales (Maria Jose Moyano)
-    if len(p) == 3:
-        # Cuerpo con una declaración única
-        p[0] = p[2]
-    elif p[2] == 'break':
-        # Cuerpo con la declaración 'break'
-        p[0] = 'break'
+    if p[2] == 'break':
+        p[0] = ('break',)
     elif p[2] == 'continue':
-        # Cuerpo con la declaración 'continue'
-        p[0] = 'continue'
+        p[0] = ('continue',)
     else:
-        errorsList.semanticErrors.append(f"Error semántico: Cuerpo condicional mal formado.")
-        print(f"Error semántico: Cuerpo condicional mal formado.")
+        p[0] = ('statement', p[2])
 
 
 def p_conditions(p):
     '''conditions : condition
                   | condition logical_operator conditions
                   '''
-    # Semántica: Evaluación de condiciones lógicas (Maria Jose Moyano)
-    if len(p) == 2:
-        p[0] = p[1]
-    elif len(p) == 4:
-        condition1 = p[1]
-        operator = p[2]
-        condition2 = p[3]
-
-        if operator == 'and':
-            p[0] = condition1 and condition2
-        elif operator == 'or':
-            p[0] = condition1 or condition2
-        elif operator == 'not':
-            p[0] = not condition2
-        else:
-            errorsList.semanticErrors.append(f"Error semántico: Operador lógico '{operator}' no válido.")
-            print(f"Error semántico: Operador lógico '{operator}' no válido.")
-
-
+    
 
 
 def p_condition(p):
     'condition : value relational_operator value'
 
-    # Regla semantica para asegurar que los tipos de valores a comparar son compatibles (Guillermo Arevalo)
-    if type(p[1]) != type(p[3]):
-        errorsList.semanticErrors.append(f"Tipos incompatibles para comparar:{p[1]} de tipo: {type(p[1])} y {p[3]} de tipo: {type(p[3])}")
-        print(f"Tipos incompatibles para comparar:{p[1]} de tipo: {type(p[1])} y {p[3]} de tipo: {type(p[3])}")
-    else:
-        if p[2] == '==':
-            p[0] = p[1] == p[3]
-        elif p[2] == '<':
-            p[0] = p[1] < p[3]
-        elif p[2] == '>':
-            p[0] = p[1] > p[3]
-        elif p[2] == '<=':
-            p[0] = p[1] <= p[3]
-        elif p[2] == '>=':
-            p[0] = p[1] >= p[3]
-        elif p[2] == '!=':
-            p[0] = p[1] != p[3]
+    
 
 
 def p_logical_operator(p):
     '''logical_operator : AND
                         | OR
                         | NOT'''
+    p[0] = p[1]
 
 def p_relational_operator(p):
     '''relational_operator : GREATER
@@ -518,39 +473,24 @@ def p_array_structure(p):
     '''array_structure : VAR VARIABLE LBRACKET INT RBRACKET type
                        | VAR VARIABLE ASSIGN LBRACKET INT RBRACKET type LBRACE values RBRACE
                        | VAR VARIABLE LBRACKET INT RBRACKET type ASSIGN LBRACKET values RBRACKET'''
-    # Regla semantica para la inicialización de un arreglo en diferentes formas
-    # Caso 1: Declaración de un arreglo con tamaño especificado y sin valores asignados.
-    # Caso 2: Declaración y asignación de un arreglo con tamaño y valores especificados.
-    # Caso 3: Declaración de un arreglo con tamaño y valores especificados en una sola línea. (Maria Jose Moyano)
+    
+    # (Maria Jose Moyano)
     if len(p) == 7:
-        variables[p[2]] = [None] * p[4]
-    elif len(p) == 12:
-        if len(p[9]) == p[4]:
-            variables[p[2]] = p[9]
-        else:
-            errorsList.semanticErrors.append(f"Error: Tamaño del arreglo '{p[2]}' no coincide con el número de valores proporcionados.")
-            print(f"Error: Tamaño del arreglo '{p[2]}' no coincide con el número de valores proporcionados.")
-    else:
-        errorsList.semanticErrors.append(f"Error de sintaxis en la declaración del arreglo '{p[2]}'.")
-        print(f"Error de sintaxis en la declaración del arreglo '{p[2]}'.")
+         p[0] = {'type': p[6], 'var': (p[2], p[4])}
+    elif len(p) == 10:
+         p[0] = {'type': p[7], 'var': (p[2], p[5]), 'values': p[9]}
+    elif len(p) == 9:
+         p[0] = {'type': p[6], 'var': (p[2], p[4]), 'values': p[8]}
+
+
+
     
 def p_array_assign(p):
     'array_assign : VARIABLE LBRACKET INT RBRACKET ASSIGN value'
-
-    # Asignación de valor a un elemento específico de un arreglo (Maria Jose Moyano)
-    array_name = p[1]
-    index = p[3]
-    value = p[6]
-
-    if array_name in variables and isinstance(variables[array_name], list):
-        if 0 <= index < len(variables[array_name]):
-            variables[array_name][index] = value
-        else:
-            errorsList.semanticErrors.append(f"Error: Índice '{index}' fuera de rango para el arreglo '{array_name}'.")
-            print(f"Error: Índice '{index}' fuera de rango para el arreglo '{array_name}'.")
-    else:
-        errorsList.semanticErrors.append(f"Error: '{array_name}' no es un arreglo válido o no está inicializado como un arreglo.")
-        print(f"Error: '{array_name}' no es un arreglo válido o no está inicializado como un arreglo.")
+# (Maria Jose Moyano)
+p[0] = {'var': (p[1], p[3]), 'value': p[6]}
+    
+    
 
 
 # Guillermo Arevalo
@@ -558,79 +498,25 @@ def p_array_assign(p):
 def p_map_structure(p):
     '''map_structure : VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
                       | VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN'''
-    #Inicialización de un mapa/diccionario (Maria Jose Moyano)
-    if p[2] == ':=':
-        # Caso 1: Inicialización directa con el operador :=
-        map_name = p[1]
-        key_type = p[5]
-        value_type = p[7]
-        map_entries = p[9]
-        
-        # Verificar tipos de las entradas del mapa
-        for key, value in map_entries:
-            if not isinstance(key, key_type):
-                errorsList.semanticErrors.append(f"Error: Tipo incorrecto para la clave '{key}' en el mapa '{map_name}'.")
-                print(f"Error: Tipo incorrecto para la clave '{key}' en el mapa '{map_name}'.")
-            if not isinstance(value, value_type):
-                errorsList.semanticErrors.append(f"Error: Tipo incorrecto para el valor '{value}' en el mapa '{map_name}'.")
-                print(f"Error: Tipo incorrecto para el valor '{value}' en el mapa '{map_name}'.")
-        
-        # Registrar el mapa en alguna estructura de datos o hacer otra acción según sea necesario
-        # Ejemplo: map_registry[map_name] = map_entries
-    elif p[2] == 'make':
-        # Caso 2: Inicialización con la función make()
-        map_name = p[1]
-        key_type = p[6]
-        value_type = p[8]
-        
-        # Registrar el mapa en alguna estructura de datos o hacer otra acción según sea necesario
-        # Ejemplo: map_registry[map_name] = {'key_type': key_type, 'value_type': value_type}
-    else:
-        errorsList.semanticErrors.append(f"Error de sintaxis en la declaración del mapa '{p[1]}'.")
-        print(f"Error de sintaxis en la declaración del mapa '{p[1]}'.")
-
+    
 
 
 def p_map_values(p):
     '''map_values : map_value
                   | map_value COMMA map_values'''
-    # Valores de un mapa/diccionario (Maria Jose Moyano)
-    if len(p) == 2:
-        # Caso base: Un solo valor en el mapa
-        p[0] = [p[1]]
-    elif len(p) == 4:
-        # Caso recursivo: Más de un valor separado por comas
-        p[0] = [p[1]] + p[3]
-    else:
-        errorsList.semanticErrors.append("Error en la lista de valores del mapa.")
-        print("Error en la lista de valores del mapa.")
-
+    # (Maria Jose Moyano)
+    
 
     
 def p_map_value(p):
     '''map_value : value COLON value'''
-      # Definición de un par clave-valor en un mapa (Maria Jose Moyano)
-    p[0] = (p[1], p[3])
-
+      #  (Maria Jose Moyano)
+    
 
 def p_map_assign(p):
     'map_assign : VARIABLE LBRACKET value RBRACKET ASSIGN value'
-    # Asignación de valor a una entrada específica en un mapa (Maria Jose Moyano)
-    map_name = p[1]
-    key = p[3]
-    value = p[6]
-
-    if map_name in variables and isinstance(variables[map_name], dict):
-        # Verificar si la clave existe en el mapa
-        if key in variables[map_name]:
-            # Asignar nuevo valor a la clave existente
-            variables[map_name][key] = value
-        else:
-            errorsList.semanticErrors.append(f"Error: La clave '{key}' no existe en el mapa '{map_name}'.")
-            print(f"Error: La clave '{key}' no existe en el mapa '{map_name}'.")
-    else:
-        errorsList.semanticErrors.append(f"Error: '{map_name}' no es un mapa válido o no ha sido inicializado correctamente.")
-        print(f"Error: '{map_name}' no es un mapa válido o no ha sido inicializado correctamente.")
+    #  (Maria Jose Moyano)
+    
         
 
 # Brian Mite

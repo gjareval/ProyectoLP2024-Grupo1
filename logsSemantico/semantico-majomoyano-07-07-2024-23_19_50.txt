@@ -1,0 +1,5 @@
+Analizador semantico:
+None
+
+Errores:
+Error: 'myArray' no es un arreglo válido o no está inicializado como un arreglo.

@@ -1,0 +1,5 @@
+Analizador semantico:
+None
+
+Errores:
+Error semántico: La condición '('relational', '>', 10, 0)' no es una expresión booleana.
