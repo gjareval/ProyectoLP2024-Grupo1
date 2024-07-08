@@ -1,0 +1,5 @@
+Analizador semantico:
+None
+
+Errores:
+Error: Variable 'constante' no inicializada

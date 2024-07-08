@@ -1,0 +1,7 @@
+Analizador semantico:
+None
+
+Errores:
+Error: Variable 'g' no inicializada
+Error: Variable 'h' no inicializada
+Error: Variable 'j' no inicializada

@@ -1,0 +1,5 @@
+Analizador semantico:
+None
+
+Errores:
+Error: 'hola' no es una slice válida o no está inicializada como una slice.

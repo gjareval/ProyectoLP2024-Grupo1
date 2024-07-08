@@ -36,10 +36,18 @@ def p_package(p):
 def p_main(p):
     'main : FUNCTION MAIN LPAREN RPAREN'  
 
+# Reconocimiento de blocks para reglas semánticas (Guillermo Arévalo)
 def p_blocks(p):
     '''blocks : block
               | block blocks
               | block SEMICOLON blocks'''
+    
+    if len(p) == 2:
+        p[0] = [p[1]]
+    elif len(p) == 3:
+        p[0] = [p[1]] + p[2]
+    else:
+        p[0] = [p[1]] + p[3]
 
 def p_block(p):
     '''block : print_statement
@@ -53,6 +61,7 @@ def p_block(p):
              | variable_assignation
              | return
              '''
+    p[0] = p [1]
 
 # Reglas semánticas de inicializacion de variables, constantes, y asignacion de variables (Guillermo Arévalo)
 
@@ -117,9 +126,10 @@ def p_variable_assignation(p):
         
         variables[p[1]]=p[3]
 
-#Brian Mite Semantico
+
 def p_variable_assignation_double(p):
     '''variable_assignation : VARIABLE double_operator'''
+    #Asignación doble (Brian Mite)
     if p[1] in variables:
         if p[2] == '++':
             variables[p[1]] += 1
@@ -167,17 +177,34 @@ def p_assignation(p):
 # Tipos de funciones
 def p_function(p):
     '''function : FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE   
-                | FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE
-                | FUNCTION VARIABLE LPAREN RPAREN type LBRACE RBRACE
-                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE RBRACE
-                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RBRACE
                 | FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks RBRACE
+                | FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE
+                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RBRACE
+                
                 '''
     # Definición de función y verificación de retorno (Maria Jose Moyano)
     function_name = p[2]
-    parameters = p[4] if len(p) > 6 and p[5] == ')' else []
-    return_type = p[6] if p[5] == ')' else None
-    body = p[6] if len(p) == 9 else p[7]
+    parameters = p[4] if p[4] != ')' else []
+
+    if len(p)==8:
+        return_type=None
+        body=p[6]
+    elif len(p)==9 and p[6] =='{':
+        return_type=p[5]
+        body=p[7]
+    elif len(p)==9 and p[5] =='{':
+        return_type=None
+        body=p[7]
+    elif len(p)==10 and p[7]=='{':
+        return_type=p[6]
+        body=p[8]
+
+    
+    
+    print(function_name)
+    print(parameters)
+    print(return_type)
+    print(body)
 
     if 'return' in body:
         return_value = body['return']
@@ -201,11 +228,19 @@ def p_function(p):
 
 
 def p_return(p):
-    '''return : RETURN values
+    '''return : RETURN value
               | RETURN value LBRACKET value RBRACKET
               | RETURN value PERIOD value
               | RETURN TRUE
               | RETURN FALSE'''
+    
+    if len(p)==2:
+        if isinstance(p[2] ,bool):
+            p[0]=bool
+        else:
+            p[0]=type(p[2])
+
+    
 
 #Brian Mite Semantico
 def p_values(p):
@@ -304,9 +339,15 @@ def p_parameters(p):
     '''parameters : parameter
                   | parameter COMMA parameters
                   '''
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = [p[1]] + p[3]
 
 def p_parameter(p):
     'parameter : VARIABLE type'
+
+    p[0] = (p[1],p[2])
 
 def p_type(p):
     '''type : INT
@@ -318,6 +359,7 @@ def p_type(p):
             | FLOAT64
             | BOOL
             '''
+    p[0]=p[1]
     
 # Estructuras de control
 def p_control_structure(p):
@@ -488,7 +530,7 @@ def p_array_structure(p):
 def p_array_assign(p):
     'array_assign : VARIABLE LBRACKET INT RBRACKET ASSIGN value'
 # (Maria Jose Moyano)
-p[0] = {'var': (p[1], p[3]), 'value': p[6]}
+    p[0] = {'var': (p[1], p[3]), 'value': p[6]}
     
     
 
@@ -528,7 +570,7 @@ def p_slice_structure(p):
     slice_name = p[1]
 
     if p[2] == ':=':  # Short assignment :=
-        if len(p) == 8:  # Variable := []type{values}
+        if len(p) == 9:  # Variable := []type{values}
             slice_type = p[5]
             slice_values = p[7]
             # Verifica si la slice ya está definida
@@ -541,8 +583,8 @@ def p_slice_structure(p):
             else:
                 errorsList.semanticErrors.append(f"Error: La slice '{slice_name}' ya está definida.")
                 print(f"Error: La slice '{slice_name}' ya está definida.")
-        elif len(p) == 5:  # Variable := []type
-            slice_type = p[4]
+        elif len(p) == 6:  # Variable := []type
+            slice_type = p[5]
             # Verifica si la slice ya está definida
             if slice_name not in variables and slice_name not in constants:
                 variables[slice_name] = {
@@ -562,6 +604,21 @@ def p_slice_structure(p):
             else:
                 errorsList.semanticErrors.append(f"Error: '{slice_name}' no es una slice válida o no está inicializada como una slice.")
                 print(f"Error: '{slice_name}' no es una slice válida o no está inicializada como una slice.")
+    
+    else: # Variable [] type
+        slice_name = p[2]
+        slice_type = p[5]
+        # Verifica si la slice ya está definida
+        if slice_name not in variables and slice_name not in constants:
+            variables[slice_name] = {
+                'type': 'slice',
+                'element_type': slice_type,
+                'values': []
+            }
+        else:
+            errorsList.semanticErrors.append(f"Error: La slice '{slice_name}' ya está definida.")
+            print(f"Error: La slice '{slice_name}' ya está definida.")
+
 
 
 def p_append_statement(p):

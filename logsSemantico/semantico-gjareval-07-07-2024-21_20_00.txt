@@ -1,0 +1,12 @@
+Analizador semantico:
+None
+
+Errores:
+Error semántico: Cuerpo condicional mal formado.
+Error semántico: Cuerpo condicional mal formado.
+Error semántico: Operador lógico 'None' no válido.
+Error semántico: Cuerpo condicional mal formado.
+Error semántico: Operador lógico 'None' no válido.
+Error semántico: Cuerpo condicional mal formado.
+Error semántico: Cuerpo condicional mal formado.
+Error semántico: Estructura condicional mal formada.
