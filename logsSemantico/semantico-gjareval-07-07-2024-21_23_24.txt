@@ -1,5 +1,0 @@
-Analizador semantico:
-None
-
-Errores:
-Error en la lista de valores del mapa.

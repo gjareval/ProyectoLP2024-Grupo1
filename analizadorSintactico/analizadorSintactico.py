@@ -7,6 +7,7 @@ import errorsList as errorsList
 # Variables creadas
 variables = {}
 constants = {}
+functions = {}
 
 
 # Definicion de las definiciones  gramaticales
@@ -59,7 +60,6 @@ def p_block(p):
              | parameters
              | variable_declaration
              | variable_assignation
-             | return
              '''
     p[0] = p [1]
 
@@ -177,9 +177,9 @@ def p_assignation(p):
 # Tipos de funciones
 def p_function(p):
     '''function : FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE   
-                | FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks RBRACE
+                | FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks return RBRACE
                 | FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE
-                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks RBRACE
+                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks return RBRACE
                 
                 '''
     # Definición de función y verificación de retorno (Maria Jose Moyano)
@@ -188,43 +188,41 @@ def p_function(p):
 
     if len(p)==8:
         return_type=None
+        return_value=None
         body=p[6]
-    elif len(p)==9 and p[6] =='{':
-        return_type=p[5]
-        body=p[7]
-    elif len(p)==9 and p[5] =='{':
+    elif len(p)==9:
         return_type=None
+        return_value=None
         body=p[7]
-    elif len(p)==10 and p[7]=='{':
+    elif len(p)==10:
+        return_type=p[5]
+        return_value=p[8]
+        body=p[7]
+    elif len(p)==11:
         return_type=p[6]
+        return_value=p[9]
         body=p[8]
 
-    
-    
-    print(function_name)
-    print(parameters)
-    print(return_type)
-    print(body)
-
-    if 'return' in body:
-        return_value = body['return']
-        if isinstance(return_value, return_type):
+    if return_type!=None and return_value!=None:
+        if type(return_value).__name__== return_type:
             # Registro de la función (implementación puede variar)
-            function[function_name] = {
+            functions[function_name] = {
                 'parameters': parameters,
                 'return_type': return_type,
-                'body': body
+                'body': body,
+                'return_value':return_value
             }
         else:
             errorsList.semanticErrors.append(f"Error: El valor de retorno de la función '{function_name}' no coincide con el tipo '{return_type}'.")
             print(f"Error: El valor de retorno de la función '{function_name}' no coincide con el tipo '{return_type}'.")
     else:
-        function[function_name] = {
+        functions[function_name] = {
             'parameters': parameters,
             'return_type': return_type,
-            'body': body
+            'body': body,
+            'return_value':return_value
         }
-
+      
 
 
 def p_return(p):
@@ -234,11 +232,9 @@ def p_return(p):
               | RETURN TRUE
               | RETURN FALSE'''
     
-    if len(p)==2:
-        if isinstance(p[2] ,bool):
-            p[0]=bool
-        else:
-            p[0]=type(p[2])
+    if len(p)==3:
+        p[0]=p[2]
+
 
     
 
@@ -391,6 +387,7 @@ def p_conditional_structure(p):
 
 def p_conditional_body(p):
     '''conditional_body : LBRACE statement RBRACE
+                        | LBRACE statement return RBRACE
                         | LBRACE BREAK RBRACE
                         | LBRACE CONTINUE RBRACE'''
     # Manejo de cuerpos condicionales (Maria Jose Moyano)
@@ -399,7 +396,10 @@ def p_conditional_body(p):
     elif p[2] == 'continue':
         p[0] = ('continue',)
     else:
-        p[0] = ('statement', p[2])
+        if p[3]=='}':
+            p[0] = ('statement', p[2])
+        else:
+            p[0] = [('statement', p[2]),('return',p[3])]
 
 
 def p_conditions(p):

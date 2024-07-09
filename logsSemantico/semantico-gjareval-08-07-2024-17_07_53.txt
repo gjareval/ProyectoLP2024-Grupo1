@@ -1,5 +1,0 @@
-Analizador semantico:
-None
-
-Errores:
-Error: 'slice1' no es una slice válida o no está inicializada como una slice.

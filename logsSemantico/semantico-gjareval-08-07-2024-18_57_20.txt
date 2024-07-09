@@ -1,0 +1,7 @@
+Analizador semantico:
+None
+
+Errores:
+Error: La slice 'slice1' ya está definida.
+Error: La slice 'slice2' ya está definida.
+Error: La slice 'slice3' ya está definida.

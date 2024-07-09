@@ -1,0 +1,5 @@
+Analizador semantico:
+None
+
+Errores:
+Error semantico: Operando 'valor1' invalido para operaciones aritmeticas.

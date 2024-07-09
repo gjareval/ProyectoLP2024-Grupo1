@@ -1,5 +1,0 @@
-Analizador semantico:
-None
-
-Errores:
-Error semántico: Cuerpo condicional mal formado.

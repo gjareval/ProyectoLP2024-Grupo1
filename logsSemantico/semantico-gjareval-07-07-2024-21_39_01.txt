@@ -1,5 +1,0 @@
-Analizador semantico:
-None
-
-Errores:
-Error semantico: Operando 'hola' invalido para operaciones aritmeticas.
