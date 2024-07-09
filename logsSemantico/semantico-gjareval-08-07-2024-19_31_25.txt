@@ -1,0 +1,9 @@
+Analizador semantico:
+None
+
+Errores:
+Error: El struct 'estructura1' ya está definido.
+Error: La slice 'slice1' ya está definida.
+Error: La slice 'slice2' ya está definida.
+Error: La slice 'slice3' ya está definida.
+Error: El valor de retorno de la función 'pruebaIf' no coincide con el tipo 'bool'.

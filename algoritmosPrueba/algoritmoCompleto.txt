@@ -36,14 +36,12 @@ func main(){
 		return valor3
 	}
 
-	func pruebaStruct() string {
+	func pruebaStruct() {
 		type estructura1 struct{
 			campo1 string
 			campo2 int
 			campo3 float
 		}
-
-		return estructura1.campo1
 	}
 
 	func pruebaArray(){
@@ -72,26 +70,29 @@ func main(){
 
 	func pruebaIf(valor1 int, valor2 int, valor3 int) bool {
 		var valorNuevo int
+		var salida bool
 		if valor1>=valor2 {
 			valorNuevo=valor1/valor2
 			if valorNuevo==10 {
-				return true
+				return True
 			}
-			return false
+			return False
 		}
 
 		else if valor2==valor3 && valor3!=200 {
-			return true
+			return True
 		}
 
 		else {
 			valorNuevo=valor2*valor3
 			if valorNuevo>10 || valorNuevo <100 {
-				return true
+				return True
 			}
 
-			return false
+			return False
 		}
+
+		return False
 	}
 
 	func pruebaFor() {

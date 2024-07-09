@@ -1,0 +1,5 @@
+Analizador semantico:
+None
+
+Errores:
+Error: El valor de retorno de la función 'pruebaStruct' no coincide con el tipo 'string'.

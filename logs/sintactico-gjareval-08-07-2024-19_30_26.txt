@@ -1,0 +1,7 @@
+Analizador sintactico:
+None
+
+Errores:
+Syntax error at token 'true'
+Syntax error at token 'true'
+Syntax error at token 'true'

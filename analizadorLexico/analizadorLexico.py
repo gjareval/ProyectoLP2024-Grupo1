@@ -193,8 +193,8 @@ def t_TEXT(t):
     # t.value = t.value[1:-1]
     return t
 
-def t_BOOLEAN(t):
-    r'True|False'
+def t_BOOL(t):
+    r'(True|False)'
     return t
 
 # Expresión regular para reconocer saltos de línea

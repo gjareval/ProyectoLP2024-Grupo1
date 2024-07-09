@@ -1,0 +1,8 @@
+Analizador sintactico:
+None
+
+Errores:
+Syntax error at token 'return'
+Syntax error at token 'return'
+Syntax error at token 'return'
+Syntax error at token '}'

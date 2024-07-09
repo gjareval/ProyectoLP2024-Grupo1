@@ -228,11 +228,13 @@ def p_function(p):
 def p_return(p):
     '''return : RETURN value
               | RETURN value LBRACKET value RBRACKET
-              | RETURN value PERIOD value
-              | RETURN TRUE
-              | RETURN FALSE'''
+              | RETURN value PERIOD value'''
     
-    if len(p)==3:
+    if p[2]=="True":
+        p[0]=True
+    elif p[2]=="False":
+        p[0]=False
+    else:
         p[0]=p[2]
 
 
@@ -378,16 +380,19 @@ def p_conditional_structure(p):
         p[0] = ('if-else', p[2], p[3], p[5])
     elif len(p) == 10:
         # Estructura: IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body
-        p[0] = ('if-else-if-else', p[2], p[3], p[6], p[8], p[9])
+        p[0] = ('if-else-if-else', p[2], p[3], p[6], p[7], p[9])
 
     # Verificación semántica de la condición
-    if not isinstance(p[2], bool):
-        errorsList.semanticErrors.append(f"Error semántico: La condición '{p[2]}' no es una expresión booleana.")
-        print(f"Error semántico: La condición '{p[2]}' no es una expresión booleana.")
+    for condicion in p[2]:
+        if not isinstance(condicion, bool):
+            errorsList.semanticErrors.append(f"Error semántico: La condición '{p[2]}' no es una expresión booleana.")
+            print(f"Error semántico: La condición '{p[2]}' no es una expresión booleana.")
+            break
 
 def p_conditional_body(p):
     '''conditional_body : LBRACE statement RBRACE
                         | LBRACE statement return RBRACE
+                        | LBRACE return RBRACE
                         | LBRACE BREAK RBRACE
                         | LBRACE CONTINUE RBRACE'''
     # Manejo de cuerpos condicionales (Maria Jose Moyano)
@@ -406,11 +411,31 @@ def p_conditions(p):
     '''conditions : condition
                   | condition logical_operator conditions
                   '''
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        if p[2] == "&&" or p[2] == "||" or p[2] == "!":
+            p[0] = [p[1]] + p[3]
+        else:
+            p[0] = "Error"
     
 
 
 def p_condition(p):
     'condition : value relational_operator value'
+
+    if p[2] == ">": 
+        p[0] = p[1] > p[3]
+    elif p[2] == "<":
+        p[0] = p[1] < p[3]
+    elif p[2] == "<=":
+        p[0] = p[1] <= p[3]
+    elif p[2] == ">=":
+        p[0] = p[1] >= p[3]
+    elif p[2] == "==" :
+        p[0] = p[1] == p[3]
+    elif p[2] == "!=":
+        p[0] = p[1] != p[3]
 
     
 

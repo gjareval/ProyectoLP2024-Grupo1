@@ -1,0 +1,5 @@
+Analizador semantico:
+None
+
+Errores:
+Error semántico: La condición 'None' no es una expresión booleana.

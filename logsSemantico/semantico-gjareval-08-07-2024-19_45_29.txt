@@ -1,0 +1,5 @@
+Analizador semantico:
+None
+
+Errores:
+Error: El struct 'estructura1' ya está definido.

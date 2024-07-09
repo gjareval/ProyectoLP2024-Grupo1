@@ -1,0 +1,5 @@
+Analizador semantico:
+None
+
+Errores:
+Error: El valor de retorno de la función 'hola' no coincide con el tipo 'bool'.
