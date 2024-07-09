@@ -2,7 +2,9 @@ import datetime
 import os
 import tkinter as tk
 from tkinter import scrolledtext
+from tkinter import ttk
 from analizadorSintactico.analizadorSintactico import parser
+from analizadorLexico.analizadorLexico import lexer
 import errorsList as errorsList
 import subprocess
 
@@ -73,34 +75,63 @@ def analyze_expression():
                     file.write(error + "\n")
             errorsList.semanticErrors = []
 
+        tokens =""
+        lexer.input(user_input)
+        for token in lexer:
+            tokens += f"{token}\n"
+
+        token_text.insert(tk.END, tokens)
+
     except Exception as e:
         print(f"Error en el análisis sintáctico: {str(e)}")
 
-def on_resize(event):
-    # Adjust the size of the text widgets when the window is resized
-    input_text.config(width=event.width // 10, height=event.height // 20)
-    result_text.config(width=event.width // 10, height=event.height // 20)
 
 # Configurar la interfaz gráfica
+
 root = tk.Tk()
 root.title("Analizador de GO")
-root.geometry("500x400")  # Set initial window size
-
-input_label = tk.Label(root, text="Ingresa una expresión:",font=("TkDefaultFont",12,"bold"))
-input_label.pack()
-
-input_text = scrolledtext.ScrolledText(root, width=80, height=10)
-input_text.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
+root.configure(bg="#4F5155",)
+ancho_pantalla = root.winfo_screenwidth()
+alto_pantalla = root.winfo_screenheight()
+root.geometry(f"{ancho_pantalla-30}x{alto_pantalla-50}")
 
 analyze_button = tk.Button(root, text="Analizar", command=analyze_expression,font=("TkDefaultFont",10,"normal"))
-analyze_button.pack()
+analyze_button.grid(row=0, column=0, pady=2)
 
-result_label = tk.Label(root, text="Resultado del análisis sintáctico:",font=("TkDefaultFont",12,"bold"))
+seccion1 = tk.Frame(root,bg="#4F5155",width=200, height=200)
+seccion1.grid(row=1, column=0, pady=0, sticky="nsew")
+
+contenedor_secciones = tk.Frame(root,bg="#4F5155")
+contenedor_secciones.grid(row=2, column=0, sticky="ew")
+
+root.grid_rowconfigure(2, weight=1) 
+root.grid_columnconfigure(0, weight=1)
+
+contenedor_secciones.grid_columnconfigure(0, weight=1)  # Hacer que la columna 0 del contenedor se expanda
+contenedor_secciones.grid_columnconfigure(1, weight=1) 
+
+seccion2 = tk.Frame(contenedor_secciones,bg="#4F5155", width=200, height=100)
+seccion2.grid(row=0, column=0, padx=2, pady=0, sticky="nsew")
+seccion3 = tk.Frame(contenedor_secciones, bg="#4F5155",width=200, height=100)
+seccion3.grid(row=0, column=1, padx=2, pady=0, sticky="nsew")
+
+input_label = tk.Label(seccion1, text="Ingresa una expresión:",font=("TkDefaultFont",12,"bold"), bg="#4F5155", fg="#FFFFFF")
+input_label.pack()
+
+input_text = scrolledtext.ScrolledText(seccion1, width=80, height=18,borderwidth=0, font=("Consolas",10,"normal"), bg="#424141", fg="#FFFFFF")
+input_text.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+
+result_label = tk.Label(seccion2, text="Resultado del análisis sintáctico:",font=("TkDefaultFont",12,"bold"), bg="#4F5155", fg="#FFFFFF")
 result_label.pack()
 
-result_text = scrolledtext.ScrolledText(root, width=80, height=20)
-result_text.pack(fill=tk.BOTH, expand=True,padx=10, pady=10)
+result_text = scrolledtext.ScrolledText(seccion2, width=80, height=13,borderwidth=0, font=("Consolas",10,"normal"), bg="#424141", fg="#FFFFFF")
+result_text.pack(fill=tk.BOTH, expand=True,padx=5, pady=5)
 
-root.bind('<Configure>', on_resize)
+token_label = tk.Label(seccion3, text="Tokens:",font=("TkDefaultFont",12,"bold"), bg="#4F5155", fg="#FFFFFF")
+token_label.pack()
+
+token_text = scrolledtext.ScrolledText(seccion3, width=80, height=13,borderwidth=0, font=("Consolas",10,"normal"),  bg="#424141", fg="#FFFFFF")
+token_text.pack(fill=tk.BOTH, expand=True,padx=5, pady=5)
+
 
 root.mainloop()
