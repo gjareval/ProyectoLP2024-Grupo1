@@ -1,0 +1,11 @@
+Analizador lexico:
+LexToken(FUNCTION,'func',1,0)
+LexToken(VARIABLE,'saludar',1,5)
+LexToken(LPAREN,'(',1,12)
+LexToken(RPAREN,')',1,13)
+LexToken(LBRACE,'{',1,15)
+LexToken(PRINT,'fmt.Println',1,21)
+LexToken(LPAREN,'(',1,32)
+LexToken(CHARSTRING,'"\'aaa\' ¡Hola!"',1,33)
+LexToken(RPAREN,')',1,47)
+LexToken(RBRACE,'}',1,49)

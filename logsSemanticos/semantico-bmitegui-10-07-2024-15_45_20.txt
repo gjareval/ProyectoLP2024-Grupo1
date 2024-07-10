@@ -1,0 +1,8 @@
+Analizador semantico:
+None
+
+Errores:
+Error: Variable 'a' no esta definida.
+Error: Variable 'b' no esta definida.
+Error semantico: Operando 'None' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada
+Error: Variable 'resultado' no esta definida.

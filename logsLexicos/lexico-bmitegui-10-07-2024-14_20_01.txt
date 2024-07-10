@@ -1,0 +1,13 @@
+Analizador lexico:
+LexToken(VAR,'var',1,0)
+LexToken(VARIABLE,'a',1,4)
+LexToken(INT,'int',1,6)
+LexToken(ASSIGN,'=',1,10)
+LexToken(INT,5,1,12)
+LexToken(INT,5,1,14)
+LexToken(INCREMENT,'++',1,15)
+LexToken(VAR,'var',1,19)
+LexToken(VARIABLE,'b',1,23)
+LexToken(STRING,'string',1,25)
+LexToken(VARIABLE,'b',1,32)
+LexToken(INCREMENT,'++',1,33)

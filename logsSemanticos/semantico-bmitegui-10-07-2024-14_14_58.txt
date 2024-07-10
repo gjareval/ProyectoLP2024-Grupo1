@@ -1,0 +1,5 @@
+Analizador semantico:
+None
+
+Errores:
+No es posible realizar esa operacion para 'a'

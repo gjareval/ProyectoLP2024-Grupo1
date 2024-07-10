@@ -57,104 +57,11 @@ def p_block(p):
              | data_structure
              | control_structure
              | function
-             | parameters
              | variable_declaration
              | variable_assignation
              '''
     p[0] = p [1]
 
-# Reglas semánticas de inicializacion de variables, constantes, y asignacion de variables (Guillermo Arévalo)
-
-def p_variable_declaration(p):
-    '''variable_declaration : VAR VARIABLE type
-                            | VAR VARIABLE type ASSIGN value'''
-    
-    # Inicializacion de variables asegurando que no haya una constante con el mismo nombre creada (Guillermo Arévalo)
-    if p[2] not in constants:
-        if len(p)==4:
-            variables[p[2]]=-1
-        else :
-            variables[p[2]]=p[5]
-    else: 
-        errorsList.semanticErrors.append(f"Error: Variable '{p[2]}' ya esta definida.")
-        print(f"Error: Variable '{p[2]}' ya esta definida.")
-
-    
-def p_variable_declaration_short(p):
-    '''variable_declaration : VARIABLE SHORTASSIGN value
-                            | VARIABLE SHORTASSIGN operation'''
-    
-    # Inicializacion de variables asegurando que no haya una constante con el mismo nombre creada (Guillermo Arévalo)
-    if p[1] not in constants:
-        variables[p[1]]=p[3]
-    else: 
-        errorsList.semanticErrors.append(f"Error: Variable '{p[1]}' ya esta definida.")
-        print(f"Error: Variable '{p[1]}' ya esta definida.")
-    
-def p_variable_declaration_multiple(p):
-    '''variable_declaration : VAR variables type
-                            | VAR variables type ASSIGN value'''
-    
-    # Inicializacion de multiples variables en la misma linea (Guillermo Arévalo)
-    if len(p) == 4:
-        for var in p[2]:
-            variables[var] = -1 
-    else:
-        for var in p[2]:
-            variables[var] = p[5]
-
-def p_variable_declaration_constant(p):
-    '''variable_declaration : CONST VARIABLE ASSIGN value'''
-
-    # Inicializacion de constante asegurando que no hayan constantes con el mismo nombre ya creadas (Guillermo Arévalo)
-    if p[2] in variables or p[2] in constants:
-        errorsList.semanticErrors.append(f"Error: Variable '{p[2]}' ya esta definida.")
-        print(f"Error: Variable '{p[2]}' ya esta definida.")
-    else:
-        constants[p[2]] = p[4]
-    
-
-    
-def p_variable_assignation(p):
-    '''variable_assignation : VARIABLE assignation value
-                            | VARIABLE assignation operation'''
-    
-    # Asignacion de variable asegurando que la variable ya haya sido creada (Guillermo Arévalo)
-    if p[1] not in variables:
-        errorsList.semanticErrors.append(f"Error: Variable '{p[1]}' no inicializada")
-        print(f"Error: Variable '{p[1]}' no inicializada")
-        
-        variables[p[1]]=p[3]
-
-
-def p_variable_assignation_double(p):
-    '''variable_assignation : VARIABLE double_operator'''
-    #Asignación doble (Brian Mite)
-    if p[1] in variables:
-        if p[2] == '++':
-            variables[p[1]] += 1
-        elif p[2] == '--':
-            variables[p[1]] -= 1
-    else:
-        errorsList.semanticErrors.append(f"Error: Variable '{p[1]}' no inicializada.")
-        print(f"Error: Variable '{p[1]}' no inicializada.")
-        
- 
-def p_variable_assignation_multiple(p):
-    '''variable_assignation : variables assignation value'''
-
-    # Asignacion de variables multiples asegurando que las variables ya hayan sido creadas (Guillermo Arévalo)
-    for var in p[1]:
-        if var in variables:
-            variables[var] = p[3]
-        else:
-            errorsList.semanticErrors.append(f"Error: Variable '{var}' no inicializada")
-            print(f"Error: Variable '{var}' no inicializada")
-
-def p_variable_assignation_structures(p):
-    '''variable_assignation : map_assign
-                            | array_assign'''
-    
 def p_variables(p):
     '''variables : VARIABLE
                  | VARIABLE COMMA variables'''
@@ -164,6 +71,98 @@ def p_variables(p):
         p[0] = [p[1]]
     else:
         p[0] = [p[1]] + p[3]
+
+
+# Configuracion de values para ser reconocidos por las reglas semanticas (Guillermo Arevalo)   
+def p_value(p):
+    '''value : VARIABLE
+             | VARIABLE LBRACKET RBRACKET    
+             | VARIABLE LBRACKET value RBRACKET
+             | not_variable_value'''
+
+    if isinstance(p[1], str) and not(p[1].startswith('"') and p[1].endswith('"')):
+        if p[1] in variables:
+            p[0] = variables[p[1]]
+        else:
+           errorsList.semanticErrors.append(f"Error: Variable '{p[1]}' no esta definida.")
+    else:
+        p[0] =p[1]
+    
+def p_not_variable_value(p):
+    ''' not_variable_value : CHARSTRING
+                           | INT
+                           | FLOAT'''
+    p[0] = p[1]
+        
+def p_values(p):
+    '''values : value 
+              | value COMMA values'''
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = [p[1]] + p[3]
+      
+# Reglas semánticas de inicializacion de variables, constantes, y asignacion de variables (Guillermo Arévalo)
+def p_variable_declaration(p):
+    '''variable_declaration : VAR variables type
+                            | VAR variables type ASSIGN value
+                            | VAR variables type ASSIGN operation
+                            | VARIABLE SHORTASSIGN value
+                            | VARIABLE SHORTASSIGN operation
+                            | CONST VARIABLE ASSIGN value'''
+
+    if len(p) == 4:
+        if p[1] == 'var':
+            for var in p[2]:
+                if(var in constants):
+                    errorsList.semanticErrors.append(f"Error: Variable '{var}' ya esta definida como constante.")
+                else:
+                    variables[var] = None 
+        else:
+            if(p[2] in constants):
+                errorsList.semanticErrors.append(f"Error: Variable '{p[2]}' ya esta definida como constante.")
+            else:
+                variables[p[2]] = p[3]
+    else:
+        if p[1] == 'const':
+            if(p[1] in constants):
+                errorsList.semanticErrors.append(f"Error: Variable '{p[2]}' ya esta definida.")
+            else:
+                constants[p[2]] = p[4]
+        else:
+            for var in p[2]:
+                if(var in constants):
+                    errorsList.semanticErrors.append(f"Error: Variable '{var}' ya esta definida como constante.")
+                else:
+                    variables[var] = p[5] 
+    
+def p_variable_assignation(p):
+    '''variable_assignation : VARIABLE assignation value
+                            | VARIABLE assignation operation
+                            | VARIABLE double_operator'''
+    
+    # Asignacion de variable asegurando que la variable ya haya sido creada (Guillermo Arévalo)
+    if len(p)==3:
+        try:
+            if p[2] == '++':
+                variables[p[1]] = variables[p[1]] +1
+            if p[2] == '--': 
+                variables[p[1]] = variables[p[1]] - 1
+        except Exception as e:
+            if variables[p[1]] == None: 
+                errorsList.semanticErrors.append(f"La variable '{p[1]}' no ha sido inicializada")
+            else:
+                errorsList.semanticErrors.append(f"No es posible realizar esa operacion para '{p[1]}'")
+
+    else:
+        if p[1] not in variables:
+            errorsList.semanticErrors.append(f"Error: Variable '{p[1]}' no inicializada")
+        else:
+            variables[p[1]]=p[3]
+
+def p_variable_assignation_structures(p):
+    '''variable_assignation : map_assign
+                            | array_assign'''
     
 def p_assignation(p):
     '''assignation : ASSIGN
@@ -173,19 +172,42 @@ def p_assignation(p):
                    | DIVIDEASSIGN
                    | MODASSIGN
                    '''
-    
+
+def p_parameters(p):
+    '''parameters : VARIABLE type
+                  | VARIABLE COMMA parameters
+                  '''
+    if len(p) == 3:
+        p[0] = [p[1]]
+    else:
+        p[0] = [p[1]] + p[3]
+
+def p_type(p):
+    '''type : INT
+            | INT32
+            | INT64
+            | STRING
+            | FLOAT
+            | FLOAT32
+            | FLOAT64
+            | BOOL
+            '''
+    p[0]=p[1]
+
 # Tipos de funciones
 def p_function(p):
-    '''function : FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE   
+    '''function : FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE
+                | FUNCTION VARIABLE LPAREN RPAREN LBRACE RBRACE    
                 | FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks return RBRACE
+                | FUNCTION VARIABLE LPAREN RPAREN type LBRACE return RBRACE
                 | FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE
+                | FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE RBRACE
                 | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks return RBRACE
-                
+                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE return RBRACE
                 '''
     # Definición de función y verificación de retorno (Maria Jose Moyano)
     function_name = p[2]
     parameters = p[4] if p[4] != ')' else []
-
     if len(p)==8:
         return_type=None
         return_value=None
@@ -204,6 +226,8 @@ def p_function(p):
         body=p[8]
 
     if return_type!=None and return_value!=None:
+        if(return_type=='string'):
+            return_type = 'str'
         if type(return_value).__name__== return_type:
             # Registro de la función (implementación puede variar)
             functions[function_name] = {
@@ -214,7 +238,6 @@ def p_function(p):
             }
         else:
             errorsList.semanticErrors.append(f"Error: El valor de retorno de la función '{function_name}' no coincide con el tipo '{return_type}'.")
-            print(f"Error: El valor de retorno de la función '{function_name}' no coincide con el tipo '{return_type}'.")
     else:
         functions[function_name] = {
             'parameters': parameters,
@@ -222,8 +245,6 @@ def p_function(p):
             'body': body,
             'return_value':return_value
         }
-      
-
 
 def p_return(p):
     '''return : RETURN value
@@ -237,45 +258,13 @@ def p_return(p):
     else:
         p[0]=p[2]
 
-
-    
-
-#Brian Mite Semantico
-def p_values(p):
-    '''values : value 
-              | value COMMA values'''
-    if len(p) == 2:
-        p[0] = [p[1]]
-    else:
-        p[0] = [p[1]] + p[3]
-
-# Configuracion de values para ser reconocidos por las reglas semanticas (Guillermo Arevalo)   
-def p_value(p):
-    '''value : VARIABLE
-             | VARIABLE LBRACKET RBRACKET
-             | VARIABLE LBRACKET value RBRACKET
-             | not_variable_value'''
-    if isinstance(p[1],str) and p[1] in variables:
-        p[0] = variables[p[1]]
-    else:
-        p[0] =p[1]
-    
-def p_not_variable_value(p):
-    ''' not_variable_value : CHARSTRING
-                           | number'''
-    p[0] =p[1]
-      
-def p_number(p):
-    '''number : INT
-              | FLOAT'''
-    p[0] = p[1]
-
 # Impresión con cero, uno o más argumentos  
 def p_print_statement(p):
     '''print_statement : PRINT LPAREN values RPAREN
                        | PRINTF LPAREN FORMATSTRING COMMA values RPAREN
                        | PRINT LPAREN operation RPAREN
                        | PRINT LPAREN RPAREN'''
+    
 
 # Solicitud de datos por teclado  
 def p_input_statement(p):
@@ -286,6 +275,7 @@ def p_input_statement(p):
 # Inicio Expresiones aritméticas con uno o más operadores.
 
 # Regla semantica para asegurarse que las operaciones sean de tipos numericos compatibles (Guillermo Arevalo)
+
 def p_operation(p):
     '''operation : value operator value'''
 
@@ -294,16 +284,11 @@ def p_operation(p):
             p[0] = p[1] + p[3] if p[2] == '+' else p[1] - p[3] if p[2] == '-' else p[1] * p[3] if p[2] == '*' else p[1] / p[3]
         else:
             errorsList.semanticErrors.append(f"Error semantico: Operador '{p[2]}' no es valido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
-            print(f"Error semantico: Operador '{p[2]}' no es valido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
     else:
         if not isinstance(p[1], (int, float)):
             errorsList.semanticErrors.append(f"Error semantico: Operando '{p[1]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
-            print(f"Error semantico: Operando '{p[1]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
         else:
             errorsList.semanticErrors.append(f"Error semantico: Operando '{p[3]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
-            print(f"Error semantico: Operando '{p[3]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
-
-
 
 def p_operation_complex(p):
     '''operation : value operator LPAREN value RPAREN
@@ -330,34 +315,6 @@ def p_double_operator(p):
     '''double_operator : INCREMENT
                        | DECREMENT'''
     p[0] = p[1]    
-    
-# Fin Expresiones aritméticas con uno o más operadores.
-        
-def p_parameters(p):
-    '''parameters : parameter
-                  | parameter COMMA parameters
-                  '''
-    if len(p) == 2:
-        p[0] = [p[1]]
-    else:
-        p[0] = [p[1]] + p[3]
-
-def p_parameter(p):
-    'parameter : VARIABLE type'
-
-    p[0] = (p[1],p[2])
-
-def p_type(p):
-    '''type : INT
-            | INT32
-            | INT64
-            | STRING
-            | FLOAT
-            | FLOAT32
-            | FLOAT64
-            | BOOL
-            '''
-    p[0]=p[1]
     
 # Estructuras de control
 def p_control_structure(p):
@@ -468,9 +425,7 @@ def p_struct_structure(p):
             'fields': struct_fields
         }
     else:
-        errorsList.semanticErrors.append(f"Error: El struct '{struct_name}' ya está definido.")
-        print(f"Error: El struct '{struct_name}' ya está definido.")
-    
+        errorsList.semanticErrors.append(f"Error: El struct '{struct_name}' ya está definido.")    
 
 def p_struct_fields(p):
     '''struct_fields : struct_field
@@ -559,7 +514,6 @@ def p_slice_structure(p):
                 }
             else:
                 errorsList.semanticErrors.append(f"Error: La slice '{slice_name}' ya está definida.")
-                print(f"Error: La slice '{slice_name}' ya está definida.")
         elif len(p) == 6:  # Variable := []type
             slice_type = p[5]
             # Verifica si la slice ya está definida
@@ -571,7 +525,6 @@ def p_slice_structure(p):
                 }
             else:
                 errorsList.semanticErrors.append(f"Error: La slice '{slice_name}' ya está definida.")
-                print(f"Error: La slice '{slice_name}' ya está definida.")
     elif p[2] == '=':  # Assignment =
         if p[3] == 'append_statement':  # Variable = append_statement
             append_result = p[4]
@@ -580,7 +533,6 @@ def p_slice_structure(p):
                 variables[slice_name]['values'].extend(append_result)
             else:
                 errorsList.semanticErrors.append(f"Error: '{slice_name}' no es una slice válida o no está inicializada como una slice.")
-                print(f"Error: '{slice_name}' no es una slice válida o no está inicializada como una slice.")
     
     else: # Variable [] type
         slice_name = p[2]
@@ -594,9 +546,6 @@ def p_slice_structure(p):
             }
         else:
             errorsList.semanticErrors.append(f"Error: La slice '{slice_name}' ya está definida.")
-            print(f"Error: La slice '{slice_name}' ya está definida.")
-
-
 
 def p_append_statement(p):
     '''append_statement : APPEND LPAREN VARIABLE COMMA values RPAREN
@@ -613,7 +562,6 @@ def p_append_statement(p):
             append_result = values
         else:
             errorsList.semanticErrors.append(f"Error: '{slice_name}' no es una slice válida o no está inicializada como una slice.")
-            print(f"Error: '{slice_name}' no es una slice válida o no está inicializada como una slice.")
 
     elif len(p) == 11:  # APPEND(VARIABLE, []type{values})
         slice_name = p[3]
@@ -626,8 +574,6 @@ def p_append_statement(p):
             append_result = values
         else:
             errorsList.semanticErrors.append(f"Error: '{slice_name}' no es una slice válida o no está inicializada como una slice del tipo '{slice_type}'.")
-            print(f"Error: '{slice_name}' no es una slice válida o no está inicializada como una slice del tipo '{slice_type}'.")
-
     return append_result
 
 t_ignore = ' \t'
@@ -635,10 +581,8 @@ t_ignore = ' \t'
 def p_error(p):
     if p:
         errorsList.syntaxErrors.append(f"Error sintactico en el token '{p.value}'")
-        print(f"Error sintáctico en el token  '{p.value}'")
     else:
         errorsList.syntaxErrors.append(f"Error sintactico en el token '{p.value}'")
-        print(f"Error sintáctico en el token  '{p.value}'")
 
 # Construcción del parser
 parser = yacc.yacc()

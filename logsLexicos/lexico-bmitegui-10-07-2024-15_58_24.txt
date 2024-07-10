@@ -1,0 +1,10 @@
+Analizador lexico:
+LexToken(FUNCTION,'func',1,0)
+LexToken(VARIABLE,'funcion',1,5)
+LexToken(LPAREN,'(',1,12)
+LexToken(RPAREN,')',1,13)
+LexToken(STRING,'string',1,15)
+LexToken(LBRACE,'{',1,22)
+LexToken(RETURN,'return',1,28)
+LexToken(CHARSTRING,'"¡Hola!"',1,35)
+LexToken(RBRACE,'}',1,49)
