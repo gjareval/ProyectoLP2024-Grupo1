@@ -293,15 +293,15 @@ def p_operation(p):
         if p[2] == '+' or p[2] == '-' or p[2] == '*' or p[2] == '/':
             p[0] = p[1] + p[3] if p[2] == '+' else p[1] - p[3] if p[2] == '-' else p[1] * p[3] if p[2] == '*' else p[1] / p[3]
         else:
-            errorsList.semanticErrors.append(f"Error semantico: Operador '{p[2]}' no es valido para operaciones aritmeticas.")
-            print(f"Error semantico: Operador '{p[2]}' no es valido para operaciones aritmeticas.")
+            errorsList.semanticErrors.append(f"Error semantico: Operador '{p[2]}' no es valido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
+            print(f"Error semantico: Operador '{p[2]}' no es valido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
     else:
         if not isinstance(p[1], (int, float)):
-            errorsList.semanticErrors.append(f"Error semantico: Operando '{p[1]}' invalido para operaciones aritmeticas.")
-            print(f"Error semantico: Operando '{p[1]}' invalido para operaciones aritmeticas.")
+            errorsList.semanticErrors.append(f"Error semantico: Operando '{p[1]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
+            print(f"Error semantico: Operando '{p[1]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
         else:
-            errorsList.semanticErrors.append(f"Error semantico: Operando '{p[3]}' invalido para operaciones aritmeticas.")
-            print(f"Error semantico: Operando '{p[3]}' invalido para operaciones aritmeticas.")
+            errorsList.semanticErrors.append(f"Error semantico: Operando '{p[3]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
+            print(f"Error semantico: Operando '{p[3]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
 
 
 
@@ -682,11 +682,11 @@ t_ignore = ' \t'
 
 def p_error(p):
     if p:
-        errorsList.errors.append(f"Syntax error at token '{p.value}'")
-        print(f"Syntax error at token '{p.value}'")
+        errorsList.syntaxErrors.append(f"Error sintactico en el token '{p.value}'")
+        print(f"Error sintáctico en el token  '{p.value}'")
     else:
-        errorsList.errors.append(f"Syntax error at token '{p.value}'")
-        print(f"Syntax error at token '{p.value}'")
+        errorsList.syntaxErrors.append(f"Error sintactico en el token '{p.value}'")
+        print(f"Error sintáctico en el token  '{p.value}'")
 
 # Construcción del parser
 parser = yacc.yacc()

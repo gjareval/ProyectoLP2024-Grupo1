@@ -3,6 +3,7 @@ import errorsList as errorsList
 
 # Reserved words
 reserved = {
+
     # Guillermo Arevalo
     'break':'BREAK',
     'case':'CASE',
@@ -25,8 +26,6 @@ reserved = {
     'func': 'FUNCTION',
     'main' : 'MAIN',
     'make' : 'MAKE',
-    'true' : 'TRUE',
-    'false' : 'FALSE',
     'append' : 'APPEND',
     'range'  : 'RANGE',
 
@@ -49,7 +48,6 @@ tokens = (
     'MINUS',            # -
     'TIMES',            # *
     'DIVIDE',           # /
-    'MOD',              # %
     'AND',              # &&
     'OR',               # ||
     'NOT',              # !
@@ -72,7 +70,6 @@ tokens = (
     'FORMATSTRING',
     
     #Brian Mite
-    'AMPERSAND',        # &
     'COMMA',            # ,
     'PERIOD',           # .
     'COLON',            # :
@@ -89,8 +86,6 @@ tokens = (
     'PRINTF',
     'INPUT',
     'VARIABLE',
-    'IDENTIFIER',
-    'TEXT'
    
 )+tuple(reserved.values())
 
@@ -100,7 +95,6 @@ t_PLUS = r"\+"
 t_MINUS = r"\-"
 t_TIMES   = r'\*'
 t_DIVIDE  = r'\/'
-t_MOD = r'\%'
 t_AND = r'&&'
 t_OR = r'\|\|'
 t_NOT = r'\!'
@@ -129,7 +123,6 @@ t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LBRACKET = r'\['
 t_RBRACKET = r'\]'
-t_AMPERSAND = r'&'
 
 # Regular expressions for complex tokens
 def t_FORMATSTRING(t):
@@ -183,7 +176,7 @@ t_ignore  = ' \t\n'
 def t_error(t):
     line = t.lineno
     position = t.lexpos - t.lexer.lexdata.rfind("\n", 0, t.lexpos)
-    errorsList.errors.append(f"Illegal character ('{t.value[0]}',{line},{position})")
+    errorsList.lexicalErrors.append(f"Illegal character ('{t.value[0]}',{line},{position})")
     t.lexer.skip(1)
 
 # Expresiones Regulares para números y variables, incluye cast

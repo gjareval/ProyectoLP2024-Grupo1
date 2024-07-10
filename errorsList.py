@@ -1,2 +1,3 @@
-errors = []
+lexicalErrors = []
+syntaxErrors = []
 semanticErrors = []

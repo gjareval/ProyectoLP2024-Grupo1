@@ -18,8 +18,11 @@ def get_git_user():
         return None
 
 def analyze_expression():
+    errorsList.lexicalErrors = []
+    errorsLexical = []  
     user_input = input_text.get('1.0', tk.END).strip()
     result_text.delete('1.0', tk.END)
+    token_text.delete('1.0', tk.END)
 
     result = ""
     time = datetime.datetime.now().strftime('%d-%m-%Y-%H_%M_%S')
@@ -29,12 +32,12 @@ def analyze_expression():
         return
 
     try:
-        result = parser.parse(user_input)  # Assuming parser is defined somewhere
+        result = parser.parse(user_input) 
         print(result)
 
-        errors = []  # Assuming errorsList.errors contains the list of errors
-        if errorsList.errors:
-            errors.extend(errorsList.errors)
+        errorsSyntax = [] 
+        if errorsList.syntaxErrors:
+            errorsSyntax.extend(errorsList.syntaxErrors)
 
         logs_dir = os.path.abspath("logsSintacticos")
         if not os.path.exists(logs_dir):
@@ -44,15 +47,15 @@ def analyze_expression():
         log_file = os.path.join(logs_dir, f"sintactico-{get_git_user()}-{time}.txt")
         
         with open(log_file, 'w') as file:
-            result_text.insert(tk.END, "Analizador sintactico:\n" + str(result) + "\n")
+            result_text.insert(tk.END, "Analizador sintáctico:\n" + str(result) + "\n")
             file.write("Analizador sintactico:\n" + str(result) + "\n")
-            if errors:
+            if errorsSyntax:
                 result_text.insert(tk.END, "\nErrores:\n")
                 file.write("\nErrores:\n")
-                for error in errors:
+                for error in errorsSyntax:
                     result_text.insert(tk.END, error + "\n")
                     file.write(error + "\n")
-            errorsList.errors = []
+            errorsList.syntaxErrors = []
 
         errorsSemantic = []  
         if errorsList.semanticErrors:
@@ -65,7 +68,7 @@ def analyze_expression():
         log_file = os.path.join(logs_dir, f"semantico-{get_git_user()}-{time}.txt")
         
         with open(log_file, 'w') as file:
-            result_text.insert(tk.END, "Analizador semantico:\n" + str(result) + "\n")
+            result_text.insert(tk.END, "\nAnalizador semántico:\n" + str(result) + "\n")
             file.write("Analizador semantico:\n" + str(result) + "\n")
             if errorsSemantic:
                 result_text.insert(tk.END, "\nErrores:\n")
@@ -80,7 +83,30 @@ def analyze_expression():
         for token in lexer:
             tokens += f"{token}\n"
 
+        errorsLexical = []  
+        if errorsList.lexicalErrors:
+            errorsLexical.extend(errorsList.lexicalErrors)
+
+        token_text.insert(tk.END, "Tokens reconocidos: \n")
         token_text.insert(tk.END, tokens)
+
+        logs_dir = os.path.abspath("logsLexicos")
+
+        if not os.path.exists(logs_dir):
+            os.makedirs(logs_dir)
+    
+        log_file = os.path.join(logs_dir,"lexico-"+get_git_user()+"-"+time+".txt")
+        with open(log_file, 'w') as file:
+            file.write("Analizador lexico:\n" + tokens)
+
+        if errorsLexical:
+            token_text.insert(tk.END, "\nErrores:\n")
+            for error in errorsLexical:
+                token_text.insert(tk.END, error + "\n")
+                file.write(error + "\n")
+            
+        errorsList.lexicalErrors = []
+
 
     except Exception as e:
         print(f"Error en el análisis sintáctico: {str(e)}")
@@ -121,7 +147,7 @@ input_label.pack()
 input_text = scrolledtext.ScrolledText(seccion1, width=80, height=18,borderwidth=0, font=("Consolas",10,"normal"), bg="#424141", fg="#FFFFFF")
 input_text.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
-result_label = tk.Label(seccion2, text="Resultado del análisis sintáctico:",font=("TkDefaultFont",12,"bold"), bg="#4F5155", fg="#FFFFFF")
+result_label = tk.Label(seccion2, text="Resultado del análisis:",font=("TkDefaultFont",12,"bold"), bg="#4F5155", fg="#FFFFFF")
 result_label.pack()
 
 result_text = scrolledtext.ScrolledText(seccion2, width=80, height=13,borderwidth=0, font=("Consolas",10,"normal"), bg="#424141", fg="#FFFFFF")

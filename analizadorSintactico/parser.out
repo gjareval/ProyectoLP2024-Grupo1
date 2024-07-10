@@ -1,14 +1,5 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    AMPERSAND
-    FALSE
-    IDENTIFIER
-    MOD
-    TEXT
-    TRUE
-
 Grammar
 
 Rule 0     S' -> statement
@@ -176,7 +167,6 @@ Rule 161   append_statement -> APPEND LPAREN VARIABLE COMMA LBRACKET RBRACKET ty
 
 Terminals, with rules where they appear
 
-AMPERSAND            : 
 AND                  : 115
 APPEND               : 160 161
 ASSIGN               : 30 34 35 44 87 147 148 149 155 159
@@ -195,7 +185,6 @@ DIVIDE               : 86
 DIVIDEASSIGN         : 48
 ELSE                 : 105 106 106
 EQUALS               : 122
-FALSE                : 
 FLOAT                : 66 97
 FLOAT32              : 98
 FLOAT64              : 99
@@ -204,7 +193,6 @@ FORMATSTRING         : 68
 FUNCTION             : 16 50 51 52 53
 GREATER              : 118
 GREATEREQUALS        : 120
-IDENTIFIER           : 
 IF                   : 104 105 106 106
 IMPORT               : 10 11
 INCREMENT            : 88
@@ -222,7 +210,6 @@ MAKE                 : 151
 MAP                  : 150 151
 MINUS                : 84
 MINUSASSIGN          : 46
-MOD                  : 
 MODASSIGN            : 49
 NOT                  : 117
 OR                   : 116
@@ -242,10 +229,8 @@ SHORTASSIGN          : 31 32 127 129 131 150 151 156 158
 STRING               : 96
 STRUCT               : 142
 SWITCH               : 130
-TEXT                 : 
 TIMES                : 85
 TIMESASSIGN          : 47
-TRUE                 : 
 TYPE                 : 142
 VAR                  : 29 30 33 34 146 147 148 157
 VARIABLE             : 14 29 30 31 32 35 36 37 38 42 43 50 51 52 53 59 60 61 92 127 129 129 129 131 142 145 146 147 148 149 150 151 155 156 157 158 159 160 161
