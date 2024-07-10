@@ -18,8 +18,11 @@ def get_git_user():
         return None
 
 def analyze_expression():
+    # Clear the error list for the next analysis
     errorsList.lexicalErrors = []
-    errorsLexical = []  
+    errorsList.syntaxErrors = []
+    errorsList.semanticErrors = []
+
     user_input = input_text.get('1.0', tk.END).strip()
     result_text.delete('1.0', tk.END)
     token_text.delete('1.0', tk.END)
@@ -32,21 +35,27 @@ def analyze_expression():
         return
 
     try:
-        result = parser.parse(user_input) 
+        result = parser.parse(user_input)
         print(result)
 
-        errorsSyntax = [] 
-        if errorsList.syntaxErrors:
-            errorsSyntax.extend(errorsList.syntaxErrors)
+        errorsSyntax = errorsList.syntaxErrors.copy()
+        errorsSemantic = errorsList.semanticErrors.copy()
+        errorsLexical = errorsList.lexicalErrors.copy()
 
-        logs_dir = os.path.abspath("logsSintacticos")
-        if not os.path.exists(logs_dir):
-            os.makedirs(logs_dir)
-        
-        time = datetime.datetime.now().strftime('%d-%m-%Y-%H_%M_%S')
-        log_file = os.path.join(logs_dir, f"sintactico-{get_git_user()}-{time}.txt")
-        
-        with open(log_file, 'w') as file:
+        # Create logs directories if they don't exist
+        logs_dirs = {
+            "sintacticos": os.path.abspath("logsSintacticos"),
+            "semanticos": os.path.abspath("logsSemanticos"),
+            "lexicos": os.path.abspath("logsLexicos")
+        }
+
+        for dir_path in logs_dirs.values():
+            if not os.path.exists(dir_path):
+                os.makedirs(dir_path)
+
+        # Save syntax analysis results
+        sintactico_log_file = os.path.join(logs_dirs["sintacticos"], f"sintactico-{get_git_user()}-{time}.txt")
+        with open(sintactico_log_file, 'w') as file:
             result_text.insert(tk.END, "Analizador sintáctico:\n" + str(result) + "\n")
             file.write("Analizador sintactico:\n" + str(result) + "\n")
             if errorsSyntax:
@@ -55,19 +64,10 @@ def analyze_expression():
                 for error in errorsSyntax:
                     result_text.insert(tk.END, error + "\n")
                     file.write(error + "\n")
-            errorsList.syntaxErrors = []
 
-        errorsSemantic = []  
-        if errorsList.semanticErrors:
-            errorsSemantic.extend(errorsList.semanticErrors)
-
-        logs_dir = os.path.abspath("logsSemanticos")
-        if not os.path.exists(logs_dir):
-            os.makedirs(logs_dir)
-        
-        log_file = os.path.join(logs_dir, f"semantico-{get_git_user()}-{time}.txt")
-        
-        with open(log_file, 'w') as file:
+        # Save semantic analysis results
+        semantico_log_file = os.path.join(logs_dirs["semanticos"], f"semantico-{get_git_user()}-{time}.txt")
+        with open(semantico_log_file, 'w') as file:
             result_text.insert(tk.END, "\nAnalizador semántico:\n" + str(result) + "\n")
             file.write("Analizador semantico:\n" + str(result) + "\n")
             if errorsSemantic:
@@ -76,40 +76,34 @@ def analyze_expression():
                 for error in errorsSemantic:
                     result_text.insert(tk.END, error + "\n")
                     file.write(error + "\n")
-            errorsList.semanticErrors = []
 
-        tokens =""
+        # Lexical analysis
+        tokens = ""
         lexer.input(user_input)
         for token in lexer:
             tokens += f"{token}\n"
 
-        errorsLexical = []  
-        if errorsList.lexicalErrors:
-            errorsLexical.extend(errorsList.lexicalErrors)
-
         token_text.insert(tk.END, "Tokens reconocidos: \n")
         token_text.insert(tk.END, tokens)
 
-        logs_dir = os.path.abspath("logsLexicos")
-
-        if not os.path.exists(logs_dir):
-            os.makedirs(logs_dir)
-    
-        log_file = os.path.join(logs_dir,"lexico-"+get_git_user()+"-"+time+".txt")
-        with open(log_file, 'w') as file:
+        lexicos_log_file = os.path.join(logs_dirs["lexicos"], f"lexico-{get_git_user()}-{time}.txt")
+        with open(lexicos_log_file, 'w') as file:
             file.write("Analizador lexico:\n" + tokens)
+            if errorsLexical:
+                token_text.insert(tk.END, "\nErrores:\n")
+                file.write("\nErrores:\n")
+                for error in errorsLexical:
+                    token_text.insert(tk.END, error + "\n")
+                    file.write(error + "\n")
 
-        if errorsLexical:
-            token_text.insert(tk.END, "\nErrores:\n")
-            for error in errorsLexical:
-                token_text.insert(tk.END, error + "\n")
-                file.write(error + "\n")
-            
+        # Clear the error lists
         errorsList.lexicalErrors = []
-
+        errorsList.syntaxErrors = []
+        errorsList.semanticErrors = []
 
     except Exception as e:
         print(f"Error en el análisis sintáctico: {str(e)}")
+
 
 
 # Configurar la interfaz gráfica
