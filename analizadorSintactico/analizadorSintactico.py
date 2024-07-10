@@ -371,7 +371,7 @@ def p_conditional_structure(p):
     '''conditional_structure : IF conditions conditional_body
                              | IF conditions conditional_body ELSE conditional_body
                              | IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body'''
-     
+
 def p_conditional_body(p):
     '''conditional_body : LBRACE statement RBRACE
                         | LBRACE statement return RBRACE
