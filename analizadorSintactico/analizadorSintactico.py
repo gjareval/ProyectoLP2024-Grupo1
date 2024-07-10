@@ -371,24 +371,7 @@ def p_conditional_structure(p):
     '''conditional_structure : IF conditions conditional_body
                              | IF conditions conditional_body ELSE conditional_body
                              | IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body'''
-     # Manejo de estructuras condicionales (Maria Jose Moyano)
-    if len(p) == 4:
-        # Estructura básica: IF conditions conditional_body
-        p[0] = ('if', p[2], p[3])
-    elif len(p) == 6:
-        # Estructura: IF conditions conditional_body ELSE conditional_body
-        p[0] = ('if-else', p[2], p[3], p[5])
-    elif len(p) == 10:
-        # Estructura: IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body
-        p[0] = ('if-else-if-else', p[2], p[3], p[6], p[7], p[9])
-
-    # Verificación semántica de la condición
-    for condicion in p[2]:
-        if not isinstance(condicion, bool):
-            errorsList.semanticErrors.append(f"Error semántico: La condición '{p[2]}' no es una expresión booleana.")
-            print(f"Error semántico: La condición '{p[2]}' no es una expresión booleana.")
-            break
-
+     
 def p_conditional_body(p):
     '''conditional_body : LBRACE statement RBRACE
                         | LBRACE statement return RBRACE
