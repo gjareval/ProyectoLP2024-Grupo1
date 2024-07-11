@@ -1,0 +1,7 @@
+Analizador semantico:
+None
+
+Errores:
+Error: Variable 'err' no esta definida.
+Error: Variable 'nil' no esta definida.
+Error: Variable 'fibSeries' no esta definida.

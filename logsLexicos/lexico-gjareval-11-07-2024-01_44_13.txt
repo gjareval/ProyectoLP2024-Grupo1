@@ -1,0 +1,13 @@
+Analizador lexico:
+LexToken(VARIABLE,'numeros',1,0)
+LexToken(SHORTASSIGN,':=',1,8)
+LexToken(MAKE,'make',1,11)
+LexToken(LPAREN,'(',1,15)
+LexToken(MAP,'map',1,16)
+LexToken(LBRACKET,'[',1,19)
+LexToken(INT,'int',1,20)
+LexToken(RBRACKET,']',1,23)
+LexToken(INT,'int',1,24)
+LexToken(COMMA,',',1,27)
+LexToken(INT,0,1,29)
+LexToken(RPAREN,')',1,30)

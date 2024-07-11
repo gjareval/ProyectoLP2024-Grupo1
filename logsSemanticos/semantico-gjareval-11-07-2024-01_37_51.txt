@@ -1,0 +1,9 @@
+Analizador semantico:
+None
+
+Errores:
+Error: Variable 'x' no esta definida.
+Error: Variable 'y' no esta definida.
+Error: Variable 'x' no esta definida.
+Error: Variable 'y' no esta definida.
+Error: Variable 'x' no esta definida.

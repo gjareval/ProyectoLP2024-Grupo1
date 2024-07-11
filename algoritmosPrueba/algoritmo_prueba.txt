@@ -12,10 +12,11 @@ func main() {
     var booleano bool = true
     var flotante float64 = 3.14
     var cadena string = "Hola"
-    var otraCadena string = "Hola, %s"
     var resultado int
 
     // Operadores aritméticos y asignaciones
+    var x int=0
+    var y int=0 
     x = x + y
     y = x - y
     x *= y
@@ -36,31 +37,23 @@ func main() {
         fmt.Println("x es mayor que y")
     } else if x < y {
         fmt.Println("x es menor que y")
-    } else if x == y {
-        fmt.Println("x es igual a y")
-    } else if x != y {
+    } else {
         fmt.Println("x es diferente de y")
     }
 
     // Operadores lógicos y de bits
-    if booleano && (x < y || x == 10) {
+    if y > 10 && x < y || x == 10 {
         fmt.Println("Condición verdadera")
     } else {
         fmt.Println("Condición falsa")
     }
 
-    z = x & y
-    resultado = x | y
-    resultado = x ^ y
-    resultado = x << 2
-    resultado = y >> 1
-
     // Llamada a función fmt.Println
     fmt.Println("Resultado de x & y:", z)
     fmt.Println("Hola, mundo!")
-    fmt.Println("Otra cadena:", fmt.Sprintf(otraCadena, "mundo"))
 
     // Estructuras de control
+    var i int
     for i := 0; i < 5; i++ {
         fmt.Println("Iteración:", i)
     }
@@ -72,24 +65,29 @@ func main() {
     var flotante64 float64 = 3.14159265358979
 
     // Uso de switch
-    switch cadena {
-    case "Hola":
-        fmt.Println("Saludo encontrado:", cadena)
-    case "Adiós":
-        fmt.Println("Despedida encontrada:", cadena)
-    default:
-        fmt.Println("Texto no reconocido")
+    var cadena int
+    switch cadena:=1 {
+        case "Hola":
+            fmt.Println("Saludo encontrado:", cadena)
+        case "Adiós":
+            fmt.Println("Despedida encontrada:", cadena)
+        default:
+            fmt.Println("Texto no reconocido")
     }
 
     // Uso de make, append y range
-    numeros := make([]int, 0)
-    numeros = append(numeros, 1, 2, 3, 4, 5)
+    numeros := [] int
+	numeros = append (numeros,9)
 
+
+    var index int
+    var numero int
     for index, numero := range numeros {
         fmt.Println("Índice:", index, "Número:", numero)
     }
 
     // Uso de continue y break en bucles
+    var i int
     for i := 0; i < 10; i++ {
         if i == 5 {
             continue

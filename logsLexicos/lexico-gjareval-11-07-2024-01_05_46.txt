@@ -1,0 +1,10 @@
+Analizador lexico:
+LexToken(FUNCTION,'func',1,0)
+LexToken(MAIN,'main',1,5)
+LexToken(LPAREN,'(',1,9)
+LexToken(RPAREN,')',1,10)
+LexToken(LBRACE,'{',1,12)
+LexToken(VAR,'var',1,19)
+LexToken(VARIABLE,'resultado',1,23)
+LexToken(INT,'int',1,33)
+LexToken(RBRACE,'}',1,39)

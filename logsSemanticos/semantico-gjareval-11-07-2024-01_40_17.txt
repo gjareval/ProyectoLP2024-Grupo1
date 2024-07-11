@@ -1,0 +1,6 @@
+Analizador semantico:
+None
+
+Errores:
+Error: Variable 'z' no esta definida.
+Error: Variable 'otraCadena' no esta definida.

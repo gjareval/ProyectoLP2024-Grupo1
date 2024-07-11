@@ -1,0 +1,4 @@
+Analizador lexico:
+LexToken(VARIABLE,'x',1,0)
+LexToken(PLUS,'+',1,1)
+LexToken(VARIABLE,'y',1,2)

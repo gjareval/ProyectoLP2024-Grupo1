@@ -1,6 +1,4 @@
-# Yacc import
 import ply.yacc as yacc
-# Token map from the lexer
 from analizadorLexico.analizadorLexico import tokens
 import errorsList as errorsList
 
@@ -8,7 +6,6 @@ import errorsList as errorsList
 variables = {}
 constants = {}
 functions = {}
-
 
 # Definicion de las definiciones  gramaticales
 def p_statement(p):
@@ -80,7 +77,7 @@ def p_value(p):
              | VARIABLE LBRACKET value RBRACKET
              | not_variable_value'''
 
-    if isinstance(p[1], str) and not(p[1].startswith('"') and p[1].endswith('"')):
+    if isinstance(p[1], str) and not(p[1].startswith('"') and p[1].endswith('"')) and not p[1]=="True" and not p[1]=="False"  :
         if p[1] in variables:
             p[0] = variables[p[1]]
         else:
@@ -175,12 +172,12 @@ def p_assignation(p):
 
 def p_parameters(p):
     '''parameters : VARIABLE type
-                  | VARIABLE COMMA parameters
+                  | VARIABLE type COMMA parameters
                   '''
     if len(p) == 3:
         p[0] = [p[1]]
     else:
-        p[0] = [p[1]] + p[3]
+        p[0] = [p[1]] + p[4]
 
 def p_type(p):
     '''type : INT
@@ -226,8 +223,6 @@ def p_function(p):
         body=p[8]
 
     if return_type!=None and return_value!=None:
-        if(return_type=='string'):
-            return_type = 'str'
         if type(return_value).__name__== return_type:
             # Registro de la función (implementación puede variar)
             functions[function_name] = {
@@ -283,12 +278,12 @@ def p_operation(p):
         if p[2] == '+' or p[2] == '-' or p[2] == '*' or p[2] == '/':
             p[0] = p[1] + p[3] if p[2] == '+' else p[1] - p[3] if p[2] == '-' else p[1] * p[3] if p[2] == '*' else p[1] / p[3]
         else:
-            errorsList.semanticErrors.append(f"Error semantico: Operador '{p[2]}' no es valido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
+            errorsList.semanticErrors.append(f"Error semantico en la linea {p.lineno(2)}: Operador '{p[2]}' no es valido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
     else:
         if not isinstance(p[1], (int, float)):
-            errorsList.semanticErrors.append(f"Error semantico: Operando '{p[1]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
+            errorsList.semanticErrors.append(f"Error semantico en la linea {p.lineno(1)}: Operando '{p[1]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
         else:
-            errorsList.semanticErrors.append(f"Error semantico: Operando '{p[3]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
+            errorsList.semanticErrors.append(f"Error semantico en la linea {p.lineno(3)}: Operando '{p[3]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
 
 def p_operation_complex(p):
     '''operation : value operator LPAREN value RPAREN
@@ -345,10 +340,6 @@ def p_conditions(p):
 def p_condition(p):
     'condition : value relational_operator value'
 
-
-    
-
-
 def p_logical_operator(p):
     '''logical_operator : AND
                         | OR
@@ -365,7 +356,7 @@ def p_relational_operator(p):
     '''
     p[0]=p[1]
 
-# Guillero Arevalo
+# Guillermo Arevalo
 # Estructura for
 
 def p_for_estructure(p):
@@ -471,7 +462,14 @@ def p_array_assign(p):
 # Map
 def p_map_structure(p):
     '''map_structure : VARIABLE SHORTASSIGN MAP LBRACKET type RBRACKET type LBRACE map_values RBRACE
-                      | VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN'''
+                    | VARIABLE SHORTASSIGN MAKE LPAREN MAP LBRACKET type RBRACKET type RPAREN'''
+    
+    if p[10]=='}':
+        if p[1] not in variables:
+            variables[p[1]]=f'[{p[9]}]'
+    else:
+        if p[1] not in variables:
+            variables[p[1]]='map'
     
 
 
@@ -584,5 +582,16 @@ def p_error(p):
     else:
         errorsList.syntaxErrors.append(f"Error sintactico en el token '{p.value}'")
 
+def clear_variables():
+    global variables, constants, functions
+    variables = {}
+    constants = {}
+    functions = {}
+
 # Construcción del parser
 parser = yacc.yacc()
+
+def parse_input(input_data):
+    clear_variables()
+    result = parser.parse(input_data)
+    return result

@@ -1,0 +1,9 @@
+Analizador sintactico:
+None
+
+Errores:
+Error sintactico en el token ','
+Error sintactico en el token 'return'
+Error sintactico en el token ','
+Error sintactico en el token 'return'
+Error sintactico en el token '}'

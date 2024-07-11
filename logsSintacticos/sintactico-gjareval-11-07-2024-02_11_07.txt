@@ -1,0 +1,6 @@
+Analizador sintactico:
+None
+
+Errores:
+Error sintactico en el token 'if'
+Error sintactico en el token '}'

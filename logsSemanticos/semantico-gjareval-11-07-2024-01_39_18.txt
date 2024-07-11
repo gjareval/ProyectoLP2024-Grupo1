@@ -1,0 +1,8 @@
+Analizador semantico:
+None
+
+Errores:
+Error: Variable 'x' no esta definida.
+Error: Variable 'z' no inicializada
+Error: Variable 'x' no esta definida.
+Error: Variable 'resultado' no inicializada

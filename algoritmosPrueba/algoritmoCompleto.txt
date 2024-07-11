@@ -1,131 +1,135 @@
-//Guillermo Arevalo
+	//Guillermo Arevalo
 
-package main
+	package main
 
-import (
-	"fmt"
-	"otroImport"
-)
-func main(){
+	import (
+		"fmt"
+		"otroImport"
+	)
+	func main(){
 
-	var valor1 int=10
-	var valor2 int=20
-	var valor3 int=30
+		var valor1 int=10
+		var valor2 int=20
+		var valor3 int=30
 
-	func pruebaPrints(){
-		fmt.Println(10,11,12)
-		fmt.Printf("Name: %s, Age: %d, Height: %.2f\n", name, age, height)
-		var variable1 int
-		var variable2 int
-		fmt.Print(variable1+variable2)
-		fmt.Println()
-	}
-
-	func pruebaInputs(){
-		fmt.Scan(entrada)
-		fmt.Scan(values1,values2)
-		fmt.Scanln(valor1+valor2)
-		fmt.Scanln()
-	}
-
-	func operaciones(valor1 int, valor2 int ) int {
-		var valor4 int
-		fmt.Scanln(valor4)
-		fmt.Println(valor4)
-		valor3=valor1+valor2+valor4
-		return valor3
-	}
-
-	func pruebaStruct() {
-		type estructura1 struct{
-			campo1 string
-			campo2 int
-			campo3 float
-		}
-	}
-
-	func pruebaArray(){
-		var array[10] int
-		var array2 = [10] int {10,9,8,7}
-	}
-
-	func pruebaMap(){
-		mapa1 := map[int] string {
-			10 : "value1",
-			11 : "value2",
-			12 : "value3"
+		func pruebaPrints(){
+			var name string
+			var age int
+			var height float
+			fmt.Println(10,11,12)
+			fmt.Printf("Name: %s, Age: %d, Height: %.2f\n", name, age, height)
+			fmt.Println()
 		}
 
-		mapa2 := make (map[int] int)
-		mapa1[10]="value4"
-	}
+		func pruebaInputs(){
+			var entrada string
+			var values1 string
+			var values2 string
+			fmt.Scan(entrada)
+			fmt.Scan(values1,values2)
+			fmt.Scanln()
+		}
 
-	func pruebaSlice() {
-		slice1 := [] string {"valor1","valor2","valor3"}
-		var slice2[] string 
-		slice3 := [] int
-		slice3 = append (slice3,9)
-		slice3 = append (slice3,[]int{10,11,12})
-	}
+		func operaciones(valor1 int, valor2 int ) int {
+			var valor4 int=0
+			fmt.Scanln(valor4)
+			fmt.Println(valor4)
+			valor3=valor1+valor2+valor4
+			return valor3
+		}
 
-	func pruebaIf(valor1 int, valor2 int, valor3 int) bool {
-		var valorNuevo int
-		var salida bool
-		if valor1>=valor2 {
-			valorNuevo=valor1/valor2
-			if valorNuevo==10 {
-				return True
+		func pruebaStruct() {
+			type estructura1 struct{
+				campo1 string
+				campo2 int
+				campo3 float
 			}
-			return False
 		}
 
-		else if valor2==valor3 && valor3!=200 {
-			return True
+		func pruebaArray(){
+			var array[10] int
+			var array2 = [10] int {10,9,8,7}
 		}
 
-		else {
-			valorNuevo=valor2*valor3
-			if valorNuevo>10 || valorNuevo <100 {
+		func pruebaMap(){
+			mapa1 := map[int] string {
+				10 : "value1",
+				11 : "value2",
+				12 : "value3"
+			}
+
+			mapa2 := make (map[int] int)
+			mapa1[10]="value4"
+		}
+
+		func pruebaSlice() {
+			slice1 := [] string {"valor1","valor2","valor3"}
+			var slice2[] string 
+			slice3 := [] int
+			slice3 = append (slice3,9)
+			slice3 = append (slice3,[]int{10,11,12})
+		}
+
+		func pruebaIf(valor1 int, valor2 int, valor3 int) bool {
+			var valorNuevo int
+			var salida bool
+			if valor1>=valor2 {
+				valorNuevo=valor1/valor2
+				if valorNuevo==10 {
+					return True
+				}
+				return False
+			}
+
+			else if valor2==valor3 && valor3!=200 {
 				return True
 			}
 
+			else {
+				if valorNuevo>10 || valorNuevo <100 {
+					return True
+				}
+
+				return False
+			}
+
 			return False
 		}
 
-		return False
+		func pruebaFor() {
+			var list int
+			var i int=0
+			var valor int 
+			for i:=0; i<10 ; i++ {
+				valor = list
+				fmt.Print(valor)
+			}
+
+			for {
+				fmt.Print("Hola")
+			}
+
+			var nombres[10] string
+			var nombre string
+			for i, nombre:=range nombres{
+				fmt.Println(nombre)
+			}
+		}
+		
+		func pruebaSwitch (){
+			switch caso:=1 {
+				case 1:
+					fmt.Print("Caso 1")
+				case 2:
+					fmt.Print("Caso 2")
+				case 3:
+					fmt.Print("Caso 3")
+				default:
+					fmt.Print("Caso default")
+			}
+		}
+
 	}
-
-	func pruebaFor() {
-		var list[10] int
-		var i int
-		for i:=0; i<10 ; i++ {
-			fmt.Print(list[i])
-		}
-
-		for {
-			fmt.Print("Hola")
-		}
-
-		var nombres[10] string
-		for i, nombre:=range nombres{
-			fmt.Println(nombre)
-		}
-	}
-
-	func pruebaSwitch (){
-		switch caso:=1 {
-			case 1:
-				fmt.Print("Caso 1")
-			case 2:
-				fmt.Print("Caso 2")
-			case 3:
-				fmt.Print("Caso 3")
-			default:
-				fmt.Print("Caso default")
-		}
-	}
-
-}
 
 
 

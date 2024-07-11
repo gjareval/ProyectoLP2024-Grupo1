@@ -1,0 +1,11 @@
+Analizador semantico:
+None
+
+Errores:
+Error: Variable 'true' no esta definida.
+Error: Variable 'fmt' no esta definida.
+Error: Variable 'i' no esta definida.
+Error: Variable 'i' no esta definida.
+Error: Variable 'i' no esta definida.
+Error: Variable 'int' no esta definida.
+Error: 'numeros' no es una slice válida o no está inicializada como una slice.

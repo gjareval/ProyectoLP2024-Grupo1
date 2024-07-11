@@ -2,8 +2,8 @@ import datetime
 import os
 import tkinter as tk
 from tkinter import scrolledtext
-from tkinter import ttk
-from analizadorSintactico.analizadorSintactico import parser
+import traceback
+from analizadorSintactico.analizadorSintactico import parse_input
 from analizadorLexico.analizadorLexico import lexer
 import errorsList as errorsList
 import subprocess
@@ -18,7 +18,7 @@ def get_git_user():
         return None
 
 def analyze_expression():
-    # Clear the error list for the next analysis
+
     errorsList.lexicalErrors = []
     errorsList.syntaxErrors = []
     errorsList.semanticErrors = []
@@ -35,14 +35,7 @@ def analyze_expression():
         return
 
     try:
-        result = parser.parse(user_input)
-        print(result)
 
-        errorsSyntax = errorsList.syntaxErrors.copy()
-        errorsSemantic = errorsList.semanticErrors.copy()
-        errorsLexical = errorsList.lexicalErrors.copy()
-
-        # Create logs directories if they don't exist
         logs_dirs = {
             "sintacticos": os.path.abspath("logsSintacticos"),
             "semanticos": os.path.abspath("logsSemanticos"),
@@ -52,30 +45,6 @@ def analyze_expression():
         for dir_path in logs_dirs.values():
             if not os.path.exists(dir_path):
                 os.makedirs(dir_path)
-
-        # Save syntax analysis results
-        sintactico_log_file = os.path.join(logs_dirs["sintacticos"], f"sintactico-{get_git_user()}-{time}.txt")
-        with open(sintactico_log_file, 'w') as file:
-            result_text.insert(tk.END, "Analizador sintáctico:\n" + str(result) + "\n")
-            file.write("Analizador sintactico:\n" + str(result) + "\n")
-            if errorsSyntax:
-                result_text.insert(tk.END, "\nErrores:\n")
-                file.write("\nErrores:\n")
-                for error in errorsSyntax:
-                    result_text.insert(tk.END, error + "\n")
-                    file.write(error + "\n")
-
-        # Save semantic analysis results
-        semantico_log_file = os.path.join(logs_dirs["semanticos"], f"semantico-{get_git_user()}-{time}.txt")
-        with open(semantico_log_file, 'w') as file:
-            result_text.insert(tk.END, "\nAnalizador semántico:\n" + str(result) + "\n")
-            file.write("Analizador semantico:\n" + str(result) + "\n")
-            if errorsSemantic:
-                result_text.insert(tk.END, "\nErrores:\n")
-                file.write("\nErrores:\n")
-                for error in errorsSemantic:
-                    result_text.insert(tk.END, error + "\n")
-                    file.write(error + "\n")
 
         # Lexical analysis
         tokens = ""
@@ -89,69 +58,93 @@ def analyze_expression():
         lexicos_log_file = os.path.join(logs_dirs["lexicos"], f"lexico-{get_git_user()}-{time}.txt")
         with open(lexicos_log_file, 'w') as file:
             file.write("Analizador lexico:\n" + tokens)
-            if errorsLexical:
+            if errorsList.lexicalErrors:
                 token_text.insert(tk.END, "\nErrores:\n")
                 file.write("\nErrores:\n")
-                for error in errorsLexical:
+                for error in errorsList.lexicalErrors:
                     token_text.insert(tk.END, error + "\n")
                     file.write(error + "\n")
 
-        # Clear the error lists
+        # Syntax analysis
+        result = parse_input(user_input)
+        print(result)
+
+        sintactico_log_file = os.path.join(logs_dirs["sintacticos"], f"sintactico-{get_git_user()}-{time}.txt")
+        with open(sintactico_log_file, 'w') as file:
+            result_text.insert(tk.END, "Analizador sintáctico:\n" + str(result) + "\n")
+            file.write("Analizador sintactico:\n" + str(result) + "\n")
+            if errorsList.syntaxErrors:
+                result_text.insert(tk.END, "\nErrores:\n")
+                file.write("\nErrores:\n")
+                for error in errorsList.syntaxErrors:
+                    result_text.insert(tk.END, error + "\n")
+                    file.write(error + "\n")
+
+        # Semantic analysis
+        semantico_log_file = os.path.join(logs_dirs["semanticos"], f"semantico-{get_git_user()}-{time}.txt")
+        with open(semantico_log_file, 'w') as file:
+            result_text.insert(tk.END, "\nAnalizador semántico:\n" + str(result) + "\n")
+            file.write("Analizador semantico:\n" + str(result) + "\n")
+            if errorsList.semanticErrors:
+                result_text.insert(tk.END, "\nErrores:\n")
+                file.write("\nErrores:\n")
+                for error in errorsList.semanticErrors:
+                    result_text.insert(tk.END, error + "\n")
+                    file.write(error + "\n")
+
         errorsList.lexicalErrors = []
         errorsList.syntaxErrors = []
         errorsList.semanticErrors = []
 
     except Exception as e:
         print(f"Error en el análisis sintáctico: {str(e)}")
-
-
+        result_text.insert(tk.END, f"Error en el análisis sintáctico: {str(e)}")
+        file.write(f"Error en el análisis sintáctico: {str(e)}")
 
 # Configurar la interfaz gráfica
-
 root = tk.Tk()
 root.title("Analizador de GO")
-root.configure(bg="#4F5155",)
+root.configure(bg="#424141")
 ancho_pantalla = root.winfo_screenwidth()
 alto_pantalla = root.winfo_screenheight()
 root.geometry(f"{ancho_pantalla-30}x{alto_pantalla-50}")
 
-analyze_button = tk.Button(root, text="Analizar", command=analyze_expression,font=("TkDefaultFont",10,"normal"))
+analyze_button = tk.Button(root, text="Analizar", command=analyze_expression, font=("TkDefaultFont",10,"normal"))
 analyze_button.grid(row=0, column=0, pady=2)
 
-seccion1 = tk.Frame(root,bg="#4F5155",width=200, height=200)
+seccion1 = tk.Frame(root, bg="#424141", width=200, height=200)
 seccion1.grid(row=1, column=0, pady=0, sticky="nsew")
 
-contenedor_secciones = tk.Frame(root,bg="#4F5155")
+contenedor_secciones = tk.Frame(root, bg="#424141")
 contenedor_secciones.grid(row=2, column=0, sticky="ew")
 
-root.grid_rowconfigure(2, weight=1) 
+root.grid_rowconfigure(2, weight=1)
 root.grid_columnconfigure(0, weight=1)
 
 contenedor_secciones.grid_columnconfigure(0, weight=1)  # Hacer que la columna 0 del contenedor se expanda
-contenedor_secciones.grid_columnconfigure(1, weight=1) 
+contenedor_secciones.grid_columnconfigure(1, weight=1)
 
-seccion2 = tk.Frame(contenedor_secciones,bg="#4F5155", width=200, height=100)
+seccion2 = tk.Frame(contenedor_secciones, bg="#424141", width=200, height=100)
 seccion2.grid(row=0, column=0, padx=2, pady=0, sticky="nsew")
-seccion3 = tk.Frame(contenedor_secciones, bg="#4F5155",width=200, height=100)
+seccion3 = tk.Frame(contenedor_secciones, bg="#424141", width=200, height=100)
 seccion3.grid(row=0, column=1, padx=2, pady=0, sticky="nsew")
 
-input_label = tk.Label(seccion1, text="Ingresa una expresión:",font=("TkDefaultFont",12,"bold"), bg="#4F5155", fg="#FFFFFF")
+input_label = tk.Label(seccion1, text="Ingresa una expresión:", font=("TkDefaultFont",12,"bold"), bg="#424141", fg="#FFFFFF")
 input_label.pack()
 
-input_text = scrolledtext.ScrolledText(seccion1, width=80, height=18,borderwidth=0, font=("Consolas",10,"normal"), bg="#424141", fg="#FFFFFF")
+input_text = scrolledtext.ScrolledText(seccion1, width=80, height=18, borderwidth=0, font=("Consolas",10,"normal"), bg="#4F5155", fg="#FFFFFF")
 input_text.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
-result_label = tk.Label(seccion2, text="Resultado del análisis:",font=("TkDefaultFont",12,"bold"), bg="#4F5155", fg="#FFFFFF")
+result_label = tk.Label(seccion2, text="Resultado del análisis:", font=("TkDefaultFont",12,"bold"), bg="#424141", fg="#FFFFFF")
 result_label.pack()
 
-result_text = scrolledtext.ScrolledText(seccion2, width=80, height=13,borderwidth=0, font=("Consolas",10,"normal"), bg="#424141", fg="#FFFFFF")
-result_text.pack(fill=tk.BOTH, expand=True,padx=5, pady=5)
+result_text = scrolledtext.ScrolledText(seccion2, width=80, height=13, borderwidth=0, font=("Consolas",10,"normal"), bg="#4F5155", fg="#FFFFFF")
+result_text.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
-token_label = tk.Label(seccion3, text="Tokens:",font=("TkDefaultFont",12,"bold"), bg="#4F5155", fg="#FFFFFF")
+token_label = tk.Label(seccion3, text="Tokens:", font=("TkDefaultFont",12,"bold"), bg="#424141", fg="#FFFFFF")
 token_label.pack()
 
-token_text = scrolledtext.ScrolledText(seccion3, width=80, height=13,borderwidth=0, font=("Consolas",10,"normal"),  bg="#424141", fg="#FFFFFF")
-token_text.pack(fill=tk.BOTH, expand=True,padx=5, pady=5)
-
+token_text = scrolledtext.ScrolledText(seccion3, width=80, height=13, borderwidth=0, font=("Consolas",10,"normal"), bg="#4F5155", fg="#FFFFFF")
+token_text.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
 root.mainloop()

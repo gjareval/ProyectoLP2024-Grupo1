@@ -1,0 +1,6 @@
+Analizador sintactico:
+None
+
+Errores:
+Error sintactico en el token 'resultado'
+Error sintactico en el token 'resultado'

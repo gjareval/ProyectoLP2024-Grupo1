@@ -1,0 +1,8 @@
+Analizador semantico:
+None
+
+Errores:
+Error: Variable 'name' no esta definida.
+Error: Variable 'age' no esta definida.
+Error: Variable 'height' no esta definida.
+Error semantico: Operando 'None' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada

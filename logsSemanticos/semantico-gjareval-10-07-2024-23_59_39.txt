@@ -1,0 +1,8 @@
+Analizador semantico:
+None
+
+Errores:
+Error: Variable 'int' no esta definida.
+Error: Variable 'int' no esta definida.
+Error: Variable 'int' no esta definida.
+Error: Variable 'int' no esta definida.

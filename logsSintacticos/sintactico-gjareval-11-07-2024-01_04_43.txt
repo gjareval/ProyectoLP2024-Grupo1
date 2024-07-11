@@ -1,0 +1,21 @@
+Analizador sintactico:
+None
+
+Errores:
+Error sintactico en el token '"Hola, %s"'
+Error sintactico en el token '='
+Error sintactico en el token '='
+Error sintactico en el token '}'
+Error sintactico en el token 'if'
+Error sintactico en el token '}'
+Error sintactico en el token '}'
+Error sintactico en el token '}'
+Error sintactico en el token 'resultado'
+Error sintactico en el token 'resultado'
+Error sintactico en el token '.'
+Error sintactico en el token '{'
+Error sintactico en el token 'case'
+Error sintactico en el token 'default'
+Error sintactico en el token '}'
+Error sintactico en el token '['
+Error sintactico en el token '}'

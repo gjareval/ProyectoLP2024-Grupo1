@@ -1,0 +1,6 @@
+Analizador semantico:
+None
+
+Errores:
+Error: Variable 'cadena' no esta definida.
+Error: Variable 'cadena' no esta definida.

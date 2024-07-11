@@ -1,0 +1,8 @@
+Analizador sintactico:
+None
+
+Errores:
+Error sintactico en el token '{'
+Error sintactico en el token 'case'
+Error sintactico en el token 'default'
+Error sintactico en el token '}'

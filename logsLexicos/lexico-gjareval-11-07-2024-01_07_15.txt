@@ -1,0 +1,13 @@
+Analizador lexico:
+LexToken(VARIABLE,'x',1,0)
+LexToken(ASSIGN,'=',1,2)
+LexToken(VARIABLE,'x',1,4)
+LexToken(PLUS,'+',1,6)
+LexToken(VARIABLE,'y',1,8)
+LexToken(VARIABLE,'x',1,10)
+LexToken(TIMESASSIGN,'*=',1,12)
+LexToken(VARIABLE,'y',1,15)
+LexToken(VARIABLE,'y',1,18)
+LexToken(DIVIDE,'/',1,20)
+LexToken(ASSIGN,'=',1,21)
+LexToken(VARIABLE,'x',1,23)

@@ -1,0 +1,7 @@
+Analizador semantico:
+None
+
+Errores:
+Error: Variable 'int' no esta definida.
+Error: Variable 'int' no esta definida.
+Error: 'numeros' no es una slice válida o no está inicializada como una slice.

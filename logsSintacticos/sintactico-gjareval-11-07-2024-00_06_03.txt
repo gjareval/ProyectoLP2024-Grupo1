@@ -1,0 +1,6 @@
+Analizador sintactico:
+None
+
+Errores:
+Error sintactico en el token 'map'
+Error sintactico en el token 'return'

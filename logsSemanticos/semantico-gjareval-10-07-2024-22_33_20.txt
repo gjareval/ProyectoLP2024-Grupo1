@@ -1,0 +1,21 @@
+Analizador semantico:
+None
+
+Errores:
+Error: Variable 'name' no esta definida.
+Error: Variable 'age' no esta definida.
+Error: Variable 'height' no esta definida.
+Error semantico: Operando 'None' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada
+Error: Variable 'entrada' no esta definida.
+Error: Variable 'values1' no esta definida.
+Error: Variable 'values2' no esta definida.
+Error: Variable 'int' no esta definida.
+Error semantico: Operando 'None' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada
+Error: Variable 'True' no esta definida.
+Error: Variable 'False' no esta definida.
+Error: Variable 'True' no esta definida.
+Error semantico: Operando 'None' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada
+Error: Variable 'True' no esta definida.
+Error: Variable 'False' no esta definida.
+Error: Variable 'list' no esta definida.
+Error: Variable 'nombre' no esta definida.

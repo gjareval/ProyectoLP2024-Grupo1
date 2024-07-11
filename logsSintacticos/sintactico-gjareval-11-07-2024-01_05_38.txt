@@ -1,0 +1,6 @@
+Analizador sintactico:
+None
+
+Errores:
+Error sintactico en el token '"Hola, %s"'
+Error sintactico en el token '}'
