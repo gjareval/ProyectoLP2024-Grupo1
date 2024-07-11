@@ -327,6 +327,8 @@ def p_operation(p):
             p[0] = p[1] and p[3]
         elif p[2] == '||':
             p[0] = p[1] or p[3]
+        elif p[2] == '==':
+            p[0] = p[1] == p[3]
         else:
             errorsList.semanticErrors.append(f"Error semantico: Operador '{p[2]}' no es valido para operaciones logicas.")
     else:
@@ -365,14 +367,17 @@ def p_control_structure(p):
 def p_conditional_structure(p):
     '''conditional_structure : IF conditions conditional_body
                              | IF conditions conditional_body ELSE conditional_body
+                             | IF conditions conditional_body ELSE IF conditions conditional_body
                              | IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body'''
+    print(len(p))
 
 def p_conditional_body(p):
-    '''conditional_body : LBRACE statement RBRACE
-                        | LBRACE statement return RBRACE
+    '''conditional_body : LBRACE blocks RBRACE
+                        | LBRACE blocks return RBRACE
                         | LBRACE return RBRACE
                         | LBRACE BREAK RBRACE
                         | LBRACE CONTINUE RBRACE'''
+    print(p[2])
 
 def p_conditions(p):
     '''conditions : condition
@@ -380,7 +385,9 @@ def p_conditions(p):
                   '''
 
 def p_condition(p):
-    'condition : value relational_operator value'
+    '''condition : BOOL
+                  | value relational_operator values
+                  '''
 
 def p_logical_operator(p):
     '''logical_operator : AND
