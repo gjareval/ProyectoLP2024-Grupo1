@@ -183,12 +183,12 @@ def p_assignation(p):
 
 def p_parameters(p):
     '''parameters : VARIABLE type
-                  | VARIABLE type COMMA parameters
+                  | VARIABLE COMMA parameters
                   '''
     if len(p) == 3:
         p[0] = [p[1]]
     else:
-        p[0] = [p[1]] + p[4]
+        p[0] = [p[1]] + p[3]
 
 def p_type(p):
     '''type : INT
@@ -202,55 +202,56 @@ def p_type(p):
             '''
     p[0]=p[1]
 
+
+
+#Definicion de funcion, devuelve nombre
+def p_definir_function(p):
+    '''definir_function : FUNCTION VARIABLE LPAREN RPAREN
+                        | FUNCTION VARIABLE LPAREN RPAREN type
+                        | FUNCTION VARIABLE LPAREN parameters RPAREN
+                        | FUNCTION VARIABLE LPAREN parameters RPAREN type
+                        '''
+    if p[2] in functions:
+        errorsList.semanticErrors.append(f"Error: La funcion ya esta definida.")
+    else:
+        parameters = p[4] if p[4]!=')' else []
+        return_type = None
+        if len(p) == 6 and p[5]!=')':
+            return_type = p[5]
+        elif len(p)== 7:
+            return_type = p[6]
+        functions[p[2]]={
+            'parameters':parameters,
+            'return_type': return_type
+        }
+
+    p[0] = p[2]
+
+    
 # Tipos de funciones
 def p_function(p):
-    '''function : FUNCTION VARIABLE LPAREN RPAREN LBRACE RBRACE
-                | FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE    
-                | FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks return RBRACE
-                | FUNCTION VARIABLE LPAREN RPAREN type LBRACE return RBRACE
-                | FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE
-                | FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE RBRACE
-                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE blocks return RBRACE
-                | FUNCTION VARIABLE LPAREN parameters RPAREN type LBRACE return RBRACE
+    '''function : definir_function LBRACE RBRACE
+                | definir_function LBRACE blocks RBRACE
+                | definir_function LBRACE return RBRACE  
+                | definir_function LBRACE blocks return RBRACE
                 '''
-    # Definición de función y verificación de retorno (Maria Jose Moyano)
-    function_name = p[2]
-    parameters = p[4] if p[4] != ')' else []
-    if len(p)==8:
-        return_type=None
-        return_value=None
-        body=p[6]
-    elif len(p)==9:
-        return_type=None
-        return_value=None
-        body=p[7]
-    elif len(p)==10:
-        return_type=p[5]
-        return_value=p[8]
-        body=p[7]
-    elif len(p)==11:
-        return_type=p[6]
-        return_value=p[9]
-        body=p[8]
+    function_name = p[1]
+    parameters = functions[function_name]['parameters']
+    return_type = functions[function_name]['return_type']
+    return_value = None
 
-    if return_type!=None and return_value!=None:
-        if type(return_value).__name__== return_type:
-            # Registro de la función (implementación puede variar)
-            functions[function_name] = {
-                'parameters': parameters,
-                'return_type': return_type,
-                'body': body,
-                'return_value':return_value
-            }
-        else:
-            errorsList.semanticErrors.append(f"Error: El valor de retorno de la función '{function_name}' no coincide con el tipo '{return_type}'.")
+    if len(p)==6:
+        return_value = p[4]
+    elif len(p)==5:
+        return_value = type(p[3]).__name__ if type(p[3]).__name__!='list' else None
+        if return_value =='str':
+            return_value = 'string'
+    if return_type==None and return_value==None:
+        functions[function_name]['return_value'] = return_value
+    elif return_value != return_type:
+        errorsList.semanticErrors.append(f"Error: El valor de retorno de la función '{function_name}' no coincide con el tipo '{return_type}'.")
     else:
-        functions[function_name] = {
-            'parameters': parameters,
-            'return_type': return_type,
-            'body': body,
-            'return_value':return_value
-        }
+        functions[function_name]['return_value'] = return_value
 
 def p_return(p):
     '''return : RETURN value
@@ -369,7 +370,6 @@ def p_conditional_structure(p):
                              | IF conditions conditional_body ELSE conditional_body
                              | IF conditions conditional_body ELSE IF conditions conditional_body
                              | IF conditions conditional_body ELSE IF conditions conditional_body ELSE conditional_body'''
-    print(len(p))
 
 def p_conditional_body(p):
     '''conditional_body : LBRACE blocks RBRACE
@@ -377,7 +377,6 @@ def p_conditional_body(p):
                         | LBRACE return RBRACE
                         | LBRACE BREAK RBRACE
                         | LBRACE CONTINUE RBRACE'''
-    print(p[2])
 
 def p_conditions(p):
     '''conditions : condition
@@ -414,13 +413,13 @@ def p_for_estructure(p):
                       | for_iterator'''
 
 def p_for_initialization(p):
-    'for_initialization : FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE statement RBRACE'
+    'for_initialization : FOR VARIABLE SHORTASSIGN value SEMICOLON condition SEMICOLON value double_operator LBRACE blocks RBRACE'
 
 def p_for_infinite_bucle(p):
-    'for_infinite_bucle : FOR LBRACE statement RBRACE'
+    'for_infinite_bucle : FOR LBRACE blocks RBRACE'
 
 def p_for_iterator(p):
-    'for_iterator : FOR VARIABLE COMMA VARIABLE SHORTASSIGN RANGE VARIABLE LBRACE statement RBRACE'
+    'for_iterator : FOR VARIABLE COMMA VARIABLE SHORTASSIGN RANGE VARIABLE LBRACE blocks RBRACE'
 
 # Brian Mite
 # Estructura switch
