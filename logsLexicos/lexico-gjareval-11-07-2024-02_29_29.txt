@@ -1,0 +1,6 @@
+Analizador lexico:
+LexToken(VARIABLE,'x',1,0)
+LexToken(VAR,'var',1,2)
+LexToken(INT,'int',1,6)
+LexToken(ASSIGN,'=',1,10)
+LexToken(INT,10,1,11)

@@ -34,17 +34,16 @@ def analyze_expression():
         result_text.insert(tk.END, "No se ingresó ninguna expresión.")
         return
 
-    try:
-
-        logs_dirs = {
+    logs_dirs = {
             "sintacticos": os.path.abspath("logsSintacticos"),
             "semanticos": os.path.abspath("logsSemanticos"),
             "lexicos": os.path.abspath("logsLexicos")
-        }
+    }
 
-        for dir_path in logs_dirs.values():
-            if not os.path.exists(dir_path):
-                os.makedirs(dir_path)
+    for dir_path in logs_dirs.values():
+        if not os.path.exists(dir_path):
+            os.makedirs(dir_path)
+    try:
 
         # Lexical analysis
         tokens = ""
@@ -64,7 +63,11 @@ def analyze_expression():
                 for error in errorsList.lexicalErrors:
                     token_text.insert(tk.END, error + "\n")
                     file.write(error + "\n")
+    except Exception as e:
+        result_text.insert(tk.END, f"Error en el análisis léxico: {str(e)}")
+        file.write(f"Error en el análisis léxico: {str(e)}")
 
+    try:
         # Syntax analysis
         result = parse_input(user_input)
         print(result)
@@ -80,6 +83,11 @@ def analyze_expression():
                     result_text.insert(tk.END, error + "\n")
                     file.write(error + "\n")
 
+    except Exception as e:
+        result_text.insert(tk.END, f"Error en el análisis sintáctico: {str(e)}")
+        file.write(f"Error en el análisis sintáctico: {str(e)}")
+    
+    try:
         # Semantic analysis
         semantico_log_file = os.path.join(logs_dirs["semanticos"], f"semantico-{get_git_user()}-{time}.txt")
         with open(semantico_log_file, 'w') as file:
@@ -92,14 +100,15 @@ def analyze_expression():
                     result_text.insert(tk.END, error + "\n")
                     file.write(error + "\n")
 
+    except Exception as e:
+        result_text.insert(tk.END, f"Error en el análisis semántico: {str(e)}")
+        file.write(f"Error en el análisis semántico: {str(e)}")
+    
+    finally:
         errorsList.lexicalErrors = []
         errorsList.syntaxErrors = []
         errorsList.semanticErrors = []
 
-    except Exception as e:
-        print(f"Error en el análisis sintáctico: {str(e)}")
-        result_text.insert(tk.END, f"Error en el análisis sintáctico: {str(e)}")
-        file.write(f"Error en el análisis sintáctico: {str(e)}")
 
 # Configurar la interfaz gráfica
 root = tk.Tk()

@@ -278,12 +278,12 @@ def p_operation(p):
         if p[2] == '+' or p[2] == '-' or p[2] == '*' or p[2] == '/':
             p[0] = p[1] + p[3] if p[2] == '+' else p[1] - p[3] if p[2] == '-' else p[1] * p[3] if p[2] == '*' else p[1] / p[3]
         else:
-            errorsList.semanticErrors.append(f"Error semantico en la linea {p.lineno(2)}: Operador '{p[2]}' no es valido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
+            errorsList.semanticErrors.append(f"Error semantico: Operador '{p[2]}' no es valido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
     else:
         if not isinstance(p[1], (int, float)):
-            errorsList.semanticErrors.append(f"Error semantico en la linea {p.lineno(1)}: Operando '{p[1]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
+            errorsList.semanticErrors.append(f"Error semantico: Operando '{p[1]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
         else:
-            errorsList.semanticErrors.append(f"Error semantico en la linea {p.lineno(3)}: Operando '{p[3]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
+            errorsList.semanticErrors.append(f"Error semantico: Operando '{p[3]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
 
 def p_operation_complex(p):
     '''operation : value operator LPAREN value RPAREN
