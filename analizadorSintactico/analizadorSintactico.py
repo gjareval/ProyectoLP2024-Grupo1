@@ -241,7 +241,7 @@ def p_function(p):
     return_value = None
 
     if len(p)==6:
-        return_value = p[4]
+        return_value = type(p[4]).__name__
     elif len(p)==5:
         return_value = type(p[3]).__name__ if type(p[3]).__name__!='list' else None
         if return_value =='str':
