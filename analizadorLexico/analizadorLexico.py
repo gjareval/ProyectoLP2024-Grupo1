@@ -140,7 +140,6 @@ def t_FLOAT(t):
     t.value = float(t.value)
     return t
 
-
 def t_INT(t):
     r'\d+'
     t.value = int(t.value)    
@@ -156,6 +155,11 @@ def t_PRINT(t):
 
 def t_INPUT(t):
     r'fmt\.Scan(ln)?'
+    return t
+
+def t_BOOL(t):
+    r'(true|false)'
+    t.value = True if t.value == 'true' else False
     return t
 
 def t_VARIABLE(t):
@@ -184,10 +188,6 @@ def t_error(t):
 def t_TEXT(t):
     r'\".+\"'
     # t.value = t.value[1:-1]
-    return t
-
-def t_BOOL(t):
-    r'(True|False)'
     return t
 
 # Expresión regular para reconocer saltos de línea

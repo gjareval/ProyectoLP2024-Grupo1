@@ -1,0 +1,2 @@
+Analizador lexico:
+LexToken(PLUS,'+',1,0)

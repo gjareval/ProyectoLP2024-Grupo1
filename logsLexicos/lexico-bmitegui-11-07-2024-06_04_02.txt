@@ -1,0 +1,13 @@
+Analizador lexico:
+LexToken(VARIABLE,'edades',1,0)
+LexToken(LBRACKET,'[',1,6)
+LexToken(CHARSTRING,'"Gabriel"',1,7)
+LexToken(RBRACKET,']',1,16)
+LexToken(ASSIGN,'=',1,18)
+LexToken(INT,30,1,20)
+LexToken(VARIABLE,'edades',1,23)
+LexToken(LBRACKET,'[',1,29)
+LexToken(CHARSTRING,'"Ana"',1,30)
+LexToken(RBRACKET,']',1,35)
+LexToken(ASSIGN,'=',1,37)
+LexToken(INT,25,1,39)

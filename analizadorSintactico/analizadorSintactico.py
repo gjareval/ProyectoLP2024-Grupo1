@@ -72,11 +72,10 @@ def p_variables(p):
 
 # Configuracion de values para ser reconocidos por las reglas semanticas (Guillermo Arevalo)   
 def p_value(p):
-    '''value : VARIABLE
+    '''value : not_variable_value
              | VARIABLE LBRACKET RBRACKET    
              | VARIABLE LBRACKET value RBRACKET
-             | not_variable_value'''
-
+             | VARIABLE'''
     if isinstance(p[1], str) and not(p[1].startswith('"') and p[1].endswith('"')) and not p[1]=="True" and not p[1]=="False"  :
         if p[1] in variables:
             p[0] = variables[p[1]]
@@ -88,7 +87,8 @@ def p_value(p):
 def p_not_variable_value(p):
     ''' not_variable_value : CHARSTRING
                            | INT
-                           | FLOAT'''
+                           | FLOAT
+                           | BOOL'''
     p[0] = p[1]
         
 def p_values(p):
@@ -116,13 +116,13 @@ def p_variable_declaration(p):
                 else:
                     variables[var] = None 
         else:
-            if(p[2] in constants):
-                errorsList.semanticErrors.append(f"Error: Variable '{p[2]}' ya esta definida como constante.")
+            if(p[1] in constants):
+                errorsList.semanticErrors.append(f"Error: Variable '{p[1]}' ya esta definida como constante.")
             else:
-                variables[p[2]] = p[3]
+                variables[p[1]] = p[3]
     else:
         if p[1] == 'const':
-            if(p[1] in constants):
+            if(p[2] in constants):
                 errorsList.semanticErrors.append(f"Error: Variable '{p[2]}' ya esta definida.")
             else:
                 constants[p[2]] = p[4]
@@ -142,9 +142,9 @@ def p_variable_assignation(p):
     if len(p)==3:
         try:
             if p[2] == '++':
-                variables[p[1]] = variables[p[1]] +1
-            if p[2] == '--': 
-                variables[p[1]] = variables[p[1]] - 1
+                variables[p[1]] += 1
+            elif p[2] == '--': 
+                variables[p[1]] -= 1
         except Exception as e:
             if variables[p[1]] == None: 
                 errorsList.semanticErrors.append(f"La variable '{p[1]}' no ha sido inicializada")
@@ -155,7 +155,18 @@ def p_variable_assignation(p):
         if p[1] not in variables:
             errorsList.semanticErrors.append(f"Error: Variable '{p[1]}' no inicializada")
         else:
-            variables[p[1]]=p[3]
+            if p[2] == '=' :
+                variables[p[1]]=p[3]
+            elif p[2] == '+=':
+                variables[p[1]] += p[3]
+            elif p[2] == '-=':
+                variables[p[1]] -= p[3]
+            elif p[2] == '*=':
+                variables[p[1]] -= p[3]
+            elif p[2] == '/=':
+                variables[p[1]] /= p[3]
+            elif p[2] == '%=':
+                variables[p[1]] %= p[3]
 
 def p_variable_assignation_structures(p):
     '''variable_assignation : map_assign
@@ -193,8 +204,8 @@ def p_type(p):
 
 # Tipos de funciones
 def p_function(p):
-    '''function : FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE
-                | FUNCTION VARIABLE LPAREN RPAREN LBRACE RBRACE    
+    '''function : FUNCTION VARIABLE LPAREN RPAREN LBRACE RBRACE
+                | FUNCTION VARIABLE LPAREN RPAREN LBRACE blocks RBRACE    
                 | FUNCTION VARIABLE LPAREN RPAREN type LBRACE blocks return RBRACE
                 | FUNCTION VARIABLE LPAREN RPAREN type LBRACE return RBRACE
                 | FUNCTION VARIABLE LPAREN parameters RPAREN LBRACE blocks RBRACE
@@ -268,22 +279,63 @@ def p_input_statement(p):
                        | INPUT LPAREN RPAREN'''
 
 # Inicio Expresiones aritméticas con uno o más operadores.
-
 # Regla semantica para asegurarse que las operaciones sean de tipos numericos compatibles (Guillermo Arevalo)
+
+def p_operator(p):
+    '''operator : PLUS
+                | MINUS
+                | TIMES
+                | DIVIDE
+                | AND
+                | OR
+                | NOT
+                | LESS
+                | LESSEQUALS
+                | GREATER
+                | GREATEREQUALS
+                | EQUALS
+                | DIFFERENT'''
+    p[0]=p[1]
 
 def p_operation(p):
     '''operation : value operator value'''
-
-    if isinstance(p[1], (int, float)) and isinstance(p[3], (int, float)):
-        if p[2] == '+' or p[2] == '-' or p[2] == '*' or p[2] == '/':
-            p[0] = p[1] + p[3] if p[2] == '+' else p[1] - p[3] if p[2] == '-' else p[1] * p[3] if p[2] == '*' else p[1] / p[3]
+    if (type(p[1]).__name__=='int' or type(p[1]).__name__=='float') and (type(p[3]).__name__=='int' or type(p[3]).__name__=='float'):
+        if p[2] == '+':
+            p[0] = p[1] + p[3]
+        elif p[2] == '-':
+            p[0] = p[1] - p[3]
+        elif p[2] == '*':
+            p[0] = p[1] * p[3]
+        elif p[2] == '/':
+            p[0] = p[1] / p[3] if p[3] != 0 else errorsList.semanticErrors.append("Error semantico: Division por cero.")
+        elif p[2] == '<':
+            p[0] = p[1] < p[3]
+        elif p[2] == '<=':
+            p[0] = p[1] <= p[3]
+        elif p[2] == '>':
+            p[0] = p[1] > p[3]
+        elif p[2] == '>=':
+            p[0] = p[1] >= p[3]
+        elif p[2] == '==':
+            p[0] = p[1] == p[3]
+        elif p[2] == '!=':
+            p[0] = p[1] != p[3]        
         else:
-            errorsList.semanticErrors.append(f"Error semantico: Operador '{p[2]}' no es valido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
+            errorsList.semanticErrors.append(f"Error semantico: Operador '{p[2]}' no es valido para operaciones aritmeticas.")
+    elif type(p[1]).__name__=='bool' and type(p[1]).__name__=='bool':
+        if p[2] == '&&':
+            p[0] = p[1] and p[3]
+        elif p[2] == '||':
+            p[0] = p[1] or p[3]
+        else:
+            errorsList.semanticErrors.append(f"Error semantico: Operador '{p[2]}' no es valido para operaciones logicas.")
     else:
-        if not isinstance(p[1], (int, float)):
-            errorsList.semanticErrors.append(f"Error semantico: Operando '{p[1]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
+        if not isinstance(p[1], (int, float, bool)):
+            errorsList.semanticErrors.append(f"Error semantico: Operando '{p[1]}' invalido. Asegurate de usar un numero, variable inicializada o booleano.")
+        if not isinstance(p[3], (int, float, bool)):
+            errorsList.semanticErrors.append(f"Error semantico: Operando '{p[3]}' invalido. Asegurate de usar un numero, variable inicializada o booleano.")
         else:
-            errorsList.semanticErrors.append(f"Error semantico: Operando '{p[3]}' invalido para operaciones aritmeticas. Asegurate de usar un numero o variable inicializada")
+            errorsList.semanticErrors.append(f"No es posible realizar esta operacion entre estoss tipos de datos.")
 
 def p_operation_complex(p):
     '''operation : value operator LPAREN value RPAREN
@@ -294,17 +346,8 @@ def p_operation_complex(p):
                  | LPAREN value RPAREN operator operation
                  | value operator LPAREN operation RPAREN'''   
                  
-    
 def p_operation_single(p):
     'operation : value double_operator'
-
-def p_operator(p):
-    '''operator : PLUS
-                | MINUS
-                | TIMES
-                | DIVIDE
-                | ASSIGN'''
-    p[0]=p[1]
     
 def p_double_operator(p):
     '''double_operator : INCREMENT
@@ -335,7 +378,6 @@ def p_conditions(p):
     '''conditions : condition
                   | condition logical_operator conditions
                   '''
-
 
 def p_condition(p):
     'condition : value relational_operator value'
@@ -455,9 +497,6 @@ def p_array_assign(p):
 # (Maria Jose Moyano)
     p[0] = {'var': (p[1], p[3]), 'value': p[6]}
     
-    
-
-
 # Guillermo Arevalo
 # Map
 def p_map_structure(p):
@@ -471,24 +510,18 @@ def p_map_structure(p):
         if p[1] not in variables:
             variables[p[1]]='map'
     
-
-
 def p_map_values(p):
     '''map_values : map_value
                   | map_value COMMA map_values'''
-    
-
-    
+      
 def p_map_value(p):
     '''map_value : value COLON value'''
       
-
 def p_map_assign(p):
     'map_assign : VARIABLE LBRACKET value RBRACKET ASSIGN value'
-    
-    
+    if p[1] not in variables:
+        errorsList.semanticErrors.append(f"Error: Variable '{p[1]}' no inicializada")
         
-
 # Brian Mite
 # Slice
 def p_slice_structure(p):

@@ -1,0 +1,11 @@
+Analizador lexico:
+LexToken(VAR,'var',1,0)
+LexToken(VARIABLE,'flotante',1,4)
+LexToken(FLOAT32,'float32',1,13)
+LexToken(ASSIGN,'=',1,21)
+LexToken(FLOAT,3.14,1,23)
+LexToken(VAR,'var',1,28)
+LexToken(VARIABLE,'doblePrecision',1,32)
+LexToken(FLOAT64,'float64',1,47)
+LexToken(ASSIGN,'=',1,55)
+LexToken(FLOAT,3.14159265359,1,57)

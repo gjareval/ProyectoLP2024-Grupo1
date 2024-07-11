@@ -1,0 +1,9 @@
+Analizador lexico:
+LexToken(CONST,'const',1,0)
+LexToken(VARIABLE,'Pi',1,6)
+LexToken(ASSIGN,'=',1,9)
+LexToken(FLOAT,3.14,1,11)
+LexToken(CONST,'const',1,16)
+LexToken(VARIABLE,'saludo',1,22)
+LexToken(ASSIGN,'=',1,29)
+LexToken(CHARSTRING,'"Hola"',1,31)

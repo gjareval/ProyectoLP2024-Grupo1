@@ -1,0 +1,6 @@
+Analizador semantico:
+None
+
+Errores:
+Error: Variable 'true' no esta definida.
+Error: Variable 'false' no esta definida.

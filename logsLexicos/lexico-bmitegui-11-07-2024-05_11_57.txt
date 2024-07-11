@@ -1,0 +1,10 @@
+Analizador lexico:
+LexToken(VAR,'var',1,0)
+LexToken(VARIABLE,'a',1,4)
+LexToken(INT,'int',1,6)
+LexToken(PRINT,'fmt.Print',1,10)
+LexToken(LPAREN,'(',1,19)
+LexToken(VARIABLE,'a',1,20)
+LexToken(PLUS,'+',1,21)
+LexToken(INT,1,1,22)
+LexToken(RPAREN,')',1,23)

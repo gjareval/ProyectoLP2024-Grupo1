@@ -1,0 +1,7 @@
+Analizador lexico:
+LexToken(FUNCTION,'func',1,0)
+LexToken(MAIN,'main',1,5)
+LexToken(LPAREN,'(',1,9)
+LexToken(RPAREN,')',1,10)
+LexToken(LBRACE,'{',1,12)
+LexToken(RBRACE,'}',1,13)

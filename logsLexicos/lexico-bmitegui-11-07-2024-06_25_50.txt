@@ -1,0 +1,8 @@
+Analizador lexico:
+LexToken(VARIABLE,'a',1,0)
+LexToken(SHORTASSIGN,':=',1,2)
+LexToken(INT,5,1,5)
+LexToken(SEMICOLON,';',1,6)
+LexToken(VARIABLE,'b',1,8)
+LexToken(SHORTASSIGN,':=',1,10)
+LexToken(INT,10,1,13)

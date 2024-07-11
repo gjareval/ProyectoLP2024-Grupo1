@@ -1,0 +1,4 @@
+Analizador lexico:
+LexToken(INT,2,1,0)
+LexToken(GREATEREQUALS,'>=',1,2)
+LexToken(INT,1,1,5)

@@ -1,0 +1,7 @@
+Analizador lexico:
+LexToken(VARIABLE,'primerNombre',1,0)
+LexToken(SHORTASSIGN,':=',1,13)
+LexToken(VARIABLE,'nombres',1,16)
+LexToken(LBRACKET,'[',1,23)
+LexToken(INT,0,1,24)
+LexToken(RBRACKET,']',1,25)

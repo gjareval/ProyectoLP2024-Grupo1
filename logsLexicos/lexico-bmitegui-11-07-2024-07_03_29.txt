@@ -1,0 +1,6 @@
+Analizador lexico:
+LexToken(LPAREN,'(',1,0)
+LexToken(INT,'int',1,1)
+LexToken(COMMA,',',1,4)
+LexToken(FLOAT,'float',1,6)
+LexToken(RPAREN,')',1,11)

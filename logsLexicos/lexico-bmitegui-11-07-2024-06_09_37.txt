@@ -1,0 +1,4 @@
+Analizador lexico:
+LexToken(BOOL,True,1,0)
+LexToken(AND,'&&',1,5)
+LexToken(BOOL,False,1,8)

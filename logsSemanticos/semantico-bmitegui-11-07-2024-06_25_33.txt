@@ -1,0 +1,5 @@
+Analizador semantico:
+None
+
+Errores:
+Error: Variable 'nombres' no esta definida.

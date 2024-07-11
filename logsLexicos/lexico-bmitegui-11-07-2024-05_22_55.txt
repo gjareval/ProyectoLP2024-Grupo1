@@ -1,0 +1,11 @@
+Analizador lexico:
+LexToken(VAR,'var',1,0)
+LexToken(VARIABLE,'verdadero',1,4)
+LexToken(BOOL,'bool',1,14)
+LexToken(ASSIGN,'=',1,19)
+LexToken(VARIABLE,'true',1,21)
+LexToken(VAR,'var',1,26)
+LexToken(VARIABLE,'falso',1,30)
+LexToken(BOOL,'bool',1,36)
+LexToken(ASSIGN,'=',1,41)
+LexToken(VARIABLE,'false',1,43)

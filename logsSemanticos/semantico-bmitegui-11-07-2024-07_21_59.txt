@@ -1,0 +1,5 @@
+Analizador semantico:
+None
+
+Errores:
+Error: Variable 'condicion1' no esta definida.

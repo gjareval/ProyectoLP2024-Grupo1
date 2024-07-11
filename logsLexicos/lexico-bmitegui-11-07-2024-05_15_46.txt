@@ -1,0 +1,4 @@
+Analizador lexico:
+LexToken(VAR,'var',1,0)
+LexToken(VARIABLE,'edad',1,4)
+LexToken(INT,'int',1,9)

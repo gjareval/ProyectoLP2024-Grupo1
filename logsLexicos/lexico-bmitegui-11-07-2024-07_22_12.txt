@@ -1,0 +1,11 @@
+Analizador lexico:
+LexToken(SWITCH,'switch',1,0)
+LexToken(LBRACE,'{',1,7)
+LexToken(CASE,'case',1,9)
+LexToken(BOOL,True,1,14)
+LexToken(CASE,'case',1,70)
+LexToken(BOOL,False,1,75)
+LexToken(COLON,':',1,80)
+LexToken(DEFAULT,'default',1,133)
+LexToken(COLON,':',1,140)
+LexToken(RBRACE,'}',1,220)

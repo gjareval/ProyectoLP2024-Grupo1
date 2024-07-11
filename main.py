@@ -70,8 +70,6 @@ def analyze_expression():
     try:
         # Syntax analysis
         result = parse_input(user_input)
-        print(result)
-
         sintactico_log_file = os.path.join(logs_dirs["sintacticos"], f"sintactico-{get_git_user()}-{time}.txt")
         with open(sintactico_log_file, 'w') as file:
             result_text.insert(tk.END, "Analizador sintáctico:\n" + str(result) + "\n")

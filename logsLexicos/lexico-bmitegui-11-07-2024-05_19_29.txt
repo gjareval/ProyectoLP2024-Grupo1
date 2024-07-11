@@ -1,0 +1,11 @@
+Analizador lexico:
+LexToken(VAR,'var',1,0)
+LexToken(VARIABLE,'entero',1,4)
+LexToken(INT,'int',1,11)
+LexToken(ASSIGN,'=',1,15)
+LexToken(INT,42,1,17)
+LexToken(VAR,'var',1,20)
+LexToken(VARIABLE,'enteroSinSigno',1,24)
+LexToken(INT32,'int32',1,39)
+LexToken(ASSIGN,'=',1,45)
+LexToken(INT,42,1,47)

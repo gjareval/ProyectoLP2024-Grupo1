@@ -1,0 +1,5 @@
+Analizador sintactico:
+None
+
+Errores:
+Error sintactico en el token 'case'

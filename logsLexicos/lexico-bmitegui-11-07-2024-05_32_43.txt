@@ -1,0 +1,6 @@
+Analizador lexico:
+LexToken(VAR,'var',1,0)
+LexToken(VARIABLE,'mensaje',1,4)
+LexToken(STRING,'string',1,12)
+LexToken(ASSIGN,'=',1,19)
+LexToken(CHARSTRING,'"Hola mundo"',1,21)

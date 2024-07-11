@@ -1,0 +1,6 @@
+Analizador semantico:
+None
+
+Errores:
+Error: Variable 'indice' no esta definida.
+Error: Variable 'nombre' no esta definida.

@@ -1,0 +1,7 @@
+Analizador lexico:
+LexToken(VARIABLE,'nombre',1,0)
+LexToken(SHORTASSIGN,':=',1,7)
+LexToken(CHARSTRING,'"Brian"',1,10)
+LexToken(VARIABLE,'total',1,18)
+LexToken(SHORTASSIGN,':=',1,24)
+LexToken(INT,10,1,27)

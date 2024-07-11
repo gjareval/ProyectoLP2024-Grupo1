@@ -1,0 +1,5 @@
+Analizador semantico:
+None
+
+Errores:
+Error semantico: Operador '<' no es valido para operaciones aritmeticas.
